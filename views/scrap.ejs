@@ -1,0 +1,27 @@
+<html>
+<head>
+  <title>Scrap List</title>
+  <script src="https://code.jquery.com/jquery-1.12.4.js" integrity="sha256-Qw82+bXyGq6MydymqBxNPYTaUXXq7c8v3CwiYwLLNXU=" crossorigin="anonymous"></script>
+<link href="https://fonts.googleapis.com/css?family=Cinzel" rel="stylesheet">
+  <link href="/assets/style.css" rel="stylesheet" type="text/css" />
+  <script src="/assets/scrap-list.js"></script>
+</head>
+<body>
+  <h1> My scrap List </h1>
+  <div id ="scrap-table">
+    <form>
+      <input type ="text" name="item" placeholder="Enter url..." required />
+      <button type="submit"> Scrape url</button>
+    </form>
+    <p>Recently scrapped websites</p>
+    <ul>
+      <% for(var i=0;i<scrapped.length;i++){%>
+          <li><%=scrapped[i].url%></li>
+    <%  }%>
+
+
+    </ul>
+  </div>
+</body>
+
+</html>
