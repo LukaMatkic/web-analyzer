@@ -66,10 +66,17 @@ li:hover{
 }
 
 h1{
+  border-radius: 50%;
+-webkit-transition: -webkit-transform .8s ease-in-out;
+        transition:         transform .8s ease-in-out;
     height:150px;
-    background: url(/assets/logo2.png) no-repeat center;
+  /*  background: url(/assets/logo2.png) no-repeat center;*/
     margin-bottom: 0;
     text-indent: -10000px;
+}
+h1:hover {
+  -webkit-transform: rotate(360deg);
+          transform: rotate(360deg);
 }
 
 p{
@@ -99,4 +106,15 @@ float: right;
 
   background-color: purple !important;
 display: inline-block;
+}
+/*dodano 05.17.2017 vrtnja slike na topu*/
+img {
+  display:relative;
+  border-radius: 50%;
+    -webkit-transition: -webkit-transform .8s ease-in-out;
+            transition:         transform .8s ease-in-out;
+}
+img:hover {
+  -webkit-transform: rotate(360deg);
+          transform: rotate(360deg);
 }
