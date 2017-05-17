@@ -80,3 +80,23 @@ p{
   text-decoration: underline;
 
 }
+#div_url {
+float: left;
+  width: 30%;
+  background-color: yellow !important;
+  display: inline-block;
+}
+#div_title {
+
+margin-left: 5%;
+  width: 30%;
+  background-color: red !important;
+  display: inline-block;
+}
+#div_time {
+float: right;
+  width: 30%;
+
+  background-color: purple !important;
+display: inline-block;
+}

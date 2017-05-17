@@ -20,7 +20,7 @@ var data = {
 var connection = mysql.createConnection({
   host     : 'localhost',
   user     : 'root',
-  password : 'lozinka',
+  password : '',
   database : 'analyzer'
 });
 
@@ -37,7 +37,7 @@ module.exports = function(app){
   app.get('/scrap',function(req,res){
 
     //GET DATA FROM DB AND PASS IT TO view todo.ejs
-    connection.query('SELECT * FROM scrap',function(err,rows,fields){
+    connection.query('SELECT time, url, title FROM scrap ORDER BY time DESC;',function(err,rows,fields){
       //Ako nema errora
         if(!err){
           //šalji na todo podatke iz baze(rows) koje dok saljemo spremamo u varijablu scrapped

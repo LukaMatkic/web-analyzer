@@ -14,13 +14,39 @@
       <button type="submit"> Scrape url</button>
     </form>
     <p>Recently scrapped websites</p>
+    <div id="div_url">
     <ul>
       <% for(var i=0;i<scrapped.length;i++){%>
-          <li><%=scrapped[i].url%></li>
+          <li><a href=""><%=scrapped[i].url%></a></li>
+
     <%  }%>
 
 
     </ul>
+  </div>
+  <div id="div_title">
+    <ul>
+      <% for(var i=0;i<scrapped.length;i++){%>
+          <li><%=scrapped[i].title%></li>
+    <%  }%>
+
+
+    </ul>
+
+  </div>
+
+
+  <div id="div_time">
+    <ul>
+      <% for(var i=0;i<scrapped.length;i++){%>
+          <li><%=scrapped[i].time%></li>
+    <%  }%>
+
+
+    </ul>
+
+
+  </div>
   </div>
 </body>
 
