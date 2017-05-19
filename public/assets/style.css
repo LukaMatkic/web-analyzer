@@ -88,8 +88,8 @@ p{
 
 }
 #div_url {
-float: left;
-  width: 30%;
+
+  width: 100%;
   background-color: yellow !important;
   display: inline-block;
 }
@@ -117,4 +117,16 @@ img {
 img:hover {
   -webkit-transform: rotate(360deg);
           transform: rotate(360deg);
+}
+#buttonview
+{
+  float: right !important;
+position: relative;
+  width: 10% !important;
+  background: #23282e;
+  border: 0;
+  box-sizing: border-box;
+  color: #fff;
+  cursor: pointer;
+  font-size: 20px;
 }

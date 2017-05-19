@@ -14,22 +14,31 @@
 </div>
 </div>
   <div id ="scrap-table">
-    <form>
+    <form method="POST" action="/scrap">
       <input type ="text" name="item" placeholder="Enter url..." required />
-      <button type="submit"> Scrape url</button>
+      <button type="submit" value="submit"> Scrape url</button>
     </form>
     <p>Recently scrapped websites</p>
+
     <div id="div_url">
     <ul>
       <% for(var i=0;i<scrapped.length;i++){%>
-          <li><a href=""><%=scrapped[i].url%></a></li>
+          <li ><a href="scrap">
+            <%=
+            scrapped[i].date.getDate() + ' ' +
+            scrapped[i].time + ' ' +
+            scrapped[i].url
+            %>
+            <button type="button" id="buttonview">View</button></a></li>
+
 
     <%  }%>
 
 
     </ul>
   </div>
-  <div id="div_title">
+
+<!--  <div id="div_title">
     <ul>
       <% for(var i=0;i<scrapped.length;i++){%>
           <li><%=scrapped[i].title%></li>
@@ -51,7 +60,7 @@
     </ul>
 
 
-  </div>
+  </div>-->
   </div>
 </body>
 
