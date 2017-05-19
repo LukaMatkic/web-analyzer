@@ -52,20 +52,31 @@ var urlencodedParser = bodyParser.urlencoded({extended:false});
     renderFuckingPage(res);
 
   });
-  /*app.get('/scrapedurl',function(req,res){
 
-    //GET DATA FROM DB AND PASS IT TO view todo.ejs
-    connection.query('SELECT time, url, title FROM scrap ORDER BY time DESC;',function(err,rows,fields){
+  //DODANO 19.05.2017 -- OVO JE ZA KADA SE KLIKNE NA LINK DA PREBACI NA DRUGU STRANICU I ISPISE PODATKE O TOM LINKU IZ BAZE
+  app.get('/scrapedurl',function(req,res){
+    var clickedID = req.param('id');
+    var clickedURL= req.param('url');
+    console.log(clickedID);
+    console.log(clickedURL);
+    var sql = mysql.format("SELECT id,time, url, title, date FROM scrap WHERE id=?", [clickedID]);
+
+    connection.query(sql,function(err,rows,fields){
       //Ako nema errora
         if(!err){
           //šalji na todo podatke iz baze(rows) koje dok saljemo spremamo u varijablu scrapped
-          res.render('scrapedurl',{scrapped:rows});
+          //console.log({scrapped:rows});
+          res.render('scrapedurl',{clickedID:clickedID,scrapped:rows,clickedURL:clickedURL});
+          console.log(rows);
       }
         else
         console.log('No results');
     });
+  //  res.render('scrapedurl',{clicked:clickedURL});
 
-  });*/
+
+
+  });
 
   //KADA nam stranica nešto šalje? U ovom slučaju stisnut je submit button?
   app.post('/scrap', urlencodedParser, function(req,res){
@@ -121,7 +132,7 @@ var urlencodedParser = bodyParser.urlencoded({extended:false});
 
 var renderFuckingPage = function(res){
   //GET DATA FROM DB AND PASS IT TO view todo.ejs
-  connection.query('SELECT time, url, title, date FROM scrap ORDER BY date DESC, time DESC LIMIT 5;',function(err,rows,fields){
+  connection.query('SELECT id,time, url, title, date FROM scrap ORDER BY date DESC, time DESC LIMIT 5;',function(err,rows,fields){
     //Ako nema errora
       if(!err){
         //šalji na todo podatke iz baze(rows) koje dok saljemo spremamo u varijablu scrapped

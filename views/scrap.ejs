@@ -23,7 +23,7 @@
     <div id="div_url">
     <ul>
       <% for(var i=0;i<scrapped.length;i++){%>
-          <li ><a href="scrap">
+          <li ><a href="scrapedurl?id=<%=scrapped[i].id%>&url=<%=scrapped[i].url%>">
             <%=
             scrapped[i].date.getDate() + ' ' +
             scrapped[i].time + ' ' +
