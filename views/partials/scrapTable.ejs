@@ -1,0 +1,23 @@
+<p>Recently scrapped websites</p>
+
+<div id="div_url">
+  <ul>
+    <% for(var i=0;i<scrapped.length;i++){%>
+
+    <li>
+      <a href = "/showAnalyze/<%=scrapped[i].id%>">
+      <%=
+      scrapped[i].date.getDate() + ' ' +
+      scrapped[i].time + ' ' +
+      scrapped[i].url
+      %>
+        <form method="GET" action="/showAnalyze/<%=scrapped[i].id%>">
+          <button type="submit" id="buttonView">View</button>
+        </form>
+      </a>
+    </li>
+
+    <%  }%>
+
+  </ul>
+</div>

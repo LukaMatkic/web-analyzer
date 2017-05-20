@@ -73,7 +73,7 @@ var scrapURL = function(url, res) {
 
           // Updateamo tablicu zadnjih scrapova
           lastScrapsTable.reloadTable(res);
-          
+
         });
 
   });

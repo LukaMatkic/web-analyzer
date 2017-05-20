@@ -1,7 +1,5 @@
 body{
     background: #20324c;
-    font-family: tahoma;
-    color: #989898;
 }
 
 #scrap-table{
@@ -20,6 +18,17 @@ body{
     content: '';
     display: block;
     clear: both;
+}
+
+.outerDiv {
+  position: relative;
+  width: 95%;
+  background: #090d13;
+  margin: 5 auto 5;
+  padding: 20px;
+  box-sizing: border-box;
+  border-radius:30px;
+  opacity:0.7;
 }
 
 input[type="text"]{
@@ -82,11 +91,11 @@ h1:hover {
 p{
   text-align: center;
   font-family: 'Cinzel', serif;
-
   font-size: 45px;
   text-decoration: underline;
-
+  color: white;
 }
+
 #div_url {
 
   width: 100%;

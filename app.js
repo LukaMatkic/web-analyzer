@@ -7,10 +7,11 @@ var app = express();
 var mysql = require('./controllers/mysql'); // Potrebno za mysql querije
 var lastScrapsTable = require('./controllers/lastScrapsTable'); // Potrebno za kontrolirati tablicu najnovijih scrapova
 var scrapEngine = require('./controllers/scrapEngine'); // Potrebno za scrappati url
+var showAnalyze = require('./controllers/showAnalyze'); // Potrebno za osvjeziti alanyze dio
 
 var urlencodedParser = bodyParser.urlencoded({extended:false}); // Pretvaramo http zahtjev
 
-//SET UP TEMPLATE ENGINE
+// Namjestamo viwe engine za ejs
 app.set('view engine','ejs');
 
 //STATIC FILES
@@ -33,6 +34,18 @@ app.get('/',function(req,res){
 
   // Updateamo tablicu zadnjih scrapova
   lastScrapsTable.reloadTable(res);
+
+});
+
+//------------------------------------------------------------------------
+
+//------------------------------------------------------------------------
+// Kada dode na stranicu za pogledat analizu
+
+app.get('/showAnalyze/:id', urlencodedParser, function(req,res){
+
+  // Updateamo tablicu za pregled podataka o stranici
+  showAnalyze.loadScrapID(req.params.id, res);
 
 });
 

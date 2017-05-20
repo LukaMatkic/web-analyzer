@@ -1,0 +1,22 @@
+<p><%= analyzed[0].title %></p>
+
+<div id="div_url">
+
+  <h2>HTML CONTENT:</h2>
+
+  <h3>ID:</h3> <%=analyzed[0].id%>
+  <h3>URL:</h3> <%=analyzed[0].url%>
+  <h3>STATUS:</h3> <%=analyzed[0].http_status%>
+  <h3>CONTENT LENGTH:</h3> <%=analyzed[0].con_length%>
+  <h3>CONTENT TYPE:</h3> <%=analyzed[0].con_type%>
+  <h3>SERVER:</h3> <%=analyzed[0].server%>
+  <h3>ANALYZED DATE:</h3> <%=analyzed[0].date.getDate()%>
+  <h3>ANALYZED TIME:</h3> <%=analyzed[0].time%>
+
+  <center>
+    <a href = "/">
+      <button type="button" id="buttonview">Back to Home</button>
+    </a>
+  </center>
+
+</div>
