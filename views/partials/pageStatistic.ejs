@@ -1,17 +1,66 @@
 <p><%= analyzed[0].title %></p>
 
-<div id="div_url">
+<div id ="scrap-table">
+	<section>
 
-  <h2>HTML CONTENT:</h2>
+		<table class="data-table">
 
-  <h3>ID:</h3> <%=analyzed[0].id%>
-  <h3>URL:</h3> <%=analyzed[0].url%>
-  <h3>STATUS:</h3> <%=analyzed[0].http_status%>
-  <h3>CONTENT LENGTH:</h3> <%=analyzed[0].con_length%>
-  <h3>CONTENT TYPE:</h3> <%=analyzed[0].con_type%>
-  <h3>SERVER:</h3> <%=analyzed[0].server%>
-  <h3>ANALYZED DATE:</h3> <%=analyzed[0].date.getDate()%>
-  <h3>ANALYZED TIME:</h3> <%=analyzed[0].time%>
+			<!-- Stvaramo header za html content -->
+			<thead class="table-thread">
+				<tr>
+					<th>HTML CONTENT</th>
+					<th>DATA</th>
+				</tr>
+			</thead>
+
+      <!-- Stvaramo footer za isti hrml content tablicu -->
+      <tfoot class="table-thread">
+				<tr>
+					<th>HTML CONTENT</th>
+					<th>DATA</th>
+				</tr>
+			</tfoot>
+
+      <!-- Tablice sa informacijama -->
+			<tbody>
+				<tr>
+					<th>ID</th>
+					<th><%=analyzed[0].id%></th>
+				</tr>
+				<tr class="table-body">
+					<th>URL</th>
+					<th><%=analyzed[0].url%></th>
+				</tr>
+				<tr>
+					<th>HTTP STATUS</th>
+					<th><%=analyzed[0].http_status%></th>
+				</tr>
+				<tr class="table-body">
+					<th>CONTENT LENGTH</th>
+					<th><%=analyzed[0].con_length%></th>
+				</tr>
+				<tr>
+					<th>CONTENT TYPE</th>
+					<th><%=analyzed[0].con_type%></th>
+				</tr>
+				<tr class="table-body">
+					<th>SERVER</th>
+					<th><%=analyzed[0].server%></th>
+				</tr>
+				<tr>
+					<th>ANALYZED DATE</th>
+					<th><%=analyzed[0].date.getDate()%></th>
+				</tr>
+				<tr class="table-body">
+					<th>ANALYZED TIME</th>
+					<th><%=analyzed[0].time%></th>
+				</tr>
+			</tfoot>
+
+
+		<table>
+	</section>
+
 
   <center>
     <a href = "/">

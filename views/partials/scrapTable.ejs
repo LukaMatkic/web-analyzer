@@ -1,7 +1,7 @@
 <div id ="scrap-table">
 	<section>
 
-		<table class="data-table" cellspacing="0" width="90%">
+		<table class="data-table">
 
 			<!-- Stvaramo header tablice -->
 			<thead class="table-thread">
@@ -30,25 +30,29 @@
 			</tfoot>
 
 			<!-- Za svaki ispis iz tablice stvaramo row u tablici -->
-			<% for(var i=0;i<scrapped.length;i++){%>
+			<% for(var i=0;i<scrapped.length;i++) {%>
 
-			<a href = "/showAnalyze/<%=scrapped[i].id%>">
-				<tbody>
+				<!-- Svakom drugom stavljamo crnu pozadinu -->
+				<% if(i%2 == 0) {%>
+					<tbody>
+				<%} else {%>
+					<tbody class="table-body">
+				<% } %>
+
 					<tr>
 						<td><%= scrapped[i].id %></td>
 						<td><%= scrapped[i].time %></td>
 						<td><%= scrapped[i].url %></td>
 						<td><%= scrapped[i].http_status %></td>
-						<td><%= scrapped[i].title %></td>
+						<td><b><%= scrapped[i].title %></b></td>
 						<td><%= scrapped[i].date.getDate() + '.' + parseInt(scrapped[i].date.getMonth()+1) + '.' + scrapped[i].date.getFullYear() + '.' %></td>
 						<td>
 							<form method="GET" action="/showAnalyze/<%=scrapped[i].id%>">
 		          	<button type="submit" class="table-button">View</button>
 		        	</form>
-						<td>
+						</td>
 					</tr>
 				</tbody>
-			</a>
 			<%  }%>
 			<!-- ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~ -->
 

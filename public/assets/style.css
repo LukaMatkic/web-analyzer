@@ -27,7 +27,7 @@ body{
   padding: 20px;
   box-sizing: border-box;
   border-radius:30px;
-  
+
 }
 
 input[type="text"]{
@@ -40,7 +40,7 @@ input[type="text"]{
     color: #989898;
 }
 
-button{
+/*button{
     padding: 20px;
     width: 30%;
     float: left;
@@ -51,7 +51,7 @@ button{
     cursor: pointer;
     font-size: 20px;
 }
-
+*/
 ul{
     list-style-type: none;
     padding: 0;
