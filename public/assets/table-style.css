@@ -1,0 +1,29 @@
+/* Stil za sve tablice koje koristimo */
+.data-table{
+
+    width: 95%;
+    background: white;
+    padding: 2px;
+    margin: 0 auto 0;
+    border: 1|1;
+
+}
+
+/* Stil za header i footer od tablice (vth i dno) */
+.table-thread {
+  background: skyblue;
+}
+
+/* Stil za gumb u bazi */
+.table-button
+{
+  float: center;
+  position: relative;
+  width: 40px;
+  background: black;
+  border: 1px;
+  box-sizing: border-box;
+  color: #fff;
+  cursor: pointer;
+  font-size: 20px;
+}

@@ -1,23 +1,58 @@
-<p>Recently scrapped websites</p>
+<div id ="scrap-table">
+	<section>
 
-<div id="div_url">
-  <ul>
-    <% for(var i=0;i<scrapped.length;i++){%>
+		<table class="data-table" cellspacing="0" width="90%">
 
-    <li>
-      <a href = "/showAnalyze/<%=scrapped[i].id%>">
-      <%=
-      scrapped[i].date.getDate() + ' ' +
-      scrapped[i].time + ' ' +
-      scrapped[i].url
-      %>
-        <form method="GET" action="/showAnalyze/<%=scrapped[i].id%>">
-          <button type="submit" id="buttonView">View</button>
-        </form>
-      </a>
-    </li>
+			<!-- Stvaramo header tablice -->
+			<thead class="table-thread">
+				<tr>
+					<th>SCRAP ID</th>
+					<th>TIME</th>
+					<th>URL</th>
+					<th>STATUS</th>
+					<th>TITLE</th>
+					<th>DATE</th>
+					<th>VIEW</th>
+				</tr>
+			</thead>
 
-    <%  }%>
+			<!-- Stvaramo footer tablice -->
+			<tfoot class="table-thread">
+				<tr>
+					<th>SCRAP ID</th>
+					<th>TIME</th>
+					<th>URL</th>
+					<th>STATUS</th>
+					<th>TITLE</th>
+					<th>DATE</th>
+					<th>VIEW</th>
+				</tr>
+			</tfoot>
 
-  </ul>
+			<!-- Za svaki ispis iz tablice stvaramo row u tablici -->
+			<% for(var i=0;i<scrapped.length;i++){%>
+
+			<a href = "/showAnalyze/<%=scrapped[i].id%>">
+				<tbody>
+					<tr>
+						<td><%= scrapped[i].id %></td>
+						<td><%= scrapped[i].time %></td>
+						<td><%= scrapped[i].url %></td>
+						<td><%= scrapped[i].http_status %></td>
+						<td><%= scrapped[i].title %></td>
+						<td><%= scrapped[i].date.getDate() + '.' + parseInt(scrapped[i].date.getMonth()+1) + '.' + scrapped[i].date.getFullYear() + '.' %></td>
+						<td>
+							<form method="GET" action="/showAnalyze/<%=scrapped[i].id%>">
+		          	<button type="submit" class="table-button">View</button>
+		        	</form>
+						<td>
+					</tr>
+				</tbody>
+			</a>
+			<%  }%>
+			<!-- ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~ -->
+
+		</table>
+
+	</section>
 </div>
