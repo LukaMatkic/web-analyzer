@@ -41,10 +41,10 @@ var scrapURL = function(url, res) {
     data.time = require('moment')().format('HH:mm:ss');
 
     // Provjeravamo ako nema settanih vrijednosti stavljamo NULL
-    if(data.con_type == undefined) { data.con_type = ''; }
-    if(data.server == undefined) { data.server = ''; }
-    if(data.title == undefined) { data.title = ''; }
-    if(data.con_length == undefined) { data.con_length = -1; }
+    if(data.con_type === undefined) { data.con_type = ''; }
+    if(data.server === undefined) { data.server = ''; }
+    if(data.title === undefined) { data.title = ''; }
+    if(data.con_length === undefined) { data.con_length = -1; }
 
     // DEBUG - samo da vidimo sta se radi i sta je procitano da ne moras u bazu svaki put
     /*

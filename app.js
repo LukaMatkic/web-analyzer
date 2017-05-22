@@ -11,7 +11,7 @@ var showAnalyze = require('./controllers/showAnalyze'); // Potrebno za osvjeziti
 
 var urlencodedParser = bodyParser.urlencoded({extended:false}); // Pretvaramo http zahtjev
 
-// Namjestamo viwe engine za ejs
+// Namjestamo view engine za ejs
 app.set('view engine','ejs');
 
 //STATIC FILES
