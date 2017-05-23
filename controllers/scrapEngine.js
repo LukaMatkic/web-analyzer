@@ -10,76 +10,233 @@ var scrapURL = function(url, res) {
   // Tu pocinje scrappanje cheerio loada body url-a koji je unesen
   request(url, function(error, response, body) {
 
-    // Temporary objekt za spremanje scrap podataka
-    var data = {
-      url: "",
-      http_status: -1,
-      con_length: -1,
-      con_type: "",
-      server: "",
-      title: "",
-      date: "",
-      time: ""
-    };
-
     // Ukoliko postoji error ispisujemo ga
     if(error) {
       console.log("ERROR [#3] [Cannot analyze given URL]");
     }
+
+    // Temporary objekt za spremanje scrap podataka
+    var data = {
+      url: "",
+      // HTTP headers
+      http_status: -1,
+      con_length: -1,
+      con_type: "",
+      server: "",
+      // HTML tags
+      title: "",
+      charset: "",
+      // OG pen Graph
+      // Other
+      date: "",
+      time: ""
+    };
+
+
 
     //Body se loada u cheerio module
     var $ = cheerio.load(body);
 
     // Ucitavamo podatke od stranice i sortiramo ih u "data" varijablu
     data.url = url;
+
     data.http_status = response.statusCode;
-    data.con_type = response.headers['content-type'];
     data.con_length = response.headers['content-length'];
+    data.con_type = response.headers['content-type'];
     data.server = response.headers['server'];
+
     data.title = $('title').text();
+    data.charset = response.headers['Accept-Charset'];
+
     data.date = require('moment')().format('YYYY-MM-DD');
     data.time = require('moment')().format('HH:mm:ss');
 
+
     // Provjeravamo ako nema settanih vrijednosti stavljamo NULL
-    if(data.con_type === undefined) { data.con_type = ''; }
-    if(data.server === undefined) { data.server = ''; }
-    if(data.title === undefined) { data.title = ''; }
-    if(data.con_length === undefined) { data.con_length = -1; }
+    if(data.con_type == undefined) { data.con_type = ''; }
+    if(data.server == undefined) { data.server = ''; }
+    if(data.title == undefined) { data.title = ''; }
+    if(data.con_length == undefined) { data.con_length = -1; }
+    if(data.charset == undefined) { data.charset = ''; }
 
-    // DEBUG - samo da vidimo sta se radi i sta je procitano da ne moras u bazu svaki put
-    /*
-    console.log("Status code: " + data.http_status);
-    console.log("content-type: " + data.con_type);
-    console.log("content-length: " + data.con_length);
-    console.log("server: " + data.server);
-    console.log("title: " + data.title);
-    console.log("date: " + data.date);
-    console.log("date: " + data.time);
-    console.log('Type: ' + req.body.item);
-    */
 
-    // Stvaramo queri koji saljemo kako bi spremili podatke
-    mysql.sendQuery(
-        "INSERT INTO scrap (url,http_status,con_type,con_length,server,title,date,time) VALUES ( \
-          '"+data.url+"', \
-          "+data.http_status+", \
-          '"+data.con_type+"', \
-          "+data.con_length+", \
-          '"+data.server+"', \
-          '"+data.title+"', \
-          '"+data.date+"', \
-          '"+data.time+"' \
-        );", function(){
 
-          // Updateamo tablicu zadnjih scrapova
-          lastScrapsTable.reloadTable(res);
+    // Dio za spremanje u bazu, prvo stvaramo osnocni query
+    mysql.sendQuery("INSERT INTO scrap (url,http_status,con_type,con_length,server,title,charset,date,time) VALUES ( \
+      '"+data.url+"', \
+      "+data.http_status+", \
+      '"+data.con_type+"', \
+      "+data.con_length+", \
+      '"+data.server+"', \
+      '"+checkHeaderText(data.title)+"', \
+      '"+data.charset+"', \
+      '"+data.date+"', \
+      '"+data.time+"' \
+    );", function(rows,fields){
 
+      // Dodajemo u query sve headere
+      var count = 0;
+
+      $(":header").map(function() {
+        var hText = $(this).text(); // Dobivamo text iz headera
+        var hValue = headerToValue(this.name); // Dobivamo ID headera (h1,h2...) u vrijednosti (0,1...)
+        console.log($(this));
+        hText = checkHeaderText(hText);
+
+        mysql.sendQuery("INSERT INTO headers (id_scrap,head_text,head_value,head_order) VALUES ("+rows.insertId+",'"+hText+"',"+hValue+","+count+");",
+        function(){});
+
+        count++;
         });
 
+    });
+
+    // Reloadamo korisniku tablicu zadnjih analiza
+    lastScrapsTable.reloadTable(res);
   });
-
 };
+//-----------------------------------------------------------------------------
 
+
+//-----------------------------------------------------------------------------
+// Funkcija za povrat vrijednosti h* (h1,h2...) elementa h1 = 0, h2 = 1...
+var headerToValue = function(header) {
+  switch (header) {
+    case 'h1': return 0;
+    case 'h2': return 1;
+    case 'h3': return 2;
+    case 'h4': return 3;
+    case 'h5': return 4;
+    case 'h6': return 5;
+    default: return -1;
+  }
+};
+//-----------------------------------------------------------------------------
+
+//-----------------------------------------------------------------------------
+// Funkcija za provjeru teksta u headeru (da se ne spremaju svakakvi znakovi itd...)
+var checkHeaderText = function(text) {
+  console.log(text);
+  var newText = ''; // Ovdje cemo spremat slovo po slovo novu rijec
+
+  // Ako je text headera duzi od 128 slova skratiti cemo ga i dodati "..."
+  if (text.length > 127) {
+    text = text.substring(0,124)+'...';
+  }
+
+  // Provjeravamo ako je znak dopusten za spremanje u bazu
+  for(var i=0;i<text.length;i++) {
+
+    // Saljemo text[i] (jedan znak) na provjeru
+    revalidCharacter(text[i], function(char) {
+
+      // Ako nije ni false niti true znaci da znak treba zamjeniti
+      // sa znakom koji dobijemo natrag ("char")
+      if(char != false && char != true) {
+        newText += char;
+
+      // Ako je znak vazeci samo ga prepisujemo
+      } else if (char == true) {
+        newText += text[i];
+      }
+    });
+
+  }
+  console.log(newText);
+  return newText;
+};
+//-----------------------------------------------------------------------------
+
+//-----------------------------------------------------------------------------
+// Funkcija za provjeru znaka dali je valjan
+/* POVRATNE VRIJEDNOSTI:
+      false - znak se nece koristiti (brise se)
+      true - znak se smije koristiti
+      '%' - znak ce se zamjenit sa znakom %
+*/
+var revalidCharacter = function(char, callback) {
+  switch (char) {
+    // Brojevi
+    case '0': return callback(true);
+    case '1': return callback(true);
+    case '2': return callback(true);
+    case '3': return callback(true);
+    case '4': return callback(true);
+    case '5': return callback(true);
+    case '6': return callback(true);
+    case '7': return callback(true);
+    case '8': return callback(true);
+    case '9': return callback(true);
+    // Znakovi
+    case 'a': return callback(true);
+    case 'b': return callback(true);
+    case 'c': return callback(true);
+    case 'd': return callback(true);
+    case 'e': return callback(true);
+    case 'f': return callback(true);
+    case 'g': return callback(true);
+    case 'h': return callback(true);
+    case 'i': return callback(true);
+    case 'j': return callback(true);
+    case 'k': return callback(true);
+    case 'l': return callback(true);
+    case 'm': return callback(true);
+    case 'n': return callback(true);
+    case 'o': return callback(true);
+    case 'p': return callback(true);
+    case 'r': return callback(true);
+    case 's': return callback(true);
+    case 't': return callback(true);
+    case 'u': return callback(true);
+    case 'v': return callback(true);
+    case 'z': return callback(true);
+    case 'w': return callback(true);
+    case 'y': return callback(true);
+    case 'A': return callback(true);
+    case 'B': return callback(true);
+    case 'C': return callback(true);
+    case 'D': return callback(true);
+    case 'E': return callback(true);
+    case 'F': return callback(true);
+    case 'G': return callback(true);
+    case 'H': return callback(true);
+    case 'I': return callback(true);
+    case 'J': return callback(true);
+    case 'K': return callback(true);
+    case 'L': return callback(true);
+    case 'M': return callback(true);
+    case 'N': return callback(true);
+    case 'O': return callback(true);
+    case 'P': return callback(true);
+    case 'R': return callback(true);
+    case 'S': return callback(true);
+    case 'T': return callback(true);
+    case 'U': return callback(true);
+    case 'V': return callback(true);
+    case 'Z': return callback(true);
+    case 'W': return callback(true);
+    case 'Y': return callback(true);
+    // Specijalni znakovi
+    case 'č': return callback('c');
+    case 'Č': return callback('C');
+    case 'ć': return callback('c');
+    case 'Ć': return callback('C');
+    case 'đ': return callback('d');
+    case 'Đ': return callback('D');
+    case 'ž': return callback('z');
+    case 'Ž': return callback('Z');
+    case 'š': return callback('s');
+    case 'Š': return callback('S');
+    // Ostalo
+    case ' ': return callback(true);
+    case ':': return callback(true);
+    case '.': return callback(true);
+    case '(': return callback(true);
+    case ')': return callback(true);
+    // Ukoliko znak nije pronadem znaci da je nedopusten i saljemo false
+    default: return callback(false);
+  }
+};
 //-----------------------------------------------------------------------------
 
 //-----------------------------------------------------------------------------

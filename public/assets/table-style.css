@@ -2,7 +2,7 @@
 .data-table{
     width: 100%;
     background: white;
-    text-align: center;
+    margin: 20px auto 20px;
 }
 
 /* Stil za header i footer od tablice (vth i dno) */
@@ -25,4 +25,29 @@
 /* Stil za svaki drugi redak u tablici - radi lakseg pregleda */
 .table-body {
   background: lightgrey;
+}
+
+.h1-style {
+  text-indent: 5px;
+  font-size: 18px;
+}
+
+.h2-style {
+  text-indent: 15px;
+}
+
+.h3-style {
+  text-indent: 25px;
+}
+
+.h4-style {
+  text-indent: 35px;
+}
+
+.h5-style {
+  text-indent: 45px;
+}
+
+.h6-style {
+  text-indent: 55px;
 }
