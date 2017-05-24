@@ -20,10 +20,8 @@ app.use(express.static('./public'));
 //------------------------------------------------------------------------------
 // Slusamo (listen) port 3000 za daljnje akcije
 app.listen(3000);
-console.log("\n\n\n\n\n\n");
 console.log('\n-------------------[SERVER STATUS]--------------------');
 console.log('SERVER STARTED !\n\tYou are listening to port: 3000');
-console.log('\n--------------------[SERVER END]----------------------');
 //------------------------------------------------------------------------------
 
 
@@ -58,6 +56,6 @@ app.get('/showAnalyze/:id', urlencodedParser, function(req,res){
 app.post('/', urlencodedParser, function(req, res){
 
   // Pokrecemo scrap engine
-  scrapEngine.scrapURL(req.body.item, res);
+  scrapEngine.scrapURL(req.body.item, req.body.redirect, res);
 
 });

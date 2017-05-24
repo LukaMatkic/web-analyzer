@@ -5,10 +5,20 @@ var lastScrapsTable = require('./lastScrapsTable'); // Includamo da mozemo updat
 
 //-----------------------------------------------------------------------------
 // Funkcija za scrappanje stranice
-var scrapURL = function(url, res) {
+var scrapURL = function(url, redirect, res) {
+    console.log(redirect);
+    console.log(res.statusCode);
+    var statCode = res.statusCode;
 
+if(statCode != 301 || statCode != 302 && redirect == on) {
+    //ideja je napravit (pseudokod) -> if(301 or 302 and ondefined=on, onda radit ostatak)
+    //ako je ondefined = undefined, onda ništa od ove funkcije request, nego samo
+    //ubacit statusCode kao title.
   // Tu pocinje scrappanje cheerio loada body url-a koji je unesen
-  request(url, function(error, response, body) {
+ request(url, function(error, response, body) {
+console.log(response.statusCode);
+
+
 
     // Ukoliko postoji error ispisujemo ga
     if(error) {
@@ -39,7 +49,6 @@ var scrapURL = function(url, res) {
 
     // Ucitavamo podatke od stranice i sortiramo ih u "data" varijablu
     data.url = url;
-
     data.http_status = response.statusCode;
     data.con_length = response.headers['content-length'];
     data.con_type = response.headers['content-type'];
@@ -53,11 +62,11 @@ var scrapURL = function(url, res) {
 
 
     // Provjeravamo ako nema settanih vrijednosti stavljamo NULL
-    if(data.con_type == undefined) { data.con_type = ''; }
-    if(data.server == undefined) { data.server = ''; }
-    if(data.title == undefined) { data.title = ''; }
-    if(data.con_length == undefined) { data.con_length = -1; }
-    if(data.charset == undefined) { data.charset = ''; }
+    if(data.con_type === undefined) { data.con_type = ''; }
+    if(data.server === undefined) { data.server = ''; }
+    if(data.title === undefined) { data.title = ''; }
+    if(data.con_length === undefined) { data.con_length = -1; }
+    if(data.charset === undefined) { data.charset = ''; }
 
 
 
@@ -80,7 +89,7 @@ var scrapURL = function(url, res) {
       $(":header").map(function() {
         var hText = $(this).text(); // Dobivamo text iz headera
         var hValue = headerToValue(this.name); // Dobivamo ID headera (h1,h2...) u vrijednosti (0,1...)
-        console.log($(this));
+
         hText = checkHeaderText(hText);
 
         mysql.sendQuery("INSERT INTO headers (id_scrap,head_text,head_value,head_order) VALUES ("+rows.insertId+",'"+hText+"',"+hValue+","+count+");",
@@ -94,6 +103,94 @@ var scrapURL = function(url, res) {
     // Reloadamo korisniku tablicu zadnjih analiza
     lastScrapsTable.reloadTable(res);
   });
+  } //ovdje završava if za checkiranje statusCodea
+  else {
+
+      request(url, function(error, response, body) {
+     console.log(response.statusCode);
+
+
+
+         // Ukoliko postoji error ispisujemo ga
+         if(error) {
+           console.log("ERROR [#3] [Cannot analyze given URL]");
+         }
+
+         // Temporary objekt za spremanje scrap podataka
+         var data = {
+           url: "",
+           // HTTP headers
+           http_status: -1,
+           con_length: -1,
+           con_type: "",
+           server: "",
+           // HTML tags
+           title: "",
+           charset: "",
+           // OG pen Graph
+           // Other
+           date: "",
+           time: ""
+         };
+
+
+
+         //Body se loada u cheerio module
+         var $ = cheerio.load(body);
+
+         // Ucitavamo podatke od stranice i sortiramo ih u "data" varijablu
+         data.url = url;
+     //if statusCode = 200, stavi;
+
+         data.title = $('title').text();
+
+         data.date = require('moment')().format('YYYY-MM-DD');
+         data.time = require('moment')().format('HH:mm:ss');
+
+
+         // Provjeravamo ako nema settanih vrijednosti stavljamo NULL
+         if(data.con_type === undefined) { data.con_type = ''; }
+         if(data.server === undefined) { data.server = ''; }
+         if(data.title === undefined) { data.title = ''; }
+         if(data.con_length === undefined) { data.con_length = -1; }
+         if(data.charset === undefined) { data.charset = ''; }
+
+
+
+         // Dio za spremanje u bazu, prvo stvaramo osnocni query
+         mysql.sendQuery("INSERT INTO scrap (url,http_status,con_type,con_length,server,title,charset,date,time) VALUES ( \
+           '"+data.url+"', \
+           "+data.http_status+", \
+           '"+data.con_type+"', \
+           "+data.con_length+", \
+           '"+data.server+"', \
+           '"+checkHeaderText(data.title)+"', \
+           '"+data.charset+"', \
+           '"+data.date+"', \
+           '"+data.time+"' \
+         );", function(rows,fields){
+
+           // Dodajemo u query sve headere
+           var count = 0;
+
+           $(":header").map(function() {
+             var hText = $(this).text(); // Dobivamo text iz headera
+             var hValue = headerToValue(this.name); // Dobivamo ID headera (h1,h2...) u vrijednosti (0,1...)
+
+             hText = checkHeaderText(hText);
+
+             mysql.sendQuery("INSERT INTO headers (id_scrap,head_text,head_value,head_order) VALUES ("+rows.insertId+",'"+hText+"',"+hValue+","+count+");",
+             function(){});
+
+             count++;
+             });
+
+         });
+
+         // Reloadamo korisniku tablicu zadnjih analiza
+         lastScrapsTable.reloadTable(res);
+       });
+  }
 };
 //-----------------------------------------------------------------------------
 
@@ -116,7 +213,6 @@ var headerToValue = function(header) {
 //-----------------------------------------------------------------------------
 // Funkcija za provjeru teksta u headeru (da se ne spremaju svakakvi znakovi itd...)
 var checkHeaderText = function(text) {
-  console.log(text);
   var newText = ''; // Ovdje cemo spremat slovo po slovo novu rijec
 
   // Ako je text headera duzi od 128 slova skratiti cemo ga i dodati "..."
@@ -142,7 +238,7 @@ var checkHeaderText = function(text) {
     });
 
   }
-  console.log(newText);
+
   return newText;
 };
 //-----------------------------------------------------------------------------
