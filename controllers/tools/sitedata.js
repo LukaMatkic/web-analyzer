@@ -1,4 +1,4 @@
-var mysql = require('./mysql'); // Includamo mysql.js da mozemo slati querije
+var mysql = require('../mysql'); // Includamo mysql.js da mozemo slati querije
 
 //-----------------------------------------------------------------------------
 // Funkcija za prikaz statistike
@@ -11,7 +11,7 @@ var loadScrapID = function(id, res) {
     loadHeadData(id, function(rows2, fields2){
 
       // Saljemo dobivene redove iz querija da se prikazu u fileu
-      res.render('analyzed',{analyzed:rows, headers:rows2});
+      res.render('tools-sitedata',{analyzed:rows, headers:rows2});
 
     });
 

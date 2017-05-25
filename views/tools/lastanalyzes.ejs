@@ -1,3 +1,9 @@
+<div class="content-title statistic-title">
+	<br/>
+	<h3>Statistic tools</h3>
+	<h2>Last Analyzes</h2>
+</div>
+
 <div id ="scrap-table">
 	<section>
 
@@ -47,7 +53,7 @@
 						<td><b><%= scrapped[i].title %></b></td>
 						<td><%= scrapped[i].date.getDate() + '.' + parseInt(scrapped[i].date.getMonth()+1) + '.' + scrapped[i].date.getFullYear() + '.' %></td>
 						<td>
-							<form method="GET" action="/showAnalyze/<%=scrapped[i].id%>">
+							<form method="GET" action="/sitedata/<%=scrapped[i].id%>">
 		          	<button type="submit" class="table-button">View</button>
 		        	</form>
 						</td>

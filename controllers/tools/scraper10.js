@@ -1,7 +1,6 @@
 var cheerio = require('cheerio');
 var request = require('request');
-var mysql = require('./mysql'); // Includamo mysql.js da mozemo slati querije
-var lastScrapsTable = require('./lastScrapsTable'); // Includamo da mozemo updateat tablicu
+var mysql = require('../mysql'); // Includamo mysql.js da mozemo slati querije
 
 //-----------------------------------------------------------------------------
 // Funkcija za scrappanje stranice
@@ -100,8 +99,10 @@ console.log(response.statusCode);
 
     });
 
-    // Reloadamo korisniku tablicu zadnjih analiza
-    lastScrapsTable.reloadTable(res);
+    // Reloadamo korisniku i saljemo mu dali je uspjesno ili neuspjesno
+    res.render('tools-scraper10');
+
+
   });
   } //ovdje završava if za checkiranje statusCodea
   else {
@@ -188,7 +189,7 @@ console.log(response.statusCode);
          });
 
          // Reloadamo korisniku tablicu zadnjih analiza
-         lastScrapsTable.reloadTable(res);
+        res.render('tools-scraper10');
        });
   }
 };

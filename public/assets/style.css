@@ -1,6 +1,23 @@
+/*Opceniti body stiling*/
 body{
-    background: #20324c;
+    background: rgb(208, 198, 177);
+    margin: 0;
 }
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 
 #scrap-table{
     position: relative;
@@ -23,8 +40,7 @@ body{
   position: relative;
   width: 95%;
   background: #090d13;
-  margin: 5 auto 5;
-  padding: 20px;
+
   box-sizing: border-box;
   border-radius:30px;
 
@@ -60,7 +76,7 @@ ul{
 
 li{
     width: 100%;
-    padding: 20px;
+    padding: 10px;
     box-sizing: border-box;
     font-family: arial;
     font-size: 20px;
@@ -74,13 +90,7 @@ li:hover{
 }
 
 h1{
-  border-radius: 50%;
--webkit-transition: -webkit-transform .8s ease-in-out;
-        transition:         transform .8s ease-in-out;
-    height:150px;
-  /*  background: url(/assets/logo2.png) no-repeat center;*/
-    margin-bottom: 0;
-    text-indent: -10000px;
+
 }
 h1:hover {
   -webkit-transform: rotate(360deg);
@@ -92,7 +102,7 @@ p{
   font-family: 'Cinzel', serif;
   font-size: 45px;
   text-decoration: underline;
-  color: white;
+  color: black;
 }
 
 #div_url {
@@ -103,7 +113,6 @@ p{
 }
 #div_title {
 
-margin-left: 5%;
   width: 30%;
   background-color: red !important;
   display: inline-block;
