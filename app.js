@@ -8,6 +8,7 @@ var mysql = require('./controllers/mysql'); // Potrebno za mysql querije
 var lastScrapsTable = require('./controllers/tools/lastanalyzes'); // Potrebno za kontrolirati tablicu najnovijih scrapova
 var scrapEngine = require('./controllers/tools/scraper10'); // Potrebno za scrappati url
 var showAnalyze = require('./controllers/tools/sitedata'); // Potrebno za osvjeziti alanyze dio
+var imgsnatch = require('./controllers/tools/imgsnatch'); //
 
 var urlencodedParser = bodyParser.urlencoded({extended:false}); // Pretvaramo http zahtjev
 
@@ -71,6 +72,19 @@ app.get('/sitedata/:id', urlencodedParser, function(req,res){
 // Kada dode na stranicu za pogledat analizu
 app.get('/lastanalyzes', urlencodedParser, function(req,res){
   // Updateamo tablicu za pregled podataka o stranici
-  lastScrapsTable.reloadTable(res);
+  lastScrapsTable.reloadTable(req.params.id, res);
+});
+//------------------------------------------------------------------------
+
+//------------------------------------------------------------------------
+
+app.get('/imgsnatch', urlencodedParser, function(req,res){
+
+  res.render('tools-imgsnatch');
+});
+
+app.post('/imgsnatch', urlencodedParser, function(req, res){
+  // Pokrecemo scrap engine
+  imgsnatch.takeScr(req.body.item, res);
 });
 //------------------------------------------------------------------------

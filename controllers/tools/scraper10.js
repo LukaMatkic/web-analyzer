@@ -6,7 +6,7 @@ var mysql = require('../mysql'); // Includamo mysql.js da mozemo slati querije
 // Funkcija za scrappanje stranice
 var scrapURL = function(url, redirect, res) {
     console.log(redirect);
-    console.log(res.statusCode);
+    console.log('STATUSSSSSSSSSSSSSSSSSSSSSSS' + res.statusCode);
     var statCode = res.statusCode;
 
 if(statCode != 301 || statCode != 302 && redirect == on) {
@@ -41,8 +41,6 @@ console.log(response.statusCode);
       time: ""
     };
 
-
-
     //Body se loada u cheerio module
     var $ = cheerio.load(body);
 
@@ -76,7 +74,7 @@ console.log(response.statusCode);
       '"+data.con_type+"', \
       "+data.con_length+", \
       '"+data.server+"', \
-      '"+checkHeaderText(data.title)+"', \
+      '"+data.title+"', \
       '"+data.charset+"', \
       '"+data.date+"', \
       '"+data.time+"' \
@@ -165,7 +163,7 @@ console.log(response.statusCode);
            '"+data.con_type+"', \
            "+data.con_length+", \
            '"+data.server+"', \
-           '"+checkHeaderText(data.title)+"', \
+           '"+data.title+"', \
            '"+data.charset+"', \
            '"+data.date+"', \
            '"+data.time+"' \
