@@ -311,6 +311,8 @@ var revalidCharacter = function(char, callback) {
     case 'Z': return callback(true);
     case 'W': return callback(true);
     case 'Y': return callback(true);
+    case 'Q': return callback(true);
+    case 'q': return callback(true);
     // Specijalni znakovi
     case 'č': return callback('c');
     case 'Č': return callback('C');
