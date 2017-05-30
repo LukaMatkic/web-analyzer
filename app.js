@@ -72,7 +72,7 @@ app.get('/sitedata/:id', urlencodedParser, function(req,res){
 // Kada dode na stranicu za pogledat analizu
 app.get('/lastanalyzes', urlencodedParser, function(req,res){
   // Updateamo tablicu za pregled podataka o stranici
-  lastScrapsTable.reloadTable(req.params.id, res);
+  lastScrapsTable.reloadTable(res);
 });
 //------------------------------------------------------------------------
 
