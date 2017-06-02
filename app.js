@@ -10,6 +10,8 @@ var scrapEngine = require('./controllers/tools/scraper10'); // Potrebno za scrap
 var showAnalyze = require('./controllers/tools/sitedata'); // Potrebno za osvjeziti alanyze dio
 var imgsnatch = require('./controllers/tools/imgsnatch'); //
 
+
+
 var urlencodedParser = bodyParser.urlencoded({extended:false}); // Pretvaramo http zahtjev
 
 // Namjestamo viwe engine za ejs

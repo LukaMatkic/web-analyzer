@@ -14,5 +14,12 @@
 
 <!-- Ispisujemo scrap ako ga ima ako ne neispisujemo -->
 <div>
-  <p>Scrap IMG sucessfull ???</p>
+	<% if(typeof recenica == 'undefined') { %>
+    <% } else { %>
+<div>
+  <p><%= recenica.id %></p>
+
+  <img src= "<%=recenica.id%>"></img>
+</div>
+<% } %>
 </div>

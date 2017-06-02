@@ -68,13 +68,14 @@ var takeScr = function(url, res) {
 
   // Slikamo i spremamo u bazu
   mysql.sendQuery("INSERT INTO image (url) VALUES ('"+url+"')", function(rows,fields) {
-    console.log("bla1");
+
     screenshot(url, './public/imgsnatch/' + rows.insertId + '.png').done(function() {
-      //DEBUG
-      console.log("bla2");
-      //console.log("Image saved ny ID: " + rows.insertId);
-      res.render('tools-imgsnatch', {id:rows.insertId});
-      console.log("bla3");
+        //DEBUG
+        var recenica = {
+            id: "/imgsnatch/" + rows.insertId + '.png'
+        };
+
+        res.render('tools-imgsnatch', {recenica: recenica});
     });
   });
 
