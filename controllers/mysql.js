@@ -25,11 +25,11 @@ var sendQuery = function(query, callback) {
         // Ako se ne moze connectirati ispisujemo u konzolu
         if (err) {
           console.log("ERROR [#1] [Cannot connect to database]");
-          return;
+          return callback(err);
         }
 
         // Saljemo queri u bazu
-        connection.query(query, function(err,rows,fields) {
+        connection.query(query, function(err2,rows,fields) {
 
             connection.release();
 
@@ -38,16 +38,14 @@ var sendQuery = function(query, callback) {
               console.log("WARNING [#1] [No results from query]");
             }
 
-            // Ako nema errora returnamo redove (rows)
-            if(!err) {
-              return callback(rows, fields);
-            }
+            return callback(err2, rows, fields);
+
         });
 
         // Ako se pojavi error prilikom povrata izbaze ispisujemo ga
         connection.on('error', function(err) {
           console.log("ERROR [#2] [No query retured from database]");
-          return;
+          return callback(err);
         });
 
         // DEBUG - query status

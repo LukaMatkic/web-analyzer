@@ -1,9 +1,13 @@
-/*Opceniti body stiling*/
+/*Main body styling*/
 body{
     background: rgb(208, 198, 177);
     margin: 0;
 }
 
+/*For previewing image from IMG scrap tool*/
+.imgtool {
+  max-height: 500px;
+}
 
 
 
@@ -46,15 +50,7 @@ body{
 
 }
 
-input[type="text"]{
-    width: 70%;
-    padding: 20px;
-    background:#181c22;
-    border: 0;
-    float: left;
-    font-size: 20px;
-    color: #989898;
-}
+
 
 /*button{
     padding: 20px;
@@ -97,13 +93,6 @@ h1:hover {
           transform: rotate(360deg);
 }
 
-p{
-  text-align: center;
-  font-family: 'Cinzel', serif;
-  font-size: 45px;
-  text-decoration: underline;
-  color: black;
-}
 
 #div_url {
 
@@ -124,17 +113,7 @@ float: right;
   background-color: purple !important;
 display: inline-block;
 }
-/*dodano 05.17.2017 vrtnja slike na topu*/
-img {
-  display:relative;
-  border-radius: 50%;
-    -webkit-transition: -webkit-transform .8s ease-in-out;
-            transition:         transform .8s ease-in-out;
-}
-img:hover {
-  -webkit-transform: rotate(360deg);
-          transform: rotate(360deg);
-}
+
 #buttonview
 {
   float: right !important;

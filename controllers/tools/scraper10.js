@@ -52,7 +52,7 @@ var scrapURL = function(url, redirect, res) {
         MainQuery(data, $);
 
         // Reloadamo korisniku tablicu zadnjih analiza
-        res.render('tools-scraper10');
+        res.render('index', {content: 'tools/scraper10.ejs'});
     }
 
 
@@ -150,7 +150,7 @@ var MainQuery = function(data, $) {
       '" + data.charset + "', \
       '" + data.date + "', \
       '" + data.time + "' \
-    );", function(rows, fields) {
+    );", function(err, rows, fields) {
 
 
         headeri($, rows);
@@ -169,7 +169,7 @@ var headeri = function($, rows) {
         hText = checkHeaderText(hText);
 
         mysql.sendQuery("INSERT INTO headers (id_scrap,head_text,head_value,head_order) VALUES (" + rows.insertId + ",'" + hText + "'," + hValue + "," + count + ");",
-            function() {});
+            function(){});
 
         count++;
     });

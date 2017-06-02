@@ -1,92 +1,43 @@
 var express = require ('express');
+var session  = require('express-session');
+var cookieParser = require('cookie-parser');
 var cheerio = require('cheerio');
 var request = require('request');
 var bodyParser = require('body-parser');
+var morgan = require('morgan');
 var app = express();
+var passport = require('passport');
+var flash    = require('connect-flash');
+var port     = process.env.PORT || 3001;
 
-var mysql = require('./controllers/mysql'); // Potrebno za mysql querije
-var lastScrapsTable = require('./controllers/tools/lastanalyzes'); // Potrebno za kontrolirati tablicu najnovijih scrapova
-var scrapEngine = require('./controllers/tools/scraper10'); // Potrebno za scrappati url
-var showAnalyze = require('./controllers/tools/sitedata'); // Potrebno za osvjeziti alanyze dio
-var imgsnatch = require('./controllers/tools/imgsnatch'); //
-
-
+// Require imgsnatch
+var imgsnatch = require('./controllers/tools/imgsnatch');
+//imgsnatch.checkImages();
 
 var urlencodedParser = bodyParser.urlencoded({extended:false}); // Pretvaramo http zahtjev
-
-// Namjestamo viwe engine za ejs
 app.set('view engine','ejs');
-
-//STATIC FILES
 app.use(express.static('./public'));
+app.use(morgan('dev')); // log every request to the console
+app.use(cookieParser()); // read cookies (needed for auth)
+app.use(bodyParser.urlencoded({extended: true}));
+app.use(bodyParser.json());
 
-//------------------------------------------------------------------------------
-// Slusamo (listen) port 3000 za daljnje akcije
-app.listen(3001);
+// required for passport
+app.use(session({
+	secret: '4523423rewredr132d413423',
+	resave: true,
+	saveUninitialized: true
+ } )); // session secret
+
+app.use(passport.initialize());
+app.use(passport.session()); // persistent login sessions
+app.use(flash()); // use connect-flash for flash messages stored in session
+
+// Pokrecemo program
+app.listen(port);
 console.log('\n-------------------[SERVER STATUS]--------------------');
-console.log('SERVER STARTED !\n\tYou are listening to port: 3001');
+console.log('SERVER STARTED !\n\tYou are listening to port: ' + port);
 console.log('\n--------------------[SERVER END]----------------------');
 
-//------------------------------------------------------------------------------
-
-
-//------------------------------------------------------------------------
-// Kada dode na homepage
-app.get('/',function(req,res){
-  // Ucitavamo homepage
-  res.render('home');
-});
-//------------------------------------------------------------------------
-
-//------------------------------------------------------------------------
-// Kada dode na tool Scrapper 1.0
-app.get('/scraper10',function(req,res){
-  // Prikazujemo mu samo tool
-  res.render('tools-scraper10');
-});
-//------------------------------------------------------------------------
-
-//------------------------------------------------------------------------
-//  Kada kliknemo na submit button za pocetak scrape-anja URL-a
-app.post('/scraper10', urlencodedParser, function(req, res){
-  // Pokrecemo scrap engine
-  scrapEngine.scrapURL(req.body.item, req.body.redirect, res);
-});
-//------------------------------------------------------------------------
-
-//------------------------------------------------------------------------
-// Za prikaz Site Data tools
-app.get('/sitedata', urlencodedParser, function(req, res){
-  // Prikazujemo Site Tools stranicu
-  res.render('tools-sitedata');
-});
-//------------------------------------------------------------------------
-
-//------------------------------------------------------------------------
-// Kada dode na stranicu za pogledat analizu
-app.get('/sitedata/:id', urlencodedParser, function(req,res){
-  // Updateamo tablicu za pregled podataka o stranici
-  showAnalyze.loadScrapID(req.params.id, res);
-});
-//------------------------------------------------------------------------
-
-//------------------------------------------------------------------------
-// Kada dode na stranicu za pogledat analizu
-app.get('/lastanalyzes', urlencodedParser, function(req,res){
-  // Updateamo tablicu za pregled podataka o stranici
-  lastScrapsTable.reloadTable(res);
-});
-//------------------------------------------------------------------------
-
-//------------------------------------------------------------------------
-
-app.get('/imgsnatch', urlencodedParser, function(req,res){
-
-  res.render('tools-imgsnatch');
-});
-
-app.post('/imgsnatch', urlencodedParser, function(req, res){
-  // Pokrecemo scrap engine
-  imgsnatch.takeScr(req.body.item, res);
-});
-//------------------------------------------------------------------------
+require('./controllers/passport')(passport); // pass passport for configuration
+require('./controllers/routes.js')(app, passport); // load our routes and pass in our app and fully configured passport

@@ -18,7 +18,7 @@ var checkImages = function() {
   fs.readdirSync(fileNames).forEach(file => {
 
     // Saljemo queri za provjeru ako postoji
-    mysql.sendQuery("SELECT * FROM image WHERE id=" + file.replace('.png','') + ";", function(rows, fields) {
+    mysql.sendQuery("SELECT * FROM image WHERE id=" + file.replace('.png','') + ";", function(err, rows, fields) {
 
       // Ako ne postoji brisemo ju
       if(rows == '') {
@@ -35,7 +35,7 @@ var checkImages = function() {
 
   // Provjeravamo zatim b) U BAZI IMA SLIKE A U FILEU NEMA
   // Saljemo query da dobijemo sve podatke
-  mysql.sendQuery("SELECT * FROM image", function(rows, fields) {
+  mysql.sendQuery("SELECT * FROM image", function(err, rows, fields) {
 
     // Za svaki row
     for(var i=0;i<rows.length;i++) {
@@ -67,7 +67,7 @@ var takeScr = function(url, res) {
     } });
 
   // Slikamo i spremamo u bazu
-  mysql.sendQuery("INSERT INTO image (url) VALUES ('"+url+"')", function(rows,fields) {
+  mysql.sendQuery("INSERT INTO image (url) VALUES ('"+url+"')", function(err, rows, fields) {
 
     screenshot(url, './public/imgsnatch/' + rows.insertId + '.png').done(function() {
         //DEBUG
@@ -75,7 +75,7 @@ var takeScr = function(url, res) {
             id: "/imgsnatch/" + rows.insertId + '.png'
         };
 
-        res.render('tools-imgsnatch', {recenica: recenica});
+        res.render('index', {recenica:recenica, content:'tools/imgsnatch.ejs'});
     });
   });
 

@@ -11,8 +11,7 @@ var loadScrapID = function(id, res) {
     loadHeadData(id, function(rows2, fields2){
 
       // Saljemo dobivene redove iz querija da se prikazu u fileu
-      res.render('tools-sitedata',{analyzed:rows, headers:rows2});
-
+      res.render('index',{content:'tools/sitedata.ejs', analyzed:rows, headers:rows2});
     });
 
   });
@@ -29,13 +28,13 @@ var loadScrapData = function(id, callback) {
 
   // Ako id stavimo -1 tada znaci da nam prikaze zadnjeg
   if(id == -1) {
-    mysql.sendQuery('SELECT * FROM scrap WHERE id = (SELECT id FROM scrap ORDER BY date DESC, time DESC LIMIT 1);', function(rows,fields) {
-    return callback(rows,fields);
+    mysql.sendQuery('SELECT * FROM scrap WHERE id = (SELECT id FROM scrap ORDER BY date DESC, time DESC LIMIT 1);', function(err, rows, fields) {
+    return callback(rows, fields);
     });
   // Ako nije trazimo prema ID-u
   } else {
-    mysql.sendQuery('SELECT * FROM scrap WHERE id = ' + id, function(rows,fields) {
-    return callback(rows,fields);
+    mysql.sendQuery('SELECT * FROM scrap WHERE id = ' + id, function(err, rows, fields) {
+    return callback(rows, fields);
     });
   }
 };
@@ -48,13 +47,13 @@ var loadHeadData = function(id, callback) {
 
   // Ako id stavimo -1 tada znaci da nam prikaze zadnjeg
   if(id == -1) {
-    mysql.sendQuery('SELECT * FROM headers WHERE id_scrap = (SELECT id FROM scrap ORDER BY date DESC, time DESC LIMIT 1);', function(rows,fields) {
-    return callback(rows,fields);
+    mysql.sendQuery('SELECT * FROM headers WHERE id_scrap = (SELECT id FROM scrap ORDER BY date DESC, time DESC LIMIT 1);', function(err, rows, fields) {
+    return callback(rows, fields);
     });
   // Ako nije trazimo prema ID-u
   } else {
-    mysql.sendQuery('SELECT * FROM headers WHERE id_scrap = ' + id, function(rows,fields) {
-    return callback(rows,fields);
+    mysql.sendQuery('SELECT * FROM headers WHERE id_scrap = ' + id, function(err, rows, fields) {
+    return callback(rows, fields);
     });
   }
 };
