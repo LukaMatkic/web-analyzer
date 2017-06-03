@@ -1,8 +1,6 @@
 var request = require('request');
 var screenshot = require('url-to-image');
 var mysql = require('../mysql'); // Includamo mysql.js da mozemo slati querije
-var fs = require('fs');
-
 //------------------------------------------------------------------------------
 // Funkcija za provjeru ako:
 //  a) U BAZI NEMA SLIKE A U FILEU IMA
@@ -18,7 +16,7 @@ var checkImages = function() {
   fs.readdirSync(fileNames).forEach(file => {
 
     // Saljemo queri za provjeru ako postoji
-    mysql.sendQuery("SELECT * FROM image WHERE id=" + file.replace('.png','') + ";", function(err, rows, fields) {
+    mysql.sendQuery("SELECT * FROM scrap WHERE id=" + file.replace('.png','') + ";", function(err, rows, fields) {
 
       // Ako ne postoji brisemo ju
       if(rows == '') {
@@ -31,24 +29,6 @@ var checkImages = function() {
          console.log("NOT DELETED: " + file);
       };*/
     });
-  });
-
-  // Provjeravamo zatim b) U BAZI IMA SLIKE A U FILEU NEMA
-  // Saljemo query da dobijemo sve podatke
-  mysql.sendQuery("SELECT * FROM image", function(err, rows, fields) {
-
-    // Za svaki row
-    for(var i=0;i<rows.length;i++) {
-
-      // Ako slika ne postoji
-      if(!fs.existsSync('./public/imgsnatch/' + rows[i].id + '.png')) {
-
-        // Pobrisi ga u bazi slanjem ovog quija
-        mysql.sendQuery('DELETE FROM image WHERE id=' + rows[i].id + ';',function(){});
-        //console.log('DELETED ROW: ' + rows[i].id + ' [No pcture]');
-      }
-    }
-
   });
 
 };
@@ -66,19 +46,17 @@ var takeScr = function(url, res) {
       return;
     } });
 
-  // Slikamo i spremamo u bazu
-  mysql.sendQuery("INSERT INTO image (url) VALUES ('"+url+"')", function(err, rows, fields) {
+    mysql.sendQuery("INSERT INTO scrap (url,date,time) VALUES ( \
+      '" + url + "', \
+      '" + require('moment')().format('YYYY-MM-DD') + "', \
+      '" + require('moment')().format('HH:mm:ss') + "');",
+      function(err, rows) {
+        screenshot(url, './public/imgsnatch/' + rows.insertId + '.png').done(function() {
 
-    screenshot(url, './public/imgsnatch/' + rows.insertId + '.png').done(function() {
-        //DEBUG
-        var recenica = {
-            id: "/imgsnatch/" + rows.insertId + '.png'
-        };
-
-        res.render('index', {recenica:recenica, content:'tools/imgsnatch.ejs'});
+          var picid = {id: "/imgsnatch/" + rows.insertId + '.png'};
+          res.render('index', {picid:picid, content:'tools/imgsnatch.ejs'});
+      });
     });
-  });
-
 }
 
 module.exports = {

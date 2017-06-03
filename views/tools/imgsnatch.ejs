@@ -5,21 +5,17 @@
 </div>
 
 <!-- Dio za upis novog scrap-a -->
-<div id ="scrap-table">
-  <form method="POST" action="/imgsnatch">
-    <input type ="text" name="item" placeholder="Enter url..." required />
-    <button type="submit" value="submit"> Snatch image</button>
-  </form>
-</div>
+<form method="POST" action="/imgsnatch">
+  <input type ="text" name="item" placeholder="Enter url..." required />
+  <button type="submit" value="submit"> Snatch image</button>
+</form>
 
 <!-- Ispisujemo scrap ako ga ima ako ne neispisujemo -->
 <div>
-	<% if(typeof recenica == 'undefined') { %>
-    <% } else { %>
-<div>
-  <p><%= recenica.id %></p>
+	<% if(typeof picid == 'undefined') { %>
+  <% } else { %>
 
-  <img src= "<%=recenica.id%>" class="imgtool"></img>
-</div>
-<% } %>
+  <img src= "<%=picid.id%>" class="imgtool"></img>
+
+	<% } %>
 </div>

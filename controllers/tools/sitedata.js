@@ -1,4 +1,5 @@
 var mysql = require('../mysql'); // Includamo mysql.js da mozemo slati querije
+var fs = require('fs');
 
 //-----------------------------------------------------------------------------
 // Funkcija za prikaz statistike
@@ -10,8 +11,16 @@ var loadScrapID = function(id, res) {
     // Ucitavamo headere sa stranice
     loadHeadData(id, function(rows2, fields2){
 
-      // Saljemo dobivene redove iz querija da se prikazu u fileu
-      res.render('index',{content:'tools/sitedata.ejs', analyzed:rows, headers:rows2});
+      // If picture (path) exists it will be show too
+      if(fs.existsSync('./public/imgsnatch/' + id + '.png')) {
+        // We send picture id to preview too
+        var idx = {id: '/imgsnatch/' + id + '.png'};
+        res.render('index',{content:'tools/sitedata.ejs', analyzed:rows, headers:rows2, picture:idx});
+      } else {
+        res.render('index',{content:'tools/sitedata.ejs', analyzed:rows, headers:rows2});
+      }
+
+
     });
 
   });

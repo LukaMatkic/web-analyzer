@@ -29,7 +29,7 @@ var sendQuery = function(query, callback) {
         }
 
         // Saljemo queri u bazu
-        connection.query(query, function(err2,rows,fields) {
+        connection.query(query, function(err2, rows, fields) {
 
             connection.release();
 

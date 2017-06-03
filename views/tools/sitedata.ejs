@@ -179,6 +179,17 @@
 		</section>
 
 
+		<!-- Sekcija za prikaz sike ako je ima -->
+		<section>
+			<% if(typeof picture == 'undefined') { %>
+		  <% } else { %>
+
+		  <img src= "<%=picture.id%>" class="imgtool"></img>
+
+			<% } %>
+		</section>
+
+
 	  <center>
 	    <a href = "/">
 	      <button type="button" id="buttonview">Back to Home</button>
