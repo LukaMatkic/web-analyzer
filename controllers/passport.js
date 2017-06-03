@@ -1,5 +1,6 @@
 var LocalStrategy   = require('passport-local').Strategy;
 var mysql = require('./mysql');
+var users = require('./users');
 
 // expose this function to our app using module.exports
 module.exports = function(passport) {
@@ -87,7 +88,17 @@ module.exports = function(passport) {
                     return done(null, false, req.flash('loginMessage', 'Username and password do not match !'));
 
                 // all is well, return successful user
-                return done(null, rows[0]);
+                var ip = req.headers['x-forwarded-for'] ||
+                 req.connection.remoteAddress ||
+                 req.socket.remoteAddress ||
+                 req.connection.socket.remoteAddress;
+                  users.saveLogin(rows[0].id, req.connection.remoteAddress, function(err) {
+                    if(!err) {
+                      return done(null, rows[0], req.flash('loginMessageW', 'Login saved sucessfully !'));
+                    } else {
+                      return done(null, rows[0], req.flash('loginMessage', 'Login not saved !'));
+                    }
+                  });
             });
         })
     );

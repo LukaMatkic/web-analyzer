@@ -1,6 +1,7 @@
 // Includes
 var bodyParser = require('body-parser');
 var urlencodedParser = bodyParser.urlencoded({extended:false});
+var flash    = require('connect-flash');
 //------------------------------------------------------------------------------
 
 // Project includes
@@ -45,7 +46,6 @@ module.exports = function(app, passport) {
             } else {
               req.session.cookie.expires = false;
             }
-        res.redirect('/');
     });
 
 
@@ -73,14 +73,16 @@ module.exports = function(app, passport) {
 	app.get('/profile', isLoggedIn, function(req, res) {
 		res.render('index', {
 			content: 'user/profile.ejs',
-			user : req.user // get the user out of session and pass to template
+			user : req.user, // get the user out of session and pass to template
+			sucess: req.flash('loginMessageW'),
+			error: req.flash('loginMessage')
 		});
 	});
 
 	// User logs out
 	app.get('/logout', function(req, res) {
 		req.logout();
-		res.redirect('/');
+		res.redirect('/start');
 	});
 
 	// If user requests /start dir, if he is logged in we redirect him to his profile

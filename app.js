@@ -9,6 +9,7 @@ var app = express();
 var passport = require('passport');
 var flash    = require('connect-flash');
 var port     = process.env.PORT || 3001;
+var IpStrategy = require('passport-ip').Strategy;
 
 // Require imgsnatch
 var imgsnatch = require('./controllers/tools/imgsnatch');
@@ -21,6 +22,13 @@ app.use(morgan('dev')); // log every request to the console
 app.use(cookieParser()); // read cookies (needed for auth)
 app.use(bodyParser.urlencoded({extended: true}));
 app.use(bodyParser.json());
+
+passport.use(new IpStrategy({
+  range: '10.0.0.0/8'
+}, function(profile, done){
+  done(null, profile);
+  //profile.id is the ip address.
+}));
 
 // required for passport
 app.use(session({

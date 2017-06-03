@@ -29,6 +29,7 @@
     "mysql": "^2.13.0",
     "nodemon": "^1.11.0",
     "passport": "^0.3.2",
+    "passport-ip": "^0.1.2",
     "passport-local": "^1.0.0",
     "pool": "^0.4.1",
     "request": "^2.81.0",
