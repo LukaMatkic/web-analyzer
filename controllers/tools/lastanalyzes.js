@@ -8,8 +8,10 @@ var reloadTable = function(res) {
   mysql.sendQuery('SELECT * FROM scrap ORDER BY date DESC, time DESC LIMIT 10;', function(err, rows,fields)
   {
     // Ako ne dobijemo nitijedan rows onda za sada ne saljemo nistas
-    if(!rows) {
-      res.render('index', {content: 'tools/lastanalyzes.ejs'});
+    if(rows == '') {
+      res.render('index', {
+        content: 'tools/lastanalyzes.ejs',
+        error: "No analyzes to preview !"});
     } else {
     // Saljemo dobivene redove iz querija da se prikazu u fileu
       res.render('index', {content: 'tools/lastanalyzes.ejs', scrapped:rows});

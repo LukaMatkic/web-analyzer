@@ -1,21 +1,78 @@
+<!-- Title -->
 <div class="content-title scrap-title">
 	<br/>
 	<h3>Scraping tools</h3>
 	<h2>IMG Snatch</h2>
 </div>
 
-<!-- Dio za upis novog scrap-a -->
+
+<!--If there is error we display it -->
+<% if(typeof error != 'undefined') { %>
+  <div class="errmsg">
+    <p><%= error %></p>
+  </div>
+<% } %>
+
+
+<!-- Form for URL input to snatch image -->
 <form method="POST" action="/imgsnatch">
   <input type ="text" name="item" placeholder="Enter url..." required />
-  <button type="submit" value="submit"> Snatch image</button>
+  <button type="submit" value="submit" name="urlbutton">Snatch image</button>
 </form>
 
-<!-- Ispisujemo scrap ako ga ima ako ne neispisujemo -->
-<div>
-	<% if(typeof picid == 'undefined') { %>
-  <% } else { %>
 
-  <img src= "<%=picid.id%>" class="imgtool"></img>
+<!-- Form for ID input to search for image -->
+<form method="POST" action="/imgsnatch">
+  <input type ="text" name="enterid" placeholder="Enter ID..." required />
+  <button type="submit" value="submit" name="idbutton">Preview image</button>
+</form>
 
-	<% } %>
-</div>
+
+<!-- If rows object is send we preview data -->
+<% if(typeof rows != 'undefined') { %>
+	<table class="data-table">
+		<thead class="table-thread">
+			<tr>
+				<th>GENERAL</th>
+				<th>DATA</th>
+			</tr>
+		</thead>
+
+		<tfoot class="table-thread">
+			<tr>
+				<th>GENERAL</th>
+				<th>DATA</th>
+			</tr>
+		</tfoot>
+
+		<tbody>
+			<tr>
+				<th>URL</th>
+				<th><%=rows[0].url%></th>
+			</tr>
+			<tr class="table-body">
+				<th>TITLE</th>
+				<th><%=rows[0].title%></th>
+			</tr>
+			<tr>
+				<th>ANALYZED DATE</th>
+				<td><b><%= rows[0].date.getDate() + '.' + parseInt(rows[0].date.getMonth()+1) + '.' + rows[0].date.getFullYear() + '.' %></b></td>
+			</tr>
+			<tr class="table-body">
+				<th>ANALYZED TIME</th>
+				<th><%=rows[0].time%></th>
+			</tr>
+			<tr>
+				<th>SCRAP ID</th>
+				<th><%=rows[0].id%></th>
+			</tr>
+		</tbody>
+
+	</table>
+<% } %>
+
+
+<!-- If picid object is send we preview picture -->
+<% if(typeof picid != 'undefined') { %>
+<img src= "<%=picid.id%>" class="imgtool"></img>
+<% } %>

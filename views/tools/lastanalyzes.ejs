@@ -4,6 +4,16 @@
 	<h2>Last Analyzes</h2>
 </div>
 
+
+<!--If there is error we display it -->
+<% if(typeof error != 'undefined') { %>
+  <div class="errmsg">
+    <p><%= error %></p>
+  </div>
+<% } %>
+
+
+<% if(typeof scrapped != 'undefined') { %>
 <div id ="scrap-table">
 	<section>
 
@@ -35,37 +45,33 @@
 				</tr>
 			</tfoot>
 
-			<% if(typeof scrapped == 'undefined') { %>
-			<%} else {%>
-				<!-- Za svaki ispis iz tablice stvaramo row u tablici -->
-				<% for(var i=0;i<scrapped.length;i++) {%>
+			<!-- Za svaki ispis iz tablice stvaramo row u tablici -->
+			<% for(var i=0;i<scrapped.length;i++) {%>
 
-					<!-- Svakom drugom stavljamo crnu pozadinu -->
-					<% if(i%2 == 0) {%>
-						<tbody>
-					<%} else {%>
-						<tbody class="table-body">
-					<% } %>
-
-						<tr>
-							<td><%= scrapped[i].id %></td>
-							<td><%= scrapped[i].time %></td>
-							<td><%= scrapped[i].url %></td>
-							<td><%= scrapped[i].http_status %></td>
-							<td><b><%= scrapped[i].title %></b></td>
-							<td><%= scrapped[i].date.getDate() + '.' + parseInt(scrapped[i].date.getMonth()+1) + '.' + scrapped[i].date.getFullYear() + '.' %></td>
-							<td>
-								<form method="GET" action="/sitedata/<%=scrapped[i].id%>">
-			          	<button type="submit" class="table-button">View</button>
-			        	</form>
-							</td>
-						</tr>
-					</tbody>
+				<!-- Svakom drugom stavljamo crnu pozadinu -->
+				<% if(i%2 == 0) {%>
+					<tbody>
+				<%} else {%>
+					<tbody class="table-body">
 				<% } %>
+
+					<tr>
+						<td><%= scrapped[i].id %></td>
+						<td><%= scrapped[i].time %></td>
+						<td><%= scrapped[i].url %></td>
+						<td><%= scrapped[i].http_status %></td>
+						<td><b><%= scrapped[i].title %></b></td>
+						<td><%= scrapped[i].date.getDate() + '.' + parseInt(scrapped[i].date.getMonth()+1) + '.' + scrapped[i].date.getFullYear() + '.' %></td>
+						<td>
+							<form method="GET" action="/sitedata/<%=scrapped[i].id%>">
+		          	<button type="submit" class="table-button">View</button>
+		        	</form>
+						</td>
+					</tr>
+				</tbody>
 			<% } %>
-			<!-- ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~ -->
 
 		</table>
-
 	</section>
 </div>
+<% } %>

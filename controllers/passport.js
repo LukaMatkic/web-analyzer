@@ -30,10 +30,23 @@ module.exports = function(passport) {
             // we are checking to see if the user trying to login already exists
 
             mysql.sendQuery("SELECT * FROM user WHERE username = '" + username + "';", function(err, rows) {
-                if (err)
+                if(err) {
                     return done(err);
+                }
+
+                // If password is too short
+                if(password.length < 5) {
+                  return done(null, false, req.flash('signupMessage', 'Your password must contain at least 5 characters !'));
+                }
+
+                // If username is too short
+                if(username.length < 5) {
+                  return done(null, false, req.flash('signupMessage', 'Your username must contain at least 5 characters !'));
+                }
+
+
                 if (rows.length) {
-                    return done(null, false);
+                    return done(null, false, req.flash('signupMessage', 'That username is already taken.'));
                 } else {
                     // if there is no user with that username
                     // create the user
@@ -42,7 +55,7 @@ module.exports = function(passport) {
                         password: password
                     };
 
-                    mysql.sendQuery("INSERT INTO user (username, password, email) VALUES ('" + newUserMysql.username + "', '" + newUserMysql.password + "', '" + newUserMysql.email + "');",function(err, rows) {
+                    mysql.sendQuery("INSERT INTO user (username, password) VALUES ('" + newUserMysql.username + "', '" + newUserMysql.password + "');",function(err, rows) {
                         newUserMysql.id = rows.insertId;
 
                         return done(null, newUserMysql);
@@ -66,12 +79,12 @@ module.exports = function(passport) {
                 if (err)
                     return done(err);
                 if (!rows.length) {
-                    return done(null, false); // req.flash is the way to set flashdata using connect-flash
+                    return done(null, false, req.flash('loginMessage', 'Username and password do not match !'));
                 }
 
                 // if the user is found but the password is wrong
                 if (password !== rows[0].password)
-                    return done(null, false); // create the loginMessage and save it to session as flashdata
+                    return done(null, false, req.flash('loginMessage', 'Username and password do not match !'));
 
                 // all is well, return successful user
                 return done(null, rows[0]);

@@ -1,3 +1,20 @@
+<!-- Title -->
+<div class="content-title users-title">
+	<br/>
+	<h3>User account</h3>
+	<h2>Login</h2>
+</div>
+
+
+<!--If there is error we display it -->
+<% if(error.length > 0) { %>
+  <div class="errmsg">
+    <p><%= error %></p>
+  </div>
+<% } %>
+
+
+<!--Login form -->
 <p> Login</p>
 
 <form action="/login" method="post">
@@ -7,7 +24,7 @@
   <input type="password" name="password">
 	<p>Remember Me</p>
 	<input type="checkbox" name="remember">
-	
+
 	<button type="submit">Login</button>
 </form>
 

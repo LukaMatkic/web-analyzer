@@ -12,7 +12,7 @@ var port     = process.env.PORT || 3001;
 
 // Require imgsnatch
 var imgsnatch = require('./controllers/tools/imgsnatch');
-//imgsnatch.checkImages();
+imgsnatch.checkImages(); // Deleting images if image exists but is not linked to any row in database
 
 var urlencodedParser = bodyParser.urlencoded({extended:false}); // Pretvaramo http zahtjev
 app.set('view engine','ejs');
