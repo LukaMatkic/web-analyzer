@@ -13,6 +13,12 @@
   background: lightgrey;
 }
 
+/*For previewing images in tables*/
+.icon {
+  width: 20px;
+  height: 20px;
+}
+
 .h1-style {
   text-indent: 5px;
   font-size: 18px;

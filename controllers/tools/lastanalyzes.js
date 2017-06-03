@@ -1,5 +1,5 @@
 var mysql = require('../mysql'); // Includamo mysql.js da mozemo slati querije
-
+var fs = require('fs');
 //-----------------------------------------------------------------------------
 // Funkcija za refreshati tablicu sa najnovijim scrapovima
 var reloadTable = function(res) {
@@ -13,8 +13,20 @@ var reloadTable = function(res) {
         content: 'tools/lastanalyzes.ejs',
         error: "No analyzes to preview !"});
     } else {
-    // Saljemo dobivene redove iz querija da se prikazu u fileu
-      res.render('index', {content: 'tools/lastanalyzes.ejs', scrapped:rows});
+      // If id exists in database but not in file
+      var picture = [];
+      for(var i=0;i<rows.length;i++) {
+        if(fs.existsSync('./public/imgsnatch/' + rows[i].id + '.png')) {
+          picture[i] = true;
+        } else {
+          picture[i] = false;
+        }
+      }
+
+      res.render('index', {
+        content: 'tools/lastanalyzes.ejs',
+        scrapped:rows,
+        picture: picture});
     }
   });
 

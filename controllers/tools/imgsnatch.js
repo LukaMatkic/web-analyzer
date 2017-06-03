@@ -65,11 +65,12 @@ var takeScr = function(url, res) {
 
     // Inserting new file into database and on return we create image with newly
     // created id of scrap
-    mysql.sendQuery("INSERT INTO scrap (url, date, time, title) VALUES ( \
+    mysql.sendQuery("INSERT INTO scrap (url, date, time, title, http_status) VALUES ( \
       '" + url + "', \
       '" + require('moment')().format('YYYY-MM-DD') + "', \
       '" + require('moment')().format('HH:mm:ss') + "', \
-      '" + $('title').text() + "');",
+      '" + $('title').text() + "', \
+      "  + res.statusCode + ");",
       function(err, rows) {
 
         // Taking screenshot of url and saving it as returned id+.png
