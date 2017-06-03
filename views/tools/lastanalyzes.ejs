@@ -14,7 +14,7 @@
 
 
 <% if(typeof scrapped != 'undefined') { %>
-<div id ="scrap-table">
+<div id="scrap-table" class="content-div">
 	<section>
 
 		<table class="data-table">
@@ -63,8 +63,8 @@
 						<td><b><%= scrapped[i].title %></b></td>
 						<td><%= scrapped[i].date.getDate() + '.' + parseInt(scrapped[i].date.getMonth()+1) + '.' + scrapped[i].date.getFullYear() + '.' %></td>
 						<td>
-							<form method="GET" action="/sitedata/<%=scrapped[i].id%>">
-		          	<button type="submit" class="table-button">View</button>
+							<form method="POST" action="/sitedata">
+		          	<button type="submit" name="enterid" value="<%=scrapped[i].id%>">View</button>
 		        	</form>
 						</td>
 					</tr>
@@ -75,3 +75,11 @@
 	</section>
 </div>
 <% } %>
+
+
+<hr>
+
+
+<div class="content-div">
+	<p>Want to scrape some site ? Click <a href="/scraper10">here</a>.</p>
+</div>

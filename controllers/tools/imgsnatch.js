@@ -118,7 +118,7 @@ var previewScr = function(id, res) {
     // If id exists in database but not in file
     if(!fs.existsSync('./public/imgsnatch/' + id + '.png')) {
       res.render('index', {
-        error: 'Picture was deleted !',
+        error: 'Picture doesnt exist or it was deleted !',
         content:'tools/imgsnatch.ejs'});
       return;
     }

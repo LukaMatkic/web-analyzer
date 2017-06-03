@@ -6,7 +6,13 @@ var fs = require('fs');
 var loadScrapID = function(id, res) {
 
   // Ucitavamo html data (opcenito o stranici)
-  loadScrapData(id, function(rows, fields){
+  mysql.sendQuery('SELECT * FROM scrap WHERE id = ' + id, function(err, rows, fields) {
+
+    // If there is no rows in return user entered wrong ID
+    if(rows == '') {
+      res.render('index',{content:'tools/sitedata.ejs', error: "There is no scrap with requested ID !"});
+      return;
+    }
 
     // Ucitavamo headere sa stranice
     loadHeadData(id, function(rows2, fields2){
@@ -20,32 +26,8 @@ var loadScrapID = function(id, res) {
         res.render('index',{content:'tools/sitedata.ejs', analyzed:rows, headers:rows2});
       }
 
-
     });
-
   });
-
-};
-
-//-----------------------------------------------------------------------------
-
-
-//-----------------------------------------------------------------------------
-// Funkcija za ucitavanje i return rowova za opcenite podatke
-
-var loadScrapData = function(id, callback) {
-
-  // Ako id stavimo -1 tada znaci da nam prikaze zadnjeg
-  if(id == -1) {
-    mysql.sendQuery('SELECT * FROM scrap WHERE id = (SELECT id FROM scrap ORDER BY date DESC, time DESC LIMIT 1);', function(err, rows, fields) {
-    return callback(rows, fields);
-    });
-  // Ako nije trazimo prema ID-u
-  } else {
-    mysql.sendQuery('SELECT * FROM scrap WHERE id = ' + id, function(err, rows, fields) {
-    return callback(rows, fields);
-    });
-  }
 };
 //-----------------------------------------------------------------------------
 

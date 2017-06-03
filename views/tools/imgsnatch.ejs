@@ -15,64 +15,78 @@
 
 
 <!-- Form for URL input to snatch image -->
-<form method="POST" action="/imgsnatch">
-  <input type ="text" name="item" placeholder="Enter url..." required />
-  <button type="submit" value="submit" name="urlbutton">Snatch image</button>
-</form>
-
+<div class="content-div">
+	<form method="POST" action="/imgsnatch">
+	  <input type ="text" name="item" placeholder="Enter url..." required />
+	  <button type="submit" value="submit" name="urlbutton">Snatch image</button>
+	</form>
+</div>
 
 <!-- Form for ID input to search for image -->
-<form method="POST" action="/imgsnatch">
-  <input type ="text" name="enterid" placeholder="Enter ID..." required />
-  <button type="submit" value="submit" name="idbutton">Preview image</button>
-</form>
-
+<div class="content-div">
+	<form method="POST" action="/imgsnatch">
+	  <input type ="text" name="enterid" placeholder="Enter ID..." required />
+	  <button type="submit" value="submit" name="idbutton">Preview image</button>
+	</form>
+</div>
 
 <!-- If rows object is send we preview data -->
 <% if(typeof rows != 'undefined') { %>
-	<table class="data-table">
-		<thead class="table-thread">
-			<tr>
-				<th>GENERAL</th>
-				<th>DATA</th>
-			</tr>
-		</thead>
+<div class="content-div">
+		<table class="data-table">
+			<thead class="table-thread">
+				<tr>
+					<th>GENERAL</th>
+					<th>DATA</th>
+				</tr>
+			</thead>
 
-		<tfoot class="table-thread">
-			<tr>
-				<th>GENERAL</th>
-				<th>DATA</th>
-			</tr>
-		</tfoot>
+			<tfoot class="table-thread">
+				<tr>
+					<th>GENERAL</th>
+					<th>DATA</th>
+				</tr>
+			</tfoot>
 
-		<tbody>
-			<tr>
-				<th>URL</th>
-				<th><%=rows[0].url%></th>
-			</tr>
-			<tr class="table-body">
-				<th>TITLE</th>
-				<th><%=rows[0].title%></th>
-			</tr>
-			<tr>
-				<th>ANALYZED DATE</th>
-				<td><b><%= rows[0].date.getDate() + '.' + parseInt(rows[0].date.getMonth()+1) + '.' + rows[0].date.getFullYear() + '.' %></b></td>
-			</tr>
-			<tr class="table-body">
-				<th>ANALYZED TIME</th>
-				<th><%=rows[0].time%></th>
-			</tr>
-			<tr>
-				<th>SCRAP ID</th>
-				<th><%=rows[0].id%></th>
-			</tr>
-		</tbody>
+			<tbody>
+				<tr>
+					<th>URL</th>
+					<th><%=rows[0].url%></th>
+				</tr>
+				<tr class="table-body">
+					<th>TITLE</th>
+					<th><%=rows[0].title%></th>
+				</tr>
+				<tr>
+					<th>ANALYZED DATE</th>
+					<td><b><%= rows[0].date.getDate() + '.' + parseInt(rows[0].date.getMonth()+1) + '.' + rows[0].date.getFullYear() + '.' %></b></td>
+				</tr>
+				<tr class="table-body">
+					<th>ANALYZED TIME</th>
+					<th><%=rows[0].time%></th>
+				</tr>
+				<tr>
+					<th>SCRAP ID</th>
+					<th><%=rows[0].id%></th>
+				</tr>
+			</tbody>
 
-	</table>
+		</table>
+</div>
 <% } %>
 
 
 <!-- If picid object is send we preview picture -->
 <% if(typeof picid != 'undefined') { %>
-<img src= "<%=picid.id%>" class="imgtool"></img>
+<div class="content-div">
+	<img src= "<%=picid.id%>" class="imgtool"></img>
+</div>
 <% } %>
+
+
+<hr>
+
+
+<div class="content-div">
+	<p>Want to scrape some site ? Click <a href="/scraper10">here</a>.</p>
+</div>

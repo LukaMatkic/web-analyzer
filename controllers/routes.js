@@ -9,6 +9,7 @@ var lastScrapsTable = require('./tools/lastanalyzes'); // Potrebno za kontrolira
 var scrapEngine = require('./tools/scraper10'); // Potrebno za scrappati url
 var showAnalyze = require('./tools/sitedata'); // Potrebno za osvjeziti alanyze dio
 var imgsnatch = require('./tools/imgsnatch'); //
+var homepage = require('./homepage');
 //..............................................................................
 
 // We export all our routes
@@ -16,7 +17,7 @@ module.exports = function(app, passport) {
 
 	// Request for home page
 	app.get('/', function(req, res) {
-		 res.render('index', {content: 'other/homepage.ejs'});
+		 homepage.loadHomepage(res);
 	});
 
 	// Request for login page
@@ -109,9 +110,8 @@ module.exports = function(app, passport) {
 	});
 
 	// User runs sitedata request
-	app.get('/sitedata/:id', urlencodedParser, function(req,res){
-	  // Updateamo tablicu za pregled podataka o stranici
-	  showAnalyze.loadScrapID(req.params.id, res);
+	app.post('/sitedata', urlencodedParser, function(req, res){
+	  showAnalyze.loadScrapID(req.body.enterid, res);
 	});
 
 	// User request last analyzes tool

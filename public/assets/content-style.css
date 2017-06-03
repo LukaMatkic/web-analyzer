@@ -17,3 +17,13 @@
 .statistic-title {
   background: rgb(6, 162, 203);
 }
+
+.homepage-title {
+  background: rgb(62, 122, 213);
+}
+
+.content-div {
+  margin: 5px 5px 20px;
+  border: 1px solid black;
+  text-align: center;
+}

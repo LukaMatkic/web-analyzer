@@ -36,6 +36,7 @@ var sendQuery = function(query, callback) {
             // Ako nema nista od podataka za prikazati
             if(!rows) {
               console.log("WARNING [#1] [No results from query]");
+              console.log(err2);
             }
 
             return callback(err2, rows, fields);
