@@ -7,7 +7,7 @@ var flash    = require('connect-flash');
 // Project includes
 var mysql = require('./mysql'); // Potrebno za mysql querije
 var lastScrapsTable = require('./tools/lastanalyzes'); // Potrebno za kontrolirati tablicu najnovijih scrapova
-var scrapEngine = require('./tools/scraper10'); // Potrebno za scrappati url
+var scrapEngine = require('./tools/scraper'); // Potrebno za scrappati url
 var showAnalyze = require('./tools/sitedata'); // Potrebno za osvjeziti alanyze dio
 var imgsnatch = require('./tools/imgsnatch'); //
 var homepage = require('./homepage');
@@ -95,12 +95,12 @@ module.exports = function(app, passport) {
 	});
 
 	// User requests to use scraper tool
-	app.get('/scraper10',function(req,res){
-	  res.render('index', {content: 'tools/scraper10.ejs'});
+	app.get('/scraper',function(req,res){
+	  res.render('index', {content: 'tools/scraper.ejs'});
 	});
 
 	//  User starts scrapper tool
-	app.post('/scraper10', urlencodedParser, function(req, res){
+	app.post('/scraper', urlencodedParser, function(req, res){
 	  // Pokrecemo scrap engine
 	  scrapEngine.scrapURL(req.body.item, req.body.redirect, res);
 	});

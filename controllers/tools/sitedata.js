@@ -41,7 +41,6 @@ var loadScrapID = function(req, res, id) {
     } else {
       // If scrap isnt anonymous we display error message
       // *guests can preview only anonymous analyzes
-      console.log("ID USERRRRR '" + rows[0].id_user + "'")
       if(rows[0].id_user != '') {
         res.render('index',{
           content: 'tools/sitedata.ejs',

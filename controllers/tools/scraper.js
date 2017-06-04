@@ -52,7 +52,7 @@ var scrapURL = function(url, redirect, res) {
         MainQuery(data, $);
 
         // Reloadamo korisniku tablicu zadnjih analiza
-        res.render('index', {content: 'tools/scraper10.ejs'});
+        res.render('index', {content: 'tools/scraper.ejs'});
     }
 
 
@@ -140,8 +140,9 @@ var DeniedRedirScrape = function(data, url, response, $){
 //QUERIES
 //-----------------------------------------------------------------------------
 var MainQuery = function(data, $) {
-    mysql.sendQuery("INSERT INTO scrap (url,http_status,con_type,con_length,server,title,charset,date,time) VALUES ( \
+    mysql.sendQuery("INSERT INTO scrap (url,id_user,http_status,con_type,con_length,server,title,charset,date,time) VALUES ( \
       '" + data.url + "', \
+      '0', \
       " + data.http_status + ", \
       '" + data.con_type + "', \
       " + data.con_length + ", \
