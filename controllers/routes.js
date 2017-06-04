@@ -108,7 +108,13 @@ module.exports = function(app, passport) {
 	// Request for sitedata tool
 	app.get('/sitedata', urlencodedParser, function(req, res){
 	  // Prikazujemo Site Tools stranicu
-	  res.render('index', {content: 'tools/sitedata.ejs'});
+		if(req.isAuthenticated()) { // Ako je logiran prikazujemo bez infa
+			res.render('index', {content: 'tools/sitedata.ejs'});
+		} else {
+			res.render('index', {
+				content: 'tools/sitedata.ejs',
+				info: 'Guests can only preview analyzes from other guests !'});
+		}
 	});
 
 	// User runs sitedata request
@@ -117,13 +123,13 @@ module.exports = function(app, passport) {
 	});
 
 	// User request last analyzes tool
-	app.get('/lastanalyzes', urlencodedParser, function(req,res){
+	app.get('/lastanalyzes', urlencodedParser, function(req, res){
 	  // Updateamo tablicu za pregled podataka o stranici
-	  lastScrapsTable.reloadTable(res);
+		lastScrapsTable.reloadTable(req, res);
 	});
 
 	// User requests imgsnatch tool
-	app.get('/imgsnatch/', urlencodedParser, function(req,res){
+	app.get('/imgsnatch/', urlencodedParser, function(req, res){
 		res.render('index', {content: 'tools/imgsnatch.ejs'});
 	});
 

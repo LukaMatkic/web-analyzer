@@ -5,6 +5,14 @@
 </div>
 
 
+<!--If there is warning we display it -->
+<% if(typeof warn != 'undefined') { %>
+  <div class="wrnmsg">
+    <p><%= warn %></p>
+  </div>
+<% } %>
+
+
 <!--If there is error we display it -->
 <% if(typeof sucess != 'undefined') { %>
   <div class="sucmsg">
@@ -17,6 +25,14 @@
 <% if(typeof error != 'undefined') { %>
   <div class="errmsg">
     <p><%= error %></p>
+  </div>
+<% } %>
+
+
+<!--If there is warning we display it -->
+<% if(typeof info != 'undefined') { %>
+  <div class="infmsg">
+    <p><%= info %></p>
   </div>
 <% } %>
 

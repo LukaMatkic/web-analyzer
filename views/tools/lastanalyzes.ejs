@@ -13,6 +13,14 @@
 <% } %>
 
 
+<!--If there is warning we display it -->
+<% if(typeof info != 'undefined') { %>
+  <div class="infmsg">
+    <p><%= info %></p>
+  </div>
+<% } %>
+
+
 <% if(typeof scrapped != 'undefined') { %>
 <div id="scrap-table" class="content-div">
 	<section>

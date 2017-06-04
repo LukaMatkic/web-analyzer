@@ -36,3 +36,31 @@ body{
   background-image: url('../imgs/sucess.png');
   background-size: 20px 20px;
 }
+
+/*For previewing sucessfull messages*/
+.wrnmsg {
+  border: 1px solid;
+  width: auto;
+  margin: 5px 5px 20px;
+  padding-left: 40px;
+  background-repeat: no-repeat;
+  background-position: 10px center;
+  color: #918001;
+  background-color: #f4f25f;
+  background-image: url('../imgs/warn.png');
+  background-size: 20px 20px;
+}
+
+/*For previewing sucessfull messages*/
+.infmsg {
+  border: 1px solid;
+  width: auto;
+  margin: 5px 5px 20px;
+  padding-left: 40px;
+  background-repeat: no-repeat;
+  background-position: 10px center;
+  color: #0b5491;
+  background-color: #80c1f7;
+  background-image: url('../imgs/info.png');
+  background-size: 20px 20px;
+}

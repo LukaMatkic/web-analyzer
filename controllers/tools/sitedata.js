@@ -24,23 +24,29 @@ var loadScrapID = function(req, res, id) {
       return;
     }
 
-    // If scrape is private it cannot be shown
-    if(rows[0].private == true) {
-      // If req.user exists - user is logged in
-      if(typeof req.user != 'undefined') {
+    // If user is logged in
+    if(typeof req.user != 'undefined') {
+      // If scrape is private it cannot be shown
+      if(rows[0].private == true) {
         // If user is not creator we send err msh too
         if(req.user.id != rows[0].id_user) {
         res.render('index',{
           content: 'tools/sitedata.ejs',
-          error: 'Analyze id ID \"' + id + '\" is private !'});
+          error: 'Analyze id ID \"' + id + '\" is private !',
+          info: 'You can make your analyzes private too !'});
           return;
         }
-
-      // If req.user does not exist user is not logged in so we send error msg
-      } else {
+      }
+    // If user is not logged in
+    } else {
+      // If scrap isnt anonymous we display error message
+      // *guests can preview only anonymous analyzes
+      console.log("ID USERRRRR '" + rows[0].id_user + "'")
+      if(rows[0].id_user != '') {
         res.render('index',{
           content: 'tools/sitedata.ejs',
-          error: 'Scrap with requested ID \"' + id + '\" is private and can not be shown !'});
+          error: 'Scrap with requested ID \"' + id + '\" is private and can not be shown !',
+          info: 'Only registered users can make their analyzes private !'});
         return;
       }
     };

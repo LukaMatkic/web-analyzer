@@ -3,7 +3,7 @@ var fs = require('fs');
 var timeAgo = require('node-time-ago');
 //-----------------------------------------------------------------------------
 // Funkcija za refreshati tablicu sa najnovijim scrapovima
-var reloadTable = function(res) {
+var reloadTable = function(req, res) {
 
   // Saljemo query
   mysql.sendQuery('SELECT * FROM scrap ORDER BY date DESC, time DESC LIMIT 10;', function(err, rows,fields)
@@ -37,10 +37,19 @@ var reloadTable = function(res) {
       };
 
       // Rendering last analyzes page with data
-      res.render('index', {
+      // If user is logged in
+      if(req.isAuthenticated()) { // If user is logged in no info is shown
+          res.render('index', {
+          content: 'tools/lastanalyzes.ejs',
+          scrapped: rows,
+          picture: picture});
+      } else { // If he is not we send him info too
+        res.render('index', {
         content: 'tools/lastanalyzes.ejs',
-        scrapped:rows,
-        picture: picture});
+        scrapped: rows,
+        picture: picture,
+        info: 'Guests can only preview anonymous analyzes or analyzes from other guests !'});
+      }
     }
   });
 
