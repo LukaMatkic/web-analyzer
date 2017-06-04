@@ -188,31 +188,60 @@
 						</tr>
 					</tfoot>
 
+					<tbody>
 					<!-- Za svaki ispis iz tablice stvaramo row u tablici -->
 					<% for(var i=0;i<headers.length;i++) {%>
 
 						<!-- Dodajemo razmak prema value-u headera -->
 						<% if(headers[i].head_value == 0) { %>
-							<tbody class="table-body h1-style">
+							<tr class="table-body h1-style">
+								<td><%= headers[i].head_text %></td>
+							</tr>
 						<% } else if(headers[i].head_value == 1) { %>
-							<tbody class="table-body h2-style">
+							<tr class="table-body h2-style">
+								<td><%= headers[i].head_text %></td>
+							</tr>
 						<% } else if(headers[i].head_value == 2) { %>
-							<tbody class="h3-style">
+							<tr class="h3-style">
+								<td><%= headers[i].head_text %></td>
+							</tr>
 						<% } else if(headers[i].head_value == 3) { %>
-							<tbody class="h4-style">
+							<tr class="h4-style">
+								<td><%= headers[i].head_text %></td>
+							</tr>
 						<% } else if(headers[i].head_value == 4) { %>
-							<tbody class="h5-style">
+							<tr class="h5-style">
+								<td><%= headers[i].head_text %></td>
+							</tr>
 						<% } else if(headers[i].head_value == 5) { %>
-							<tbody class="h6-style">
-						<% } else { %>
-							<tbody>
-						<% }%>
-
-								<!-- Svakom drugom stavljamo sivu pozadinu -->
-								<tr>
-									<td><%= headers[i].head_text %></td>
+							<tr class="h6-style">
+								<td><%= headers[i].head_text %></td>
+							</tr>
+						<% } else if(headers[i].head_value == 6) { %>
+							<tr class="p-style">
+								<td><%= headers[i].head_text %></td>
+							</tr>
+						<% } else if(headers[i].head_value == 7) { %>
+							<% if(headers[i].head_text.length > 0) { %>
+								<tr class="a-style">
+										<td>
+											<% if(headers[i+1].head_text[0] != '/') { %>
+												<% if(headers[i+1].head_text[0] != '#') { %>
+													<a href="<%= headers[i+1].head_text %>" class="a-style">
+														<%= headers[i].head_text %>
+													</a>
+												<% } else { %>
+													<%= headers[i].head_text %>
+												<% } %>
+											<% } else { %>
+												<%= headers[i].head_text %>
+											<% } %>
+										</td>
 								</tr>
-							</tbody>
+							<% }%>
+						<% } else if(headers[i].head_value == 8) { %>
+						<% }%>
+					</tbody>
 					<% }%>
 				</table>
 			<% }%>

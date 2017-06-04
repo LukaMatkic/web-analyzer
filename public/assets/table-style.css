@@ -48,3 +48,18 @@
   text-indent: 55px;
   font-size: 10px;
 }
+
+.p-style {
+  text-indent: 65px;
+  font-size: 10px;
+}
+
+.a-style {
+  text-indent: 75px;
+  font-size: 10px;
+}
+
+.href-style {
+  text-indent: 85px;
+  font-size: 10px;
+}

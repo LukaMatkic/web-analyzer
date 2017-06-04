@@ -70,13 +70,13 @@ var reloadTable = function(req, res) {
           }
         }
 
-
-          res.render('index', {
-          content: 'tools/lastanalyzes.ejs',
-          scrapped: rows,
-          picture: picture,
-          anonim: anonim,
-          yours: yours});
+        res.render('index', {
+        content: 'tools/lastanalyzes.ejs',
+        scrapped: rows,
+        picture: picture,
+        anonim: anonim,
+        yours: yours});
+        
       } else { // If he is not we send him info too
         res.render('index', {
         content: 'tools/lastanalyzes.ejs',

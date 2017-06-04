@@ -162,18 +162,32 @@ var MainQuery = function(data, $) {
 // Dodajemo u query sve headere
 var headeri = function($, rows) {
     var count = 0;
+    var query = 'INSERT INTO headers (id_scrap,head_text,head_value,head_order) VALUES ';
 
-    $(":header").map(function() {
+    $("*").map(function() {
+
         var hText = $(this).text(); // Dobivamo text iz headera
         var hValue = headerToValue(this.name); // Dobivamo ID headera (h1,h2...) u vrijednosti (0,1,...)
 
-        hText = checkHeaderText(hText);
+        if(hValue != -1) {
 
-        mysql.sendQuery("INSERT INTO headers (id_scrap,head_text,head_value,head_order) VALUES (" + rows.insertId + ",'" + hText + "'," + hValue + "," + count + ");",
-            function(){});
+          hText = checkHeaderText(hText);
+          query += "(" + rows.insertId + ",'" + hText + "'," + hValue + "," + count + "),\n";
+          count++;
 
-        count++;
+          if(hValue == 7) {
+            var nes = this.attribs.href;
+
+            query += "(" + rows.insertId + ",'" + nes + "'," + 8 + "," + count + "),\n";
+            count++;
+
+          }
+        }
     });
+
+    query = query.substring(0, query.length - 2);
+    mysql.sendQuery(query + ';', function(){});
+
 };
 
 //-----------------------------------------------------------------------------
@@ -192,6 +206,10 @@ var headerToValue = function(header) {
             return 4;
         case 'h6':
             return 5;
+        case 'p':
+            return 6;
+        case 'a':
+            return 7;
         default:
             return -1;
     }
