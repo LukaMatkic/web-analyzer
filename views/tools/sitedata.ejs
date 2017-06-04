@@ -6,6 +6,14 @@
 
 
 <!--If there is error we display it -->
+<% if(typeof sucess != 'undefined') { %>
+  <div class="sucmsg">
+    <p><%= sucess %></p>
+  </div>
+<% } %>
+
+
+<!--If there is error we display it -->
 <% if(typeof error != 'undefined') { %>
   <div class="errmsg">
     <p><%= error %></p>
@@ -15,8 +23,9 @@
 
 <!-- Form for ID input to search for scrap -->
 <div class="content-div">
+	<p>Enter analyzed ID to preview analyzed data !</p>
 	<form method="POST" action="/sitedata">
-	  <input type ="text" name="enterid" placeholder="Enter ID..." required />
+	  <input type ="text" name="enterid" placeholder="Enter ID here..." required />
 	  <button type="submit" value="submit" name="idbutton">Preview image</button>
 	</form>
 </div>
@@ -192,18 +201,16 @@
 				</table>
 			<% }%>
 			<!-- ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~ -->
-
 		</section>
 
 
 		<!-- Sekcija za prikaz sike ako je ima -->
-		<section class="content-div">
-			<% if(typeof picture != 'undefined') { %>
-
+		<% if(typeof picture != 'undefined') { %>
+			<section class="content-div">
 		  	<img src= "<%=picture.id%>" class="imgtool"></img>
+			</section>
+		<% } %>
 
-			<% } %>
-		</section>
 
 	</div>
 

@@ -113,7 +113,7 @@ module.exports = function(app, passport) {
 
 	// User runs sitedata request
 	app.post('/sitedata', urlencodedParser, function(req, res){
-	  showAnalyze.loadScrapID(req.body.enterid, res);
+	  showAnalyze.loadScrapID(req, res, req.body.enterid);
 	});
 
 	// User request last analyzes tool
