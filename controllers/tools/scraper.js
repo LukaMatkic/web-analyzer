@@ -162,7 +162,7 @@ var MainQuery = function(data, $) {
 // Dodajemo u query sve headere
 var headeri = function($, rows) {
     var count = 0;
-    var query = 'INSERT INTO headers (id_scrap,head_text,head_value,head_order) VALUES ';
+    var query = "INSERT INTO headers (id_scrap,head_text,head_value,head_order) VALUES ";
 
     $("*").map(function() {
 
@@ -176,8 +176,20 @@ var headeri = function($, rows) {
           count++;
 
           if(hValue == 7) {
-            var nes = this.attribs.href;
-
+            var nes = '' + this.attribs.href + '';
+            if (nes.length > 127) {
+                nes = '';
+            }
+            if(countChars(nes, '.') < 2) {
+                nes = '';
+            }
+            for(var i=0;i<nes.length;i++) {
+              if(nes[i] == '\'') {
+                nes = '';
+                break;
+              }
+            }
+            
             query += "(" + rows.insertId + ",'" + nes + "'," + 8 + "," + count + "),\n";
             count++;
 
@@ -189,8 +201,20 @@ var headeri = function($, rows) {
     mysql.sendQuery(query + ';', function(){});
 
 };
+//------------------------------------------------------------------------------
 
-//-----------------------------------------------------------------------------
+// Function to count number of specific character in substring
+var countChars = function(string, char) {
+  var counter = 0;
+  for(var i=0;i<string.length;i++) {
+    if(string[i] == char) {
+      counter++;
+    }
+  }
+  return counter;
+}
+//------------------------------------------------------------------------------
+
 // Funkcija za povrat vrijednosti h* (h1,h2...) elementa h1 = 0, h2 = 1...
 var headerToValue = function(header) {
     switch (header) {

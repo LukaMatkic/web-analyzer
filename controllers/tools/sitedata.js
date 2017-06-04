@@ -53,6 +53,36 @@ var loadScrapID = function(req, res, id) {
     // Ucitavamo headere sa stranice
     loadHeadData(id, function(rows2, fields2) {
 
+      var rows3 = [];
+      for(var i=0;i<rows2.length;i++) {
+        switch(rows2[i].head_value) {
+          case 0:
+            rows3[i] = '<h1>';
+            break;
+          case 1:
+            rows3[i] = '<h2>';
+            break;
+          case 2:
+            rows3[i] = '<h3>';
+            break;
+          case 3:
+            rows3[i] = '<h4>';
+            break;
+          case 4:
+            rows3[i] = '<h5>';
+            break;
+          case 5:
+            rows3[i] = '<h6>';
+            break;
+          case 6:
+            rows3[i] = '<p>';
+            break;
+          case 7:
+            rows3[i] = '<a>';
+            break;
+        }
+      }
+
       // If picture (path) exists it will be show too
       if(fs.existsSync('./public/imgsnatch/' + id + '.png')) {
         // We send picture id to preview too
@@ -62,6 +92,7 @@ var loadScrapID = function(req, res, id) {
            analyzed: rows,
            headers: rows2,
            picture: idx,
+           headers2: rows3,
            sucess: 'Data from scrap ID \"' + id + '\" loaded sucessfully !'});
       // If there is no picture we preview it without
       } else {
@@ -69,6 +100,7 @@ var loadScrapID = function(req, res, id) {
           content: 'tools/sitedata.ejs',
           analyzed: rows,
           headers: rows2,
+          headers2: rows3,
           sucess: 'Data from scrap ID \"' + id + '\" loaded sucessfully !'});
       }
 
