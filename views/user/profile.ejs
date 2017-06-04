@@ -7,19 +7,24 @@
 
 
 <!--If there is sucess we display it -->
-<% if(sucess.length > 0) { %>
+<% if(typeof sucess != 'undefined') { %>
+	<% if(sucess.length > 0) { %>
   <div class="sucmsg">
 		<%= sucess %>
 	</div>
 <% } %>
+<% } %>
 
 
 <!--If there is error we display it -->
-<% if(error.length > 0) { %>
-  <div class="errmsg">
-		<%= error %>
-	</div>
+<% if(typeof error != 'undefined') { %>
+	<% if(error.length > 0) { %>
+	  <div class="errmsg">
+			<%= error %>
+		</div>
+	<% } %>
 <% } %>
+
 
 <div class="content-div">
 	<a href="/logout">Logout</a>

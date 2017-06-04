@@ -1,5 +1,6 @@
 var mysql = require('../mysql'); // Includamo mysql.js da mozemo slati querije
 var fs = require('fs');
+var timeAgo = require('node-time-ago');
 //-----------------------------------------------------------------------------
 // Funkcija za refreshati tablicu sa najnovijim scrapovima
 var reloadTable = function(res) {
@@ -23,6 +24,19 @@ var reloadTable = function(res) {
         }
       }
 
+      // Change rows.time into "time-ago" format
+      for(var i=0;i<rows.length;i++) {
+        var times = rows[i].time.split(':'); // Spliting 00:00:00 format into times[]...
+        rows[i].time = timeAgo(new Date(
+            rows[i].date.getFullYear(),
+            rows[i].date.getMonth(),
+            rows[i].date.getDate(),
+            times[0], times[1], times[2]
+          )
+        );
+      };
+
+      // Rendering last analyzes page with data
       res.render('index', {
         content: 'tools/lastanalyzes.ejs',
         scrapped:rows,
