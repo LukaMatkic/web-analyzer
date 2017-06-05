@@ -35,6 +35,9 @@
 	<p>Enter URL of site you want to analyze:</p>
   <form method="POST" action="/scraper">
     <input type ="text" name="item" placeholder="Enter url..." required />
+		<% if(typeof user != 'undefined') { %>
+			<input type="checkbox" name="imgsnatch">Snatch image?</input>
+		<% } %>
     <input type="checkbox" name="redirect">Follow redirects?</input>
     <button type="submit" value="submit"> Scrape url</button>
   </form>

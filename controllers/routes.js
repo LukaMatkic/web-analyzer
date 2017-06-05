@@ -116,7 +116,7 @@ module.exports = function(app, passport) {
 		// If user is logged in
 	  if(req.isAuthenticated()) {
 			// Scrapper for users starts
-	  	scrapEngine.scrapURL(req.body.item, req.body.redirect, req, res);
+	  	scrapEngine.scrapURL(req.body.item, req.body.redirect, req.body.imgsnatch, req, res);
 		// If user is not logged in
 		} else {
 			// We start only simple scrapping

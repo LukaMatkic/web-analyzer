@@ -4,10 +4,11 @@ var request = require('request');
 var mysql = require('../mysql'); // Including mysql.js so we can send queries
 var fs = require('fs');
 var timeAgo = require('node-time-ago');
+var screenshot = require('url-to-image');
 //------------------------------------------------------------------------------
 
 // Function for web page scrapping
-var scrapURL = function(url, redirect, req, res) {
+var scrapURL = function(url, redirect, img, req, res) {
 
   // Preparing data var
   var data = {
@@ -29,9 +30,6 @@ var scrapURL = function(url, redirect, req, res) {
   // Sending request
   request(url, function(error, response, body) {
 
-    // Geting status code
-    var statCode = response.statusCode;
-
     // If error happens
     if(error) {
       res.render('index', {
@@ -40,6 +38,9 @@ var scrapURL = function(url, redirect, req, res) {
         user: req.user});
       return;
     }
+
+    // Geting status code
+    var statCode = response.statusCode;
 
     // If status code is between 301 and 400
     if(statCode >= 301 && statCode <= 400) {
@@ -59,14 +60,14 @@ var scrapURL = function(url, redirect, req, res) {
 
     // Loading body with cherrio
     var $ = cheerio.load(body);
-    startBaseScrape(req, res, data, url, response, $);
+    startBaseScrape(req, res, data, url, response, img, $);
 
   });
 }
 //-----------------------------------------------------------------------------
 
 // Function basic scrapping
-var startBaseScrape = function(req, res, data, url, response, $) {
+var startBaseScrape = function(req, res, data, url, response, img, $) {
 
     // Loading data
     data.url = url;
@@ -104,8 +105,14 @@ var startBaseScrape = function(req, res, data, url, response, $) {
         if(err) {
           res.render('index', {
             content: 'tools/scraper.ejs',
-            error: 'Error happened while writing analyze to database !'});
+            error: 'Error happened while writing analyze to database !',
+            user: req.user});
             return;
+        }
+
+        // If image scrape is selected we scrape image of site
+        if(img) {
+          screenshot(url, './public/imgsnatch/' + rows.insertId + '.png').done(function() {});
         }
 
         // Sending query to get back data from databse
@@ -116,7 +123,8 @@ var startBaseScrape = function(req, res, data, url, response, $) {
           if(err2) {
             res.render('index', {
               content: 'tools/scraper.ejs',
-              error: 'Error happened while reading analyze to database !'});
+              error: 'Error happened while reading analyze to database !',
+              user: req.user});
               return;
           }
 
@@ -169,7 +177,8 @@ var startBaseScrape = function(req, res, data, url, response, $) {
               headers: rowsx,
               picture: picture,
               yours: yours,
-              anonim: anonim});
+              anonim: anonim,
+              user: req.user});
             return;
 
           });
@@ -206,7 +215,8 @@ var startRedirScrape = function(req, res, data, url, response, $){
       res.render('index', {
         content: 'tools/scraper.ejs',
         error: 'Error happened while writing analyze to database !',
-        warn: 'URL returned status code \"' + data.http_status + '\" !'});
+        warn: 'URL returned status code \"' + data.http_status + '\" !',
+        user: req.user});
         return;
     }
 
@@ -219,7 +229,8 @@ var startRedirScrape = function(req, res, data, url, response, $){
         res.render('index', {
           content: 'tools/scraper.ejs',
           error: 'Error happened while reading analyze to database !',
-          warn: 'URL returned status code \"' + data.http_status + '\" !'});
+          warn: 'URL returned status code \"' + data.http_status + '\" !',
+          user: req.user});
           return;
       }
 
@@ -227,7 +238,8 @@ var startRedirScrape = function(req, res, data, url, response, $){
       res.render('index', {
         content: 'tools/scraper.ejs',
         sucess: 'Analyze of URL \"' + data.url + '\" and ID \"' + rows2[0].id + '\" has completed sucessfully !',
-        warn: 'URL returned status code \"' + data.http_status + '\" !'});
+        warn: 'URL returned status code \"' + data.http_status + '\" !',
+        user: req.user});
         return;
     });
   });
