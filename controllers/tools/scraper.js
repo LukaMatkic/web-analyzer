@@ -1,148 +1,372 @@
+// All includes
 var cheerio = require('cheerio');
 var request = require('request');
-var mysql = require('../mysql'); // Includamo mysql.js da mozemo slati querije
+var mysql = require('../mysql'); // Including mysql.js so we can send queries
+var fs = require('fs');
+var timeAgo = require('node-time-ago');
+//------------------------------------------------------------------------------
 
-//-----------------------------------------------------------------------------
-// Funkcija za scrappanje stranice
-var scrapURL = function(url, redirect, res) {
-    console.log('Varijabla redirect: ' + redirect);
-    console.log('STATUS: ' + res.statusCode);
-    var statCode = res.statusCode;
+// Function for web page scrapping
+var scrapURL = function(url, redirect, req, res) {
 
-    var data = {
-        url: "",
-        // HTTP headers
-        http_status: -1,
-        con_length: -1,
-        con_type: "",
-        server: "",
-        // HTML tags
-        title: "",
-        charset: "",
-        // OG pen Graph
-        // Other
-        date: "",
-        time: ""
-    };
+  // Preparing data var
+  var data = {
+    url: "",
+    // HTTP headers
+    http_status: -1,
+    con_length: -1,
+    con_type: "",
+    server: "",
+    // HTML tags
+    title: "",
+    charset: "",
+    // OG pen Graph
+    // Other
+    date: "",
+    time: ""
+  };
 
-    // Tu pocinje scrappanje cheerio loada body url-a koji je unesen
-    request(url, function(error, response, body) {
-        console.log(response.statusCode);
-        console.log('Error: ' + error);
-        //Body se loada u cheerio module
-        var $ = cheerio.load(body);
+  // Sending request
+  request(url, function(error, response, body) {
 
+    // Geting status code
+    var statCode = response.statusCode;
 
-        // Ukoliko postoji error ispisujemo ga
-        if (error) {
-            console.log("ERROR [#3] [Cannot analyze given URL]");
-        }
-
-        if ((statCode >= 301 && statCode <= 400) && redirect === undefined) {
-
-            DeniedRedirScrape(data, url, response, $);
-
-
-        } //ovdje završava if
-        else {
-
-            BaseScrape(data, url, response, $);
-
-        // Dio za spremanje u bazu, prvo stvaramo osnocni query
-        MainQuery(data, $);
-
-        // Reloadamo korisniku tablicu zadnjih analiza
-        res.render('index', {content: 'tools/scraper.ejs'});
+    // If error happens
+    if(error) {
+      res.render('index', {
+        content: 'tools/scraper.ejs',
+        error: 'Error happened while analyzing URL !',
+        user: req.user});
+      return;
     }
 
+    // If status code is between 301 and 400
+    if(statCode >= 301 && statCode <= 400) {
 
-});
-};
+      // If redirect button is not checked
+      if(redirect != undefined) {
+
+        // Scraping some data and saving it
+        var $ = cheerio.load(body);
+        startRedirScrape(req, res, data, url, response, $);
+        return;
+
+      // If redirect button is checked
+      } else {
+      }
+    }
+
+    // Loading body with cherrio
+    var $ = cheerio.load(body);
+    startBaseScrape(req, res, data, url, response, $);
+
+  });
+}
 //-----------------------------------------------------------------------------
 
+// Function basic scrapping
+var startBaseScrape = function(req, res, data, url, response, $) {
 
-
-
-
-// Underneath the hood
-//-----------------------------------------------------------------------------
-//-----------------------------------------------------------------------------
-//-----------------------------------------------------------------------------
-
-//-----------------------------------------------------------------------------
-var BaseScrape = function(data, url, response, $){
-    console.log('Nije poslan redirect.');
-
-    // Ucitavamo podatke od stranice i sortiramo ih u "data" varijablu
+    // Loading data
     data.url = url;
     data.http_status = response.statusCode;
     data.con_length = response.headers['content-length'];
     data.con_type = response.headers['content-type'];
     data.server = response.headers['server'];
-
     data.title = $('title').text();
     data.charset = response.headers['Accept-Charset'];
-
     data.date = require('moment')().format('YYYY-MM-DD');
     data.time = require('moment')().format('HH:mm:ss');
 
+    // If some data is set to undefined we set it to ''
+    if (data.con_type === undefined) data.con_type = '';
+    if (data.server === undefined) data.server = '';
+    if (data.title === undefined) data.title = '';
+    if (data.con_length === undefined) data.con_length = -1;
+    if (data.charset === undefined) data.charset = '';
 
-    // Provjeravamo ako nema settanih vrijednosti stavljamo NULL
-    if (data.con_type === undefined) {
-        data.con_type = '';
-    }
-    if (data.server === undefined) {
-        data.server = '';
-    }
-    if (data.title === undefined) {
-        data.title = '';
-    }
-    if (data.con_length === undefined) {
-        data.con_length = -1;
-    }
-    if (data.charset === undefined) {
-        data.charset = '';
-    }
-};
-
-var DeniedRedirScrape = function(data, url, response, $){
-    console.log('Poslan je redirect, i prihvacen je.');
-    // Ucitavamo podatke od stranice i sortiramo ih u "data" varijablu
-    data.url = url;
-
-    data.title = $('title').text();
-
-    data.date = require('moment')().format('YYYY-MM-DD');
-    data.time = require('moment')().format('HH:mm:ss');
-
-
-    // Provjeravamo ako nema settanih vrijednosti stavljamo NULL
-    if (data.con_type === undefined) {
-        data.con_type = '';
-    }
-    if (data.server === undefined) {
-        data.server = '';
-    }
-    if (data.title === undefined) {
-        data.title = '';
-    }
-    if (data.con_length === undefined) {
-        data.con_length = -1;
-    }
-    if (data.charset === undefined) {
-        data.charset = '';
-    }
-
-};
-
-//-----------------------------------------------------------------------------
-
-//QUERIES
-//-----------------------------------------------------------------------------
-var MainQuery = function(data, $) {
+    // Sending query to database
     mysql.sendQuery("INSERT INTO scrap (url,id_user,http_status,con_type,con_length,server,title,charset,date,time) VALUES ( \
       '" + data.url + "', \
-      '0', \
+      " + req.user.id + ", \
+      " + data.http_status + ", \
+      '" + data.con_type + "', \
+      " + data.con_length + ", \
+      '" + data.server + "', \
+      '" + data.title + "', \
+      '" + data.charset + "', \
+      '" + data.date + "', \
+      '" + data.time + "');",
+      function(err, rows, fields) {
+
+        // If error happend while writing to database
+        if(err) {
+          res.render('index', {
+            content: 'tools/scraper.ejs',
+            error: 'Error happened while writing analyze to database !'});
+            return;
+        }
+
+        // Sending query to get back data from databse
+        mysql.sendQuery("SELECT * FROM scrap WHERE id=" + rows.insertId + ";",
+          function(err2, rows2, fields2) {
+
+            // If error happens while reading from base
+          if(err2) {
+            res.render('index', {
+              content: 'tools/scraper.ejs',
+              error: 'Error happened while reading analyze to database !'});
+              return;
+          }
+
+          // Scrapping headings
+          scrapHeadings($, rows2, function(rowsx) {
+
+            // Preparing picture object witch tells if picture of scrap exists
+            var picture = [];
+            if(fs.existsSync('./public/imgsnatch/' + rows2[0].id + '.png')) {
+              picture[0] = true;
+            } else {
+              picture[0] = false;
+            }
+
+            // Change rows.time into "time-ago" format
+            for(var i=0;i<rows2.length;i++) {
+              var times = rows2[i].time.split(':'); // Spliting 00:00:00 format into times[]...
+              rows2[i].time = timeAgo(new Date(
+                  rows2[i].date.getFullYear(),
+                  rows2[i].date.getMonth(),
+                  rows2[i].date.getDate(),
+                  times[0], times[1], times[2]
+                )
+              );
+            };
+
+            var yours = [];
+            for(var i=0;i<rows2.length;i++) {
+              if(rows2[i].id_user == req.user.id) {
+                yours[i] = true;
+              } else {
+                yours[i] = false;
+              }
+            }
+
+            var anonim = [];
+            for(var i=0;i<rows2.length;i++) {
+              if(rows2[i].id_user == 0) {
+                anonim[i] = false;
+              } else {
+                anonim[i] = true;
+              }
+            }
+
+            // everything is okay so we display it
+            res.render('index', {
+              content: 'tools/scraper.ejs',
+              sucess: 'Analyze of URL \"' + data.url + '\" and ID \"' + rows2[0].id + '\" has completed sucessfully !',
+              sucscr: rows2,
+              headers: rowsx,
+              picture: picture,
+              yours: yours,
+              anonim: anonim});
+            return;
+
+          });
+        });
+    });
+};
+//------------------------------------------------------------------------------
+
+// Function for scrapping data from redirected page
+var startRedirScrape = function(req, res, data, url, response, $){
+
+  // Loading basic data of site
+  data.url = url;
+  data.http_status = response.statusCode;
+  data.title = $('title').text();
+  data.date = require('moment')().format('YYYY-MM-DD');
+  data.time = require('moment')().format('HH:mm:ss');
+
+  // If some data is set to undefined we set it to ''
+  if (data.title === undefined) data.title = '';
+
+  // Sending query
+  mysql.sendQuery("INSERT INTO scrap (url,id_user,http_status,title,date,time) VALUES ( \
+    '" + data.url + "', \
+    " + req.user.id + ", \
+    " + data.http_status + ", \
+    '" + data.title + "', \
+    '" + data.date + "', \
+    '" + data.time + "';",
+    function(err, rows, fields) {
+
+    // If error happend while writing to database
+    if(err) {
+      res.render('index', {
+        content: 'tools/scraper.ejs',
+        error: 'Error happened while writing analyze to database !',
+        warn: 'URL returned status code \"' + data.http_status + '\" !'});
+        return;
+    }
+
+    // Sending query to get back data from databse
+    mysql.sendQuery("SELECT * FROM scrap WHERE id=" + rows.insertId + ";",
+      function(err2, rows2, fields2) {
+
+      // If error happens while reading from base
+      if(err2) {
+        res.render('index', {
+          content: 'tools/scraper.ejs',
+          error: 'Error happened while reading analyze to database !',
+          warn: 'URL returned status code \"' + data.http_status + '\" !'});
+          return;
+      }
+
+      // If everything works
+      res.render('index', {
+        content: 'tools/scraper.ejs',
+        sucess: 'Analyze of URL \"' + data.url + '\" and ID \"' + rows2[0].id + '\" has completed sucessfully !',
+        warn: 'URL returned status code \"' + data.http_status + '\" !'});
+        return;
+    });
+  });
+};
+//------------------------------------------------------------------------------
+
+// Function for scrap headings from URL
+var scrapHeadings = function($, rows, callback) {
+
+    // Counter so we know value of next query because as we insert them we will
+    // later read them by order as we saved them using count
+    var count = 0;
+
+    // Head of the query
+    var query = "INSERT INTO headers (id_scrap,head_text,head_value,head_order) VALUES ";
+
+    // For every * we do
+    $("*").map(function() {
+
+        // Getting name of this (h1,h2,p,a...) and refer it as value
+        var hValue = headerToValue(this.name);
+
+        // If value is usable (1,2,3,4...) but not -1
+        if(hValue != -1) {
+
+          // Getting and checking text and saving for database query
+          var hText = $(this).text();
+          hText = checkHeaderText(hText);
+          query += "(" + rows[0].id + ",'" + hText + "'," + hValue + "," + count + "),\n";
+          count++;
+
+          // If hValue is 7 it means this heading is link from a
+          // example (<a href='link here') so we check and save it
+          if(hValue == 7) {
+
+            // Change this.attrigs.href to string
+            var nes = '' + this.attribs.href + '';
+
+            // If length is over 127 we dont save it
+            if (nes.length > 127) {
+                nes = '';
+            }
+
+            // If href doesnt have two dots it cant be link
+            // Maybe it can but this is good filter for bad links
+            if(countChars(nes, '.') < 2) {
+                nes = '';
+            }
+
+            // If somewhere in string there is ' char string is deleted
+            // ' char in link causes error while executing query
+            for(var i=0;i<nes.length;i++) {
+              if(nes[i] == '\'') {
+                nes = '';
+                break;
+              }
+            }
+
+            // Sending href to database
+            query += "(" + rows[0].id + ",'" + nes + "'," + 8 + "," + count + "),\n";
+            count++;
+
+          }
+        }
+    });
+
+    // Formating query that last char , is replaced with ;
+    query = query.substring(0, query.length - 2);
+
+    // Sending query, finally ! :)
+    mysql.sendQuery(query + ';', function(err, rows2, fields){
+        // Returning rows
+        return callback(rows2);
+    });
+};
+//------------------------------------------------------------------------------
+
+// Function for guests to scrape some URL, guests can only scrape HTML tags from given URL
+var simpleScrapUrl = function(url, res) {
+
+  // Sending request to URL
+  request(url, function(error, response, body) {
+
+    // If error happens
+    if(error) {
+      res.render('index', {
+        content: 'tools/scraper.ejs',
+        error: 'Error happened while analyzing URL !'});
+      return;
+    }
+
+    // If status code is not 200 - OK
+    if(response.statusCode != 200) {
+      res.render('index', {
+        content: 'tools/scraper.ejs',
+        error: 'Status code of given URL is not 200 !',
+        info: 'Login for advanced URL analyzing options !'});
+      return;
+    }
+
+    // Creating var for data storing
+    var data = {
+      url: '',
+      http_status: 0,
+      con_length: 0,
+      con_type: '',
+      server: '',
+      title: '',
+      charset: '',
+      date: '',
+      time: ''
+    }
+
+    // Loading body and data
+    var $ = cheerio.load(body);
+
+    data.url = url;
+    data.http_status = response.statusCode;
+    data.con_length = response.headers['content-length'];
+    data.con_type = response.headers['content-type'];
+    data.server = response.headers['server'];
+    data.title = $('title').text();
+    data.charset = response.headers['Accept-Charset'];
+    data.date = require('moment')().format('YYYY-MM-DD');
+    data.time = require('moment')().format('HH:mm:ss');
+
+    // Checking if any element is 'undefined'
+    if(data.con_length === undefined) data.con_length = 0;
+    if(data.con_type === undefined) data.con_type = '';
+    if(data.server === undefined) data.server = '';
+    if(data.title === undefined) data.title = '';
+    if(data.charset === undefined) data.charset = '';
+    if(data.date === undefined) data.date = '';
+    if(data.time === undefined) data.time = '';
+
+    // Saving into database
+    mysql.sendQuery("INSERT INTO scrap (url,id_user,http_status,con_type,con_length,server,title,charset,date,time) VALUES ( \
+      '" + data.url + "', \
+      0, \
       " + data.http_status + ", \
       '" + data.con_type + "', \
       " + data.con_length + ", \
@@ -151,55 +375,58 @@ var MainQuery = function(data, $) {
       '" + data.charset + "', \
       '" + data.date + "', \
       '" + data.time + "' \
-    );", function(err, rows, fields) {
+      );", function(err, rows, fields) {
 
+      // If there is error happened
+      if(err) {
+        res.render('index', {
+          content: 'tools/scraper.ejs',
+          error: 'Something went wrong with inserton of analyze into database !'});
+        return;
+      }
 
-        headeri($, rows);
+      // If everything is okay we display sucess and inserted analyze
+      mysql.sendQuery("SELECT * FROM scrap WHERE id=" + rows.insertId + ";",
+      function(err, rows, fields) {
 
-    });
-};
-//-----------------------------------------------------------------------------
-// Dodajemo u query sve headere
-var headeri = function($, rows) {
-    var count = 0;
-    var query = "INSERT INTO headers (id_scrap,head_text,head_value,head_order) VALUES ";
-
-    $("*").map(function() {
-
-        var hText = $(this).text(); // Dobivamo text iz headera
-        var hValue = headerToValue(this.name); // Dobivamo ID headera (h1,h2...) u vrijednosti (0,1,...)
-
-        if(hValue != -1) {
-
-          hText = checkHeaderText(hText);
-          query += "(" + rows.insertId + ",'" + hText + "'," + hValue + "," + count + "),\n";
-          count++;
-
-          if(hValue == 7) {
-            var nes = '' + this.attribs.href + '';
-            if (nes.length > 127) {
-                nes = '';
-            }
-            if(countChars(nes, '.') < 2) {
-                nes = '';
-            }
-            for(var i=0;i<nes.length;i++) {
-              if(nes[i] == '\'') {
-                nes = '';
-                break;
-              }
-            }
-            
-            query += "(" + rows.insertId + ",'" + nes + "'," + 8 + "," + count + "),\n";
-            count++;
-
-          }
+        // If there is error happened
+        if(err) {
+          res.render('index', {
+            content: 'tools/scraper.ejs',
+            error: 'Something went wrong with reading analyze from database !'});
+          return;
         }
+
+        // Preparing picture object witch tells if picture of scrap exists
+        var picture = [];
+        if(fs.existsSync('./public/imgsnatch/' + rows[0].id + '.png')) {
+          picture[0] = true;
+        } else {
+          picture[0] = false;
+        }
+
+        // Change rows.time into "time-ago" format
+        for(var i=0;i<rows.length;i++) {
+          var times = rows[i].time.split(':'); // Spliting 00:00:00 format into times[]...
+          rows[i].time = timeAgo(new Date(
+              rows[i].date.getFullYear(),
+              rows[i].date.getMonth(),
+              rows[i].date.getDate(),
+              times[0], times[1], times[2]
+            )
+          );
+        };
+
+        // Displaying scraper
+        res.render('index', {
+          content: 'tools/scraper.ejs',
+          sucess: 'Analyze of URL \"' + data.url + '\" and ID \"' + rows[0].id + '\" has completed sucessfully !',
+          info: 'All your analyzes are anonymous, to track your analyzes please login !',
+          sucscr: rows,
+          picture: picture});
+      });
     });
-
-    query = query.substring(0, query.length - 2);
-    mysql.sendQuery(query + ';', function(){});
-
+  });
 };
 //------------------------------------------------------------------------------
 
@@ -215,7 +442,7 @@ var countChars = function(string, char) {
 }
 //------------------------------------------------------------------------------
 
-// Funkcija za povrat vrijednosti h* (h1,h2...) elementa h1 = 0, h2 = 1...
+// Function for returning value of h*,a,p (h1,h2...a,p..) like h1 = 0, h2 = 1...
 var headerToValue = function(header) {
     switch (header) {
         case 'h1':
@@ -240,49 +467,48 @@ var headerToValue = function(header) {
 };
 //-----------------------------------------------------------------------------
 
-//-----------------------------------------------------------------------------
-// Funkcija za provjeru teksta u headeru (da se ne spremaju svakakvi znakovi itd...)
+// Function for checking text in headings
 var checkHeaderText = function(text) {
-    var newText = ''; // Ovdje cemo spremat slovo po slovo novu rijec
+    var newText = ''; // Here we will save char by char
 
-    // Ako je text headera duzi od 128 slova skratiti cemo ga i dodati "..."
+    // If text is longr than 127 we will cut it and place dots
     if (text.length > 127) {
         text = text.substring(0, 124) + '...';
     }
 
-    // Provjeravamo ako je znak dopusten za spremanje u bazu
+    // For each char we check if it is allowed
     for (var i = 0; i < text.length; i++) {
 
-        // Saljemo text[i] (jedan znak) na provjeru
+        // Sending text[i] for check for every char in string
         revalidCharacter(text[i], function(char) {
 
-            // Ako nije ni false niti true znaci da znak treba zamjeniti
-            // sa znakom koji dobijemo natrag ("char")
+            // If it is not false or true it needs to be changed
+            // with callback letter ("char")
             if (char != false && char != true) {
                 newText += char;
 
-                // Ako je znak vazeci samo ga prepisujemo
+            // If it is allowed to use (true) we just copy it
             } else if (char == true) {
                 newText += text[i];
             }
         });
-
     }
 
+    // Returning new string witch will be saved to database
     return newText;
 };
 //-----------------------------------------------------------------------------
 
 //-----------------------------------------------------------------------------
-// Funkcija za provjeru znaka dali je valjan
-/* POVRATNE VRIJEDNOSTI:
-      false - znak se nece koristiti (brise se)
-      true - znak se smije koristiti
-      '%' - znak ce se zamjenit sa znakom %
+// Function to check ig char can be used
+/* CALLBACK DATA:
+      false - char wont be used, it will be deleted
+      true - char can be used
+      '%' - char will be replaced with char %
 */
 var revalidCharacter = function(char, callback) {
     switch (char) {
-        // Brojevi
+        // Numbers
         case '0':
             return callback(true);
         case '1':
@@ -303,7 +529,7 @@ var revalidCharacter = function(char, callback) {
             return callback(true);
         case '9':
             return callback(true);
-            // Znakovi
+        // Chars
         case 'a':
             return callback(true);
         case 'b':
@@ -404,7 +630,7 @@ var revalidCharacter = function(char, callback) {
             return callback(true);
         case 'q':
             return callback(true);
-            // Specijalni znakovi
+        // Special chars
         case 'č':
             return callback('c');
         case 'Č':
@@ -425,7 +651,7 @@ var revalidCharacter = function(char, callback) {
             return callback('s');
         case 'Š':
             return callback('S');
-            // Ostalo
+        // Other
         case ' ':
             return callback(true);
         case ':':
@@ -436,16 +662,16 @@ var revalidCharacter = function(char, callback) {
             return callback(true);
         case ')':
             return callback(true);
-            // Ukoliko znak nije pronadem znaci da je nedopusten i saljemo false
+        // If char is not find it is not allowed to be used
         default:
             return callback(false);
     }
 };
 //-----------------------------------------------------------------------------
 
-//-----------------------------------------------------------------------------
-// Radimo exports
+// Exporting
 module.exports = {
-    scrapURL: scrapURL
+    scrapURL: scrapURL,
+    simpleScrapUrl: simpleScrapUrl
 };
 //-----------------------------------------------------------------------------

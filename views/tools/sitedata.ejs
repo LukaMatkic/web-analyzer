@@ -197,44 +197,44 @@
 						<!-- Dodajemo razmak prema value-u headera -->
 						<% if(headers[i].head_value == 0) { %>
 							<tr class="table-body h1-style">
-								<td><%= headers2[i] %></td>
+								<td style="color: blue"><%= headers2[i] %></td>
 								<td style="text-indent: 5px"><%= headers[i].head_text %></td>
 							</tr>
 						<% } else if(headers[i].head_value == 1) { %>
 							<tr class="table-body h2-style">
-								<td><%= headers2[i] %></td>
-								<td style="text-indent: 15px"><%= headers[i].head_text %></td>
+								<td style="color: blue"><%= headers2[i] %></td>
+								<td style="text-indent: 10px"><%= headers[i].head_text %></td>
 							</tr>
 						<% } else if(headers[i].head_value == 2) { %>
 							<tr class="table-body h3-style">
-								<td><%= headers2[i] %></td>
-								<td style="text-indent: 25px"><%= headers[i].head_text %></td>
+								<td style="color: blue"><%= headers2[i] %></td>
+								<td style="text-indent: 15px"><%= headers[i].head_text %></td>
 							</tr>
 						<% } else if(headers[i].head_value == 3) { %>
 							<tr class="h4-style">
-								<td><%= headers2[i] %></td>
-								<td style="text-indent: 35px"><%= headers[i].head_text %></td>
+								<td style="color: blue"><%= headers2[i] %></td>
+								<td style="text-indent: 20px"><%= headers[i].head_text %></td>
 							</tr>
 						<% } else if(headers[i].head_value == 4) { %>
 							<tr class="h5-style">
-								<td><%= headers2[i] %></td>
-								<td style="text-indent: 45px"><%= headers[i].head_text %></td>
+								<td style="color: blue"><%= headers2[i] %></td>
+								<td style="text-indent: 25px"><%= headers[i].head_text %></td>
 							</tr>
 						<% } else if(headers[i].head_value == 5) { %>
 							<tr class="h6-style">
-								<td><%= headers2[i] %></td>
-								<td style="text-indent: 55px"><%= headers[i].head_text %></td>
+								<td style="color: blue"><%= headers2[i] %></td>
+								<td style="text-indent: 30px"><%= headers[i].head_text %></td>
 							</tr>
 						<% } else if(headers[i].head_value == 6) { %>
 							<tr class="p-style">
-								<td><%= headers2[i] %></td>
-								<td style="text-indent: 65px"><%= headers[i].head_text %></td>
+								<td style="color: blue"><%= headers2[i] %></td>
+								<td style="text-indent: 35px"><%= headers[i].head_text %></td>
 							</tr>
 						<% } else if(headers[i].head_value == 7) { %>
-							<% if(headers[i].head_text.length > 1) { %>
+							<% if(headers[i].head_text.length > 0) { %>
 								<tr class="a-style">
-									<td><%= headers2[i] %></td>
-										<td style="text-indent: 75px">
+									<td style="color: blue"><%= headers2[i] %></td>
+										<td style="text-indent: 40px">
 											<% if(headers[i+1].head_text.length > 2) { %>
 												<% if(headers[i+1].head_text[0] != '/') { %>
 													<% if(headers[i+1].head_text[0] != '#') { %>

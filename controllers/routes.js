@@ -96,13 +96,32 @@ module.exports = function(app, passport) {
 
 	// User requests to use scraper tool
 	app.get('/scraper',function(req,res){
-	  res.render('index', {content: 'tools/scraper.ejs'});
+		// If user is logged in
+		if(req.isAuthenticated()) {
+			// Display him normal page with user
+	  	res.render('index', {
+				content: 'tools/scraper.ejs',
+				user: req.user});
+		// If user is not logged in
+		} else {
+			// Display hm page with info
+			res.render('index', {
+				content: 'tools/scraper.ejs',
+				info: "Guests can only analyze HTTP headings. Login for more !"});
+		}
 	});
 
-	//  User starts scrapper tool
-	app.post('/scraper', urlencodedParser, function(req, res){
-	  // Pokrecemo scrap engine
-	  scrapEngine.scrapURL(req.body.item, req.body.redirect, res);
+	// User starts scrapper tool
+	app.post('/scraper', urlencodedParser, function(req, res) {
+		// If user is logged in
+	  if(req.isAuthenticated()) {
+			// Scrapper for users starts
+	  	scrapEngine.scrapURL(req.body.item, req.body.redirect, req, res);
+		// If user is not logged in
+		} else {
+			// We start only simple scrapping
+			scrapEngine.simpleScrapUrl(req.body.item, res);
+		}
 	});
 
 	// Request for sitedata tool

@@ -55,9 +55,9 @@ var reloadTable = function(req, res) {
         var yours = [];
         for(var i=0;i<rows.length;i++) {
           if(rows[i].id_user == req.user.id) {
-            yours[i] = false;
-          } else {
             yours[i] = true;
+          } else {
+            yours[i] = false;
           }
         }
 
@@ -76,7 +76,7 @@ var reloadTable = function(req, res) {
         picture: picture,
         anonim: anonim,
         yours: yours});
-        
+
       } else { // If he is not we send him info too
         res.render('index', {
         content: 'tools/lastanalyzes.ejs',

@@ -1,11 +1,38 @@
+<!-- Scraper -->
 <div class="content-title scrap-title">
 	<br/>
 	<h3>Scraping tools</h3>
 	<h2>Scraper</h2>
 </div>
 
-<!-- Dio za upis novog scrap-a -->
+
+<!-- If there is error we display it -->
+<% if(typeof sucess != 'undefined') { %>
+  <div class="sucmsg">
+    <p><%= sucess %></p>
+  </div>
+<% } %>
+
+
+<!-- If there is error we display it -->
+<% if(typeof error != 'undefined') { %>
+  <div class="errmsg">
+    <p><%= error %></p>
+  </div>
+<% } %>
+
+
+<!-- If there is warning we display it -->
+<% if(typeof info != 'undefined') { %>
+  <div class="infmsg">
+    <p><%= info %></p>
+  </div>
+<% } %>
+
+
+<!-- Enter new scrap URL -->
 <div id ="scrap-table" class="content-div">
+	<p>Enter URL of site you want to analyze:</p>
   <form method="POST" action="/scraper">
     <input type ="text" name="item" placeholder="Enter url..." required />
     <input type="checkbox" name="redirect">Follow redirects?</input>
@@ -13,11 +40,101 @@
   </form>
 </div>
 
-<!-- Ispisujemo scrap ako ga ima ako ne neispisujemo -->
-<div class="content-div">
-  <p>Scrap sucessfull ???</p>
-</div>
 
+<!-- If sucscr exists we display it in table -->
+<% if(typeof sucscr != 'undefined') { %>
+<div id="scrap-table" class="content-div">
+	<section>
+
+		<table class="data-table">
+
+			<thead class="table-thread">
+				<tr>
+					<th>SCRAP ID</th>
+					<th>TIME</th>
+					<th>URL</th>
+					<th>STATUS</th>
+					<th>TITLE</th>
+					<th>DATE</th>
+					<% if(typeof yours != 'undefined') { %>
+						<th>YOUR</td>
+					<% } %>
+					<% if(typeof anonim != 'undefined') { %>
+						<th>ANON</td>
+					<% } %>
+					<th>IMAG</th>
+					<th>VIEW</th>
+				</tr>
+			</thead>
+
+			<tfoot class="table-thread">
+				<tr>
+					<th>SCRAP ID</th>
+					<th>TIME</th>
+					<th>URL</th>
+					<th>STATUS</th>
+					<th>TITLE</th>
+					<th>DATE</th>
+					<% if(typeof yours != 'undefined') { %>
+						<th>YOUR</td>
+					<% } %>
+					<% if(typeof anonim != 'undefined') { %>
+						<th>ANON</td>
+					<% } %>
+					<th>IMAG</th>
+					<th>VIEW</th>
+				</tr>
+			</tfoot>
+
+
+			<tbody>
+				<tr>
+				<td><%= sucscr[0].id %></td>
+				<td><%= sucscr[0].time %></td>
+				<td><%= sucscr[0].url %></td>
+				<td><%= sucscr[0].http_status %></td>
+				<td><b><%= sucscr[0].title %></b></td>
+				<td><%= sucscr[0].date.getDate() + '.' + parseInt(sucscr[0].date.getMonth()+1) + '.' + sucscr[0].date.getFullYear() + '.' %></td>
+
+				<% if(typeof yours != 'undefined') { %>
+					<td>
+						<% if(yours[0] == true) { %>
+							<img src= "/imgs/true.png" class="icon"></img>
+						<% } else { %>
+							<img src= "/imgs/false.png" class="icon"></img>
+						<% } %>
+					</td>
+					<% } %>
+
+					<% if(typeof anonim != 'undefined') { %>
+					<td>
+						<% if(anonim[0] == true) { %>
+							<img src= "/imgs/true.png" class="icon"></img>
+						<% } else { %>
+							<img src= "/imgs/false.png" class="icon"></img>
+						<% } %>
+						</td>
+					<% } %>
+					<td>
+					<% if(picture[0] == true) { %>
+						<img src= "/imgs/true.png" class="icon"></img>
+					<% } else { %>
+						<img src= "/imgs/false.png" class="icon"></img>
+					<% } %>
+				</td>
+					<td>
+						<form method="POST" action="/sitedata">
+	         		<button type="submit" name="enterid" value="<%=sucscr[0].id%>">View</button>
+	       		</form>
+					</td>
+				</tr>
+			</tbody>
+
+
+		</table>
+	</section>
+</div>
+<% } %>
 
 
 <hr>
