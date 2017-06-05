@@ -41,12 +41,13 @@ var homeStatistics = function(callback) {
 
 
 // Function for rendering front page
-var loadHomepage = function(res) {
+var loadHomepage = function(req, res) {
 
 	homeStatistics(function(data) {
 		res.render('index', {
 			content: 'other/homepage.ejs',
-			data: data});
+			data: data,
+			user: req.user});
 	});
 
 };

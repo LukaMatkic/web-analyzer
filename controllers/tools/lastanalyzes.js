@@ -75,13 +75,15 @@ var reloadTable = function(req, res) {
         scrapped: rows,
         picture: picture,
         anonim: anonim,
-        yours: yours});
+        yours: yours,
+        user: req.user});
 
       } else { // If he is not we send him info too
         res.render('index', {
         content: 'tools/lastanalyzes.ejs',
         scrapped: rows,
         picture: picture,
+        user: req.user,
         info: 'Guests can only preview anonymous analyzes or analyzes from other guests !'});
       }
     }

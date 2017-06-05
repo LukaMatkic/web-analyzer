@@ -22,6 +22,10 @@
   background: rgb(62, 122, 213);
 }
 
+.error-title {
+  background: rgb(249, 126, 44);
+}
+
 .content-div {
   margin: 5px 5px 20px;
   border: 1px solid black;

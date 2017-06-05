@@ -18,7 +18,7 @@ module.exports = function(app, passport) {
 
 	// Request for home page
 	app.get('/', function(req, res) {
-		 homepage.loadHomepage(res);
+		 homepage.loadHomepage(req, res);
 	});
 
 	// Request for login page
@@ -88,7 +88,9 @@ module.exports = function(app, passport) {
 	// If user requests /start dir, if he is logged in we redirect him to his profile
 	app.get('/start', function(req, res) {
 		if(req.isAuthenticated()) {
-			res.render('index', {content: 'user/profile.ejs', user: req.user});
+			res.render('index', {
+				content: 'user/profile.ejs',
+				user: req.user});
 		} else {
 			res.render('index', {content: 'user/start.ejs'});
 		}
@@ -116,7 +118,14 @@ module.exports = function(app, passport) {
 		// If user is logged in
 	  if(req.isAuthenticated()) {
 			// Scrapper for users starts
-	  	scrapEngine.scrapURL(req.body.item, req.body.redirect, req.body.imgsnatch, req, res);
+	  	scrapEngine.scrapURL(
+				req.body.item,
+				req.body.redirect,
+				req.body.imgsnatch, 
+				req.body.anonymous,
+				req.body.headings,
+				req,
+				res);
 		// If user is not logged in
 		} else {
 			// We start only simple scrapping
@@ -128,7 +137,9 @@ module.exports = function(app, passport) {
 	app.get('/sitedata', urlencodedParser, function(req, res){
 	  // Prikazujemo Site Tools stranicu
 		if(req.isAuthenticated()) { // Ako je logiran prikazujemo bez infa
-			res.render('index', {content: 'tools/sitedata.ejs'});
+			res.render('index', {
+				content: 'tools/sitedata.ejs',
+				user: req.user});
 		} else {
 			res.render('index', {
 				content: 'tools/sitedata.ejs',
@@ -149,7 +160,19 @@ module.exports = function(app, passport) {
 
 	// User requests imgsnatch tool
 	app.get('/imgsnatch/', urlencodedParser, function(req, res){
-		res.render('index', {content: 'tools/imgsnatch.ejs'});
+		// If user is logged in
+		if(req.isAuthenticated()) {
+			// We display him page
+			res.render('index', {
+				content: 'tools/imgsnatch.ejs',
+				user: req.user});
+		// Else if user is not logged in
+		} else {
+			//We display him error page
+			res.render('index', {
+				content: 'other/errorpage.ejs',
+				error: 'You are not welcome here !'});
+		}
 	});
 
 	// User starts imgsnatch tool with URL

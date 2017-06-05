@@ -7,9 +7,16 @@ var loadScrapID = function(req, res, id) {
 
   // If there is no rows in return user entered wrong ID
   if(id.length > 20) {
-    res.render('index',{
-      content: 'tools/sitedata.ejs',
-      error: 'Length of ID can not be more than 20 characters !'});
+    if(typeof req.user != 'undefined') {
+      res.render('index',{
+        content: 'tools/sitedata.ejs',
+        error: 'Length of ID can not be more than 20 characters !',
+        user: req.user});
+    } else {
+      res.render('index',{
+        content: 'tools/sitedata.ejs',
+        error: 'Length of ID can not be more than 20 characters !'});
+    }
     return;
   }
 
@@ -18,9 +25,16 @@ var loadScrapID = function(req, res, id) {
 
     // If there is no rows in return user entered wrong ID
     if(rows == '') {
-      res.render('index',{
-        content: 'tools/sitedata.ejs',
-        error: 'There is no scrap with requested ID \"' + id + '\" !'});
+      if(typeof req.user != 'undefined') {
+        res.render('index',{
+          content: 'tools/sitedata.ejs',
+          error: 'There is no scrap with requested ID \"' + id + '\" !',
+          user: req.user});
+      } else {
+        res.render('index',{
+          content: 'tools/sitedata.ejs',
+          error: 'There is no scrap with requested ID \"' + id + '\" !'});
+      }
       return;
     }
 
@@ -33,7 +47,8 @@ var loadScrapID = function(req, res, id) {
         res.render('index',{
           content: 'tools/sitedata.ejs',
           error: 'Analyze id ID \"' + id + '\" is private !',
-          info: 'You can make your analyzes private too !'});
+          info: 'You can make your analyzes private too !',
+          user: req.user});
           return;
         }
       }
@@ -42,10 +57,18 @@ var loadScrapID = function(req, res, id) {
       // If scrap isnt anonymous we display error message
       // *guests can preview only anonymous analyzes
       if(rows[0].id_user != '') {
-        res.render('index',{
-          content: 'tools/sitedata.ejs',
-          error: 'Scrap with requested ID \"' + id + '\" is private and can not be shown !',
-          info: 'Only registered users can make their analyzes private !'});
+        if(typeof req.user != 'undefined') {
+          res.render('index',{
+            content: 'tools/sitedata.ejs',
+            error: 'Scrap with requested ID \"' + id + '\" is private and can not be shown !',
+            info: 'Only registered users can make their analyzes private !',
+            user: req.user});
+        } else {
+          res.render('index',{
+            content: 'tools/sitedata.ejs',
+            error: 'Scrap with requested ID \"' + id + '\" is private and can not be shown !',
+            info: 'Only registered users can make their analyzes private !'});
+        }
         return;
       }
     };
@@ -85,15 +108,27 @@ var loadScrapID = function(req, res, id) {
 
       // If picture (path) exists it will be show too
       if(fs.existsSync('./public/imgsnatch/' + id + '.png')) {
-        // We send picture id to preview too
-        var idx = {id: '/imgsnatch/' + id + '.png'};
-        res.render('index',{
-          content: 'tools/sitedata.ejs',
-           analyzed: rows,
-           headers: rows2,
-           picture: idx,
-           headers2: rows3,
-           sucess: 'Data from scrap ID \"' + id + '\" loaded sucessfully !'});
+        // If user is logged in
+        if(typeof req.user != 'undefined') {
+          // We send picture id to preview too
+          var idx = {id: '/imgsnatch/' + id + '.png'};
+          res.render('index',{
+            content: 'tools/sitedata.ejs',
+            analyzed: rows,
+            headers: rows2,
+            picture: idx,
+            headers2: rows3,
+            sucess: 'Data from scrap ID \"' + id + '\" loaded sucessfully !'});
+        // If user is not logged in
+        } else {
+          res.render('index',{
+            content: 'tools/sitedata.ejs',
+            analyzed: rows,
+            headers: rows2,
+            warn: 'Picture can be previewed only to logged in users !',
+            headers2: rows3,
+            sucess: 'Data from scrap ID \"' + id + '\" loaded sucessfully !'});
+        }
       // If there is no picture we preview it without
       } else {
         res.render('index',{
@@ -106,7 +141,7 @@ var loadScrapID = function(req, res, id) {
 
     });
   });
-};
+}
 //-----------------------------------------------------------------------------
 
 //-----------------------------------------------------------------------------

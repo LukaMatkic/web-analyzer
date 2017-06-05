@@ -1,0 +1,13 @@
+<!-- Title -->
+<div class="content-title error-title">
+	<br/>
+  <h2> ERROR </h2>
+</div>
+
+
+<!--If there is failure we display it -->
+<% if(typeof error != 'undefined') { %>
+  <div class="errmsg">
+    <p><%= error %></p>
+  </div>
+<% } %>

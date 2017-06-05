@@ -30,6 +30,14 @@
 <% } %>
 
 
+<!-- If there is warning we display it -->
+<% if(typeof warn != 'undefined') { %>
+  <div class="wrnmsg">
+    <p><%= warn %></p>
+  </div>
+<% } %>
+
+
 <!-- Enter new scrap URL -->
 <div id ="scrap-table" class="content-div">
 	<p>Enter URL of site you want to analyze:</p>
@@ -37,6 +45,8 @@
     <input type ="text" name="item" placeholder="Enter url..." required />
 		<% if(typeof user != 'undefined') { %>
 			<input type="checkbox" name="imgsnatch">Snatch image?</input>
+			<input type="checkbox" name="anonymous">Anonymous analyze?</input>
+			<input type="checkbox" name="headings">Analyze headings?</input>
 		<% } %>
     <input type="checkbox" name="redirect">Follow redirects?</input>
     <button type="submit" value="submit"> Scrape url</button>

@@ -8,7 +8,7 @@ var screenshot = require('url-to-image');
 //------------------------------------------------------------------------------
 
 // Function for web page scrapping
-var scrapURL = function(url, redirect, img, req, res) {
+var scrapURL = function(url, redirect, img, anon, headings, req, res) {
 
   // Preparing data var
   var data = {
@@ -24,7 +24,8 @@ var scrapURL = function(url, redirect, img, req, res) {
     // OG pen Graph
     // Other
     date: "",
-    time: ""
+    time: "",
+    id_user: 0
   };
 
   // Sending request
@@ -60,17 +61,18 @@ var scrapURL = function(url, redirect, img, req, res) {
 
     // Loading body with cherrio
     var $ = cheerio.load(body);
-    startBaseScrape(req, res, data, url, response, img, $);
+    startBaseScrape(req, res, data, url, response, img, anon, headings, $);
 
   });
 }
 //-----------------------------------------------------------------------------
 
 // Function basic scrapping
-var startBaseScrape = function(req, res, data, url, response, img, $) {
+var startBaseScrape = function(req, res, data, url, response, img, anon, headings, $) {
 
     // Loading data
     data.url = url;
+    if(typeof req.user != 'undefined') data.id_user = req.user.id;
     data.http_status = response.statusCode;
     data.con_length = response.headers['content-length'];
     data.con_type = response.headers['content-type'];
@@ -81,16 +83,19 @@ var startBaseScrape = function(req, res, data, url, response, img, $) {
     data.time = require('moment')().format('HH:mm:ss');
 
     // If some data is set to undefined we set it to ''
-    if (data.con_type === undefined) data.con_type = '';
-    if (data.server === undefined) data.server = '';
-    if (data.title === undefined) data.title = '';
-    if (data.con_length === undefined) data.con_length = -1;
-    if (data.charset === undefined) data.charset = '';
+    if(data.con_type === undefined) data.con_type = '';
+    if(data.server === undefined) data.server = '';
+    if(data.title === undefined) data.title = '';
+    if(data.con_length === undefined) data.con_length = -1;
+    if(data.charset === undefined) data.charset = '';
+
+    // Set id_user to 0 if anonymous
+    if(anon) data.id_user = 0;
 
     // Sending query to database
     mysql.sendQuery("INSERT INTO scrap (url,id_user,http_status,con_type,con_length,server,title,charset,date,time) VALUES ( \
       '" + data.url + "', \
-      " + req.user.id + ", \
+      " + data.id_user + ", \
       " + data.http_status + ", \
       '" + data.con_type + "', \
       " + data.con_length + ", \
@@ -129,7 +134,7 @@ var startBaseScrape = function(req, res, data, url, response, img, $) {
           }
 
           // Scrapping headings
-          scrapHeadings($, rows2, function(rowsx) {
+          scrapHeadings($, rows2, headings, function(rowsx) {
 
             // Preparing picture object witch tells if picture of scrap exists
             var picture = [];
@@ -169,17 +174,29 @@ var startBaseScrape = function(req, res, data, url, response, img, $) {
               }
             }
 
-            // everything is okay so we display it
-            res.render('index', {
-              content: 'tools/scraper.ejs',
-              sucess: 'Analyze of URL \"' + data.url + '\" and ID \"' + rows2[0].id + '\" has completed sucessfully !',
-              sucscr: rows2,
-              headers: rowsx,
-              picture: picture,
-              yours: yours,
-              anonim: anonim,
-              user: req.user});
-            return;
+            // If there is picture scraped too we send warning
+            if(img) {
+              res.render('index', {
+                content: 'tools/scraper.ejs',
+                sucess: 'Analyze of URL \"' + data.url + '\" and ID \"' + rows2[0].id + '\" has completed sucessfully !',
+                sucscr: rows2,
+                headers: rowsx,
+                picture: picture,
+                yours: yours,
+                anonim: anonim,
+                user: req.user,
+                warn: 'Image will be avaliable after magic is applyed !'});
+            } else {
+              res.render('index', {
+                content: 'tools/scraper.ejs',
+                sucess: 'Analyze of URL \"' + data.url + '\" and ID \"' + rows2[0].id + '\" has completed sucessfully !',
+                sucscr: rows2,
+                headers: rowsx,
+                picture: picture,
+                yours: yours,
+                anonim: anonim,
+                user: req.user});
+            }
 
           });
         });
@@ -247,73 +264,78 @@ var startRedirScrape = function(req, res, data, url, response, $){
 //------------------------------------------------------------------------------
 
 // Function for scrap headings from URL
-var scrapHeadings = function($, rows, callback) {
+var scrapHeadings = function($, rows, headings, callback) {
 
-    // Counter so we know value of next query because as we insert them we will
-    // later read them by order as we saved them using count
-    var count = 0;
+  // If headings are not checked to scrap dont do anything
+  if(!headings) {
+    return callback();
+  }
 
-    // Head of the query
-    var query = "INSERT INTO headers (id_scrap,head_text,head_value,head_order) VALUES ";
+  // Counter so we know value of next query because as we insert them we will
+  // later read them by order as we saved them using count
+  var count = 0;
 
-    // For every * we do
-    $("*").map(function() {
+  // Head of the query
+  var query = "INSERT INTO headers (id_scrap,head_text,head_value,head_order) VALUES ";
 
-        // Getting name of this (h1,h2,p,a...) and refer it as value
-        var hValue = headerToValue(this.name);
+  // For every * we do
+  $("*").map(function() {
 
-        // If value is usable (1,2,3,4...) but not -1
-        if(hValue != -1) {
+      // Getting name of this (h1,h2,p,a...) and refer it as value
+      var hValue = headerToValue(this.name);
 
-          // Getting and checking text and saving for database query
-          var hText = $(this).text();
-          hText = checkHeaderText(hText);
-          query += "(" + rows[0].id + ",'" + hText + "'," + hValue + "," + count + "),\n";
+      // If value is usable (1,2,3,4...) but not -1
+      if(hValue != -1) {
+
+        // Getting and checking text and saving for database query
+        var hText = $(this).text();
+        hText = checkHeaderText(hText);
+        query += "(" + rows[0].id + ",'" + hText + "'," + hValue + "," + count + "),\n";
+        count++;
+
+        // If hValue is 7 it means this heading is link from a
+        // example (<a href='link here') so we check and save it
+        if(hValue == 7) {
+
+          // Change this.attrigs.href to string
+          var nes = '' + this.attribs.href + '';
+
+          // If length is over 127 we dont save it
+          if (nes.length > 127) {
+              nes = '';
+          }
+
+          // If href doesnt have two dots it cant be link
+          // Maybe it can but this is good filter for bad links
+          if(countChars(nes, '.') < 2) {
+              nes = '';
+          }
+
+          // If somewhere in string there is ' char string is deleted
+          // ' char in link causes error while executing query
+          for(var i=0;i<nes.length;i++) {
+            if(nes[i] == '\'') {
+              nes = '';
+              break;
+            }
+          }
+
+          // Sending href to database
+          query += "(" + rows[0].id + ",'" + nes + "'," + 8 + "," + count + "),\n";
           count++;
 
-          // If hValue is 7 it means this heading is link from a
-          // example (<a href='link here') so we check and save it
-          if(hValue == 7) {
-
-            // Change this.attrigs.href to string
-            var nes = '' + this.attribs.href + '';
-
-            // If length is over 127 we dont save it
-            if (nes.length > 127) {
-                nes = '';
-            }
-
-            // If href doesnt have two dots it cant be link
-            // Maybe it can but this is good filter for bad links
-            if(countChars(nes, '.') < 2) {
-                nes = '';
-            }
-
-            // If somewhere in string there is ' char string is deleted
-            // ' char in link causes error while executing query
-            for(var i=0;i<nes.length;i++) {
-              if(nes[i] == '\'') {
-                nes = '';
-                break;
-              }
-            }
-
-            // Sending href to database
-            query += "(" + rows[0].id + ",'" + nes + "'," + 8 + "," + count + "),\n";
-            count++;
-
-          }
         }
-    });
+      }
+  });
 
-    // Formating query that last char , is replaced with ;
-    query = query.substring(0, query.length - 2);
+  // Formating query that last char , is replaced with ;
+  query = query.substring(0, query.length - 2);
 
-    // Sending query, finally ! :)
-    mysql.sendQuery(query + ';', function(err, rows2, fields){
-        // Returning rows
-        return callback(rows2);
-    });
+  // Sending query, finally ! :)
+  mysql.sendQuery(query + ';', function(err, rows2, fields){
+      // Returning rows
+      return callback(rows2);
+  });
 };
 //------------------------------------------------------------------------------
 
