@@ -26,9 +26,38 @@ var scrapURL = function(url, redirect, img, anon, headings, child, req, res) {
     time: "",
     id_user: 0
   };
+console.log('Varijabla redirect: ' + redirect);
+  function redirs(){
+      var maxRedirs = 5;
+      if(redirect == 'on'){
+          return {
+              followRedirs: true,
+              followAll: true,
+              maxredirs: maxRedirs
+          };
+      }
+      else {
+          return {
+              followRedirs: false,
+              followAll: false,
+              maxredirs: maxRedirs
+          };
+      }
+  }
+  var redirs2 = redirs();
+  console.log('Follow Redirects: ' + redirs2.followRedirs);
+  console.log('Follow ALL Redirects: ' + redirs2.followAll);
+  console.log('Max Redirects: ' + redirs2.maxredirs);
 
   // Sending request
-  request(url, function(error, response, body) {
+  request(options = { url: url, followRedirect: redirs2.followRedirs, followAllRedirects: redirs2.followAll, maxRedirects: redirs2.maxredirs}, function(error, response, body) {
+
+      console.log('Follow Redirects: ' + redirs2.followRedirs);
+      console.log('Follow ALL Redirects: ' + redirs2.followAll);
+      console.log('Max Redirects: ' + redirs2.maxredirs);
+
+    //Body se loada u cheerio module
+    var $ = cheerio.load(body);
 
     // If error happens
     if(error) {
@@ -39,31 +68,19 @@ var scrapURL = function(url, redirect, img, anon, headings, child, req, res) {
       return;
     }
 
-    // Geting status code
-    var statCode = response.statusCode;
-
     // If status code is between 301 and 400
-    if(statCode >= 301 && statCode <= 400) {
-
-      // If redirect button is not checked
-      if(redirect != undefined) {
-
-        // Scraping some data and saving it
-        var $ = cheerio.load(body);
+    if (response.statusCode >= 301 && response.statusCode <= 400) {
+        console.log('No Redirect Allowed!');
         startRedirScrape(req, res, data, url, response, $);
         return;
-
-      // If redirect button is checked
-      } else {
-      }
     }
-
-    // Loading body with cherrio
-    var $ = cheerio.load(body);
+    else {
+        console.log('Found, or redirected!');
     startBaseScrape(req, res, data, url, response, img, anon, headings, child, $);
 
-  });
-}
+  }
+});
+};
 //-----------------------------------------------------------------------------
 
 // Function basic scrapping
@@ -158,7 +175,7 @@ var startBaseScrape = function(req, res, data, url, response, img, anon, heading
                   times[0], times[1], times[2]
                 )
               );
-            };
+            }
 
             var yours = [];
             for(var i=0;i<rows2.length;i++) {
@@ -171,7 +188,7 @@ var startBaseScrape = function(req, res, data, url, response, img, anon, heading
 
             var anonim = [];
             for(var i=0;i<rows2.length;i++) {
-              if(rows2[i].id_user == 0) {
+              if(rows2[i].id_user === 0) {
                 anonim[i] = false;
               } else {
                 anonim[i] = true;
@@ -413,7 +430,7 @@ var scrapeRedirects = function(id, $) {
   // Sending query, finally ! :)
   mysql.sendQuery(query + ';', function(err, rows2, fields) {});
 
-}
+};
 //------------------------------------------------------------------------------
 
 // Function for guests to scrape some URL, guests can only scrape HTML tags from given URL
@@ -450,7 +467,7 @@ var simpleScrapUrl = function(url, res) {
       charset: '',
       date: '',
       time: ''
-    }
+  };
 
     // Loading body and data
     var $ = cheerio.load(body);
@@ -526,7 +543,7 @@ var simpleScrapUrl = function(url, res) {
               times[0], times[1], times[2]
             )
           );
-        };
+        }
 
         // Displaying scraper
         res.render('index', {
@@ -550,7 +567,7 @@ var countChars = function(string, char) {
     }
   }
   return counter;
-}
+};
 //------------------------------------------------------------------------------
 
 // Function for returning value of h*,a,p (h1,h2...a,p..) like h1 = 0, h2 = 1...
@@ -595,11 +612,11 @@ var checkHeaderText = function(text) {
 
             // If it is not false or true it needs to be changed
             // with callback letter ("char")
-            if (char != false && char != true) {
+            if (char !== false && char !== true) {
                 newText += char;
 
             // If it is allowed to use (true) we just copy it
-            } else if (char == true) {
+        } else if (char === true) {
                 newText += text[i];
             }
         });
