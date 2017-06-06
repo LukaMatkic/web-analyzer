@@ -8,8 +8,7 @@ var screenshot = require('url-to-image');
 //------------------------------------------------------------------------------
 
 // Function for web page scrapping
-var scrapURL = function(url, redirect, img, anon, headings, req, res) {
-
+var scrapURL = function(url, redirect, img, anon, headings, child, req, res) {
   // Preparing data var
   var data = {
     url: "",
@@ -61,14 +60,14 @@ var scrapURL = function(url, redirect, img, anon, headings, req, res) {
 
     // Loading body with cherrio
     var $ = cheerio.load(body);
-    startBaseScrape(req, res, data, url, response, img, anon, headings, $);
+    startBaseScrape(req, res, data, url, response, img, anon, headings, child, $);
 
   });
 }
 //-----------------------------------------------------------------------------
 
 // Function basic scrapping
-var startBaseScrape = function(req, res, data, url, response, img, anon, headings, $) {
+var startBaseScrape = function(req, res, data, url, response, img, anon, headings, child, $) {
 
     // Loading data
     data.url = url;
@@ -120,6 +119,11 @@ var startBaseScrape = function(req, res, data, url, response, img, anon, heading
           screenshot(url, './public/imgsnatch/' + rows.insertId + '.png').done(function() {});
         }
 
+        // If scrape child urls is selected
+        if(child) {
+          scrapeRedirects(rows.insertId, $);
+        }
+
         // Sending query to get back data from databse
         mysql.sendQuery("SELECT * FROM scrap WHERE id=" + rows.insertId + ";",
           function(err2, rows2, fields2) {
@@ -134,7 +138,7 @@ var startBaseScrape = function(req, res, data, url, response, img, anon, heading
           }
 
           // Scrapping headings
-          scrapHeadings($, rows2, headings, function(rowsx) {
+          scrapHeadings($, rows, rows2, headings, req, res, function(rowsx) {
 
             // Preparing picture object witch tells if picture of scrap exists
             var picture = [];
@@ -264,7 +268,7 @@ var startRedirScrape = function(req, res, data, url, response, $){
 //------------------------------------------------------------------------------
 
 // Function for scrap headings from URL
-var scrapHeadings = function($, rows, headings, callback) {
+var scrapHeadings = function($, rows5, rows, headings, req, res, callback) {
 
   // If headings are not checked to scrap dont do anything
   if(!headings) {
@@ -333,10 +337,83 @@ var scrapHeadings = function($, rows, headings, callback) {
 
   // Sending query, finally ! :)
   mysql.sendQuery(query + ';', function(err, rows2, fields){
-      // Returning rows
-      return callback(rows2);
+
+    // Returning rows
+    return callback(rows2);
   });
 };
+//------------------------------------------------------------------------------
+
+// Function for start scrapping every redirect and saving it into child_scrap
+// This saves only URL-s and not data, user can later scrap data
+var scrapeRedirects = function(id, $) {
+
+  // Var for remembering urls before saving into database
+  var data = [];
+
+  // Count will count how much data exists
+  var count = 0;
+
+  // Head of the query
+  var query = "INSERT INTO child_scrap (id_scrap,url) VALUES ";
+
+  // Function to map every a from $ (body)
+  $("a").map(function() {
+
+    // Getting url from <a>
+    var url = '' + this.attribs.href + '';
+
+    // If length is over 127 we skip
+    if (url.length > 127) {
+      url = '';
+    }
+
+    // If href doesnt have two dots it cant be link
+    // Maybe it can but this is good filter for bad links
+    if(countChars(url, '.') < 2) {
+      url = '';
+    }
+
+    // If somewhere in string there is ' char string is deleted
+    // ' char in link causes error while executing query
+    for(var i=0;i<url.length;i++) {
+      if(url[i] == '\'') {
+        url = '';
+        break;
+      }
+    }
+
+    // If url is longer than 2 chars and is does not already exists in data
+    var exists = false;
+    if(url.length > 2) {
+      for(var i=0;i<count;i++) {
+        if(data[i] === url) {
+          exists = true;
+          break;
+        }
+      }
+    }
+
+    // If url does not exists we save it into var for later database insertion
+    if(!exists && url.length > 5) {
+      data[count] = url;
+      count++;
+    }
+  });
+
+  // Creating query
+  for(var i=0;i<data.length;i++) {
+    // Saving each data to query
+    query += "(" + id + ",'" + data[i] + "'),\n";
+  }
+
+  // Formating query that last char , is replaced with ;
+  query = query.substring(0, query.length - 2);
+
+  // Sending query, finally ! :)
+  mysql.sendQuery(query + ';', function(err, rows2, fields) {});
+
+}
 //------------------------------------------------------------------------------
 
 // Function for guests to scrape some URL, guests can only scrape HTML tags from given URL

@@ -121,9 +121,10 @@ module.exports = function(app, passport) {
 	  	scrapEngine.scrapURL(
 				req.body.item,
 				req.body.redirect,
-				req.body.imgsnatch, 
+				req.body.imgsnatch,
 				req.body.anonymous,
 				req.body.headings,
+				req.body.childs,
 				req,
 				res);
 		// If user is not logged in
