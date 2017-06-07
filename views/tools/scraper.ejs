@@ -1,23 +1,32 @@
+
+<!-- Includamo navigation file -->
+<% include ../partials/navigation.ejs %>
 <!-- Scraper -->
 <div class="content-title scrap-title">
 	<br/>
+	<center>
+
 	<h3>Scraping tools</h3>
-	<h2>Scraper</h2>
+	<h2>Scraper</h2></center>
 </div>
 
 
 <!-- If there is error we display it -->
 <% if(typeof sucess != 'undefined') { %>
   <div class="sucmsg">
-    <p><%= sucess %></p>
-  </div>
+    <center>
+
+		<p><%= sucess %></p>
+  </div></center>
 <% } %>
 
 
 <!-- If there is error we display it -->
 <% if(typeof error != 'undefined') { %>
   <div class="errmsg">
-    <p><%= error %></p>
+  <center>
+
+	 <p><%= error %></p></center>
   </div>
 <% } %>
 
@@ -25,7 +34,9 @@
 <!-- If there is warning we display it -->
 <% if(typeof info != 'undefined') { %>
   <div class="infmsg">
-    <p><%= info %></p>
+  <center>
+
+ <p><%= info %></p>	</center>
   </div>
 <% } %>
 
@@ -33,16 +44,29 @@
 <!-- If there is warning we display it -->
 <% if(typeof warn != 'undefined') { %>
   <div class="wrnmsg">
-    <p><%= warn %></p>
+    <center>
+
+<p><%= warn %></p>		</center>
   </div>
 <% } %>
 
 
 <!-- Enter new scrap URL -->
 <div id ="scrap-table" class="content-div">
-	<p>Enter URL of site you want to analyze:</p>
+<center>
+
+<p>Enter URL of site you want to analyze:</p></center>
   <form method="POST" action="/scraper">
-    <input type ="text" name="item" placeholder="Enter url..." required />
+		<div class="container">
+		<div class="fieldRow">
+			<input type ="url" name="item" id="url" placeholder="" required />
+				<label for="url">Enter URL</label>
+			        <i class="fa fa-globe" aria-hidden="true"></i>
+			        <i id="iconWrong" class="iconCheck fa fa-times"></i>
+			        <i id="iconPassed" class="iconCheck fa fa-check"></i>
+			</div>
+
+			</div>
 		<% if(typeof user != 'undefined') { %>
 			<input type="checkbox" name="imgsnatch">Snatch image?</input>
 			<input type="checkbox" name="anonymous">Anonymous analyze?</input>
@@ -50,7 +74,7 @@
 			<input type="checkbox" name="childs">Analyze childs?</input>
 		<% } %>
     <input type="checkbox" name="redirect">Follow redirects?</input>
-    <button type="submit" value="submit"> Scrape url</button>
+    	<button type="submit" value="submit" class="pulse"> Scrape me</button>
   </form>
 </div>
 
@@ -157,3 +181,5 @@
 <div class="content-div">
 	<p>Want to take picture of site ? Click <a href="/imgsnatch">here</a>.</p>
 </div>
+<!-- Includamo footer file -->
+<% include ../partials/footer.ejs %>

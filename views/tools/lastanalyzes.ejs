@@ -1,14 +1,20 @@
+<!-- Includamo navigation file -->
+<% include ../partials/navigation.ejs %>
 <div class="content-title statistic-title">
 	<br/>
+	<center>
+
 	<h3>Statistic tools</h3>
-	<h2>Last Analyzes</h2>
+	<h2>Last Analyzes</h2></center>
 </div>
 
 
 <!--If there is error we display it -->
 <% if(typeof error != 'undefined') { %>
   <div class="errmsg">
-    <p><%= error %></p>
+    <center>
+
+		<p><%= error %></p></center>
   </div>
 <% } %>
 
@@ -16,7 +22,9 @@
 <!--If there is warning we display it -->
 <% if(typeof info != 'undefined') { %>
   <div class="infmsg">
-    <p><%= info %></p>
+  <center>
+
+	 <p><%= info %></p></center>
   </div>
 <% } %>
 
@@ -123,9 +131,11 @@
 <% } %>
 
 
-<hr>
+
 
 
 <div class="content-div">
 	<p>Want to scrape some site ? Click <a href="/scraper">here</a>.</p>
 </div>
+<!-- Includamo footer file -->
+<% include ../partials/footer.ejs %>
