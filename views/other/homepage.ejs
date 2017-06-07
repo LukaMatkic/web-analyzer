@@ -1,18 +1,83 @@
-<!-- Title -->
-<div class="content-title homepage-title">
-	<br/>
-  <h2>WEB ANALYZER</h2>
-	<h3>Welcome, enjoy scrapping :)</h3>
+<!-- Includamo navigation file -->
+<% include ../partials/navigation.ejs %>
+
+
+
+
+<!-- Div za title stranice -->
+
+<div id="titleDiv">
+<p>
+Analyze webpages with...
+</p>
 </div>
 
-<!-- Showing some site statistics -->
-<div class="content-div">
-  <p>Page statistics:</p>
+<!-- Div za naslov stranice -->
 
-  <p>
-  	<strong>Users</strong>: <%= data.users %><br>
-    <strong>User logins</strong>: <%= data.logins %><br>
-    <strong>Scraps</strong>: <%= data.scraps %><br>
-    <strong>Scrapped headings</strong>: <%= data.headings %>
-  </p>
+<div id="snatcherDiv">
+	<center>
+		<p>
+			SNATCHER
+		</p>
+	</center>
 </div>
+
+<!--Div za pozadinski holder#1 input forme (open) -->
+<div id="holder1">
+
+<!--Div za logo stranice (open) -->
+<div id="logo">
+</div>
+<!--Div za logo stranice (close) -->
+
+<!--Div za holder#2 input forme (open) -->
+<div id="holder2">
+
+<!--Div input forme (open) -->
+
+<div id="formDiv">
+<form method="POST" action="/">
+<div class="container">
+<div class="fieldRow">
+	<input type ="url" name="item" id="url" placeholder="" required />
+		<label for="url">Enter URL</label>
+	        <i class="fa fa-globe" aria-hidden="true"></i>
+	        <i id="iconWrong" class="iconCheck fa fa-times"></i>
+	        <i id="iconPassed" class="iconCheck fa fa-check"></i>
+	</div>
+	<button type="submit" value="submit" class="pulse"> Scrape url</button>
+	</div>
+</form>
+</div>
+<!--Div input forme (close) -->
+
+</div>
+<!--Div za holder#2 input forme (close) -->
+
+
+</div>
+<!--Div za pozadinski holder input forme (close) -->
+
+<div id="navigationDiv">
+<nav class="menu">
+  <input type="checkbox" href="#" class="menu-open" name="menu-open" id="menu-open"/>
+  <label class="menu-open-button" for="menu-open">
+    <span class="hamburger hamburger-1"></span>
+    <span class="hamburger hamburger-2"></span>
+    <span class="hamburger hamburger-3"></span>
+  </label>
+
+	<a href="/" class="menu-item"><i class="fa fa-home fa-3x" aria-hidden="true"></i> </a>
+  <a href="/lastanalyzes" class="menu-item"> <i class="fa fa-book fa-3x" aria-hidden="true"></i> </a>
+  <a href="/start" class="menu-item"> <i class="fa fa-user-secret fa-3x" aria-hidden="true"></i> </a>
+  <a href="/imgsnatch" class="menu-item"> <i class="fa fa-camera fa-3x" aria-hidden="true"></i></a>
+
+
+</nav>
+</div>
+
+
+
+<script src="/assets/Js/inputField.js"></script>
+<!-- Includamo footer file -->
+<% include ../partials/footer.ejs %>

@@ -1,0 +1,24 @@
+<html>
+  <!-- Includamo head file -->
+  <% include partials/head.ejs %>
+
+<body>
+
+
+  <% include partials/navigation.ejs %>
+
+
+  <!-- div za content stranice -->
+  <div id="page-style">
+
+    <!-- Neki tekst na front pageu -->
+    <%-include(content) %>
+
+  </div>
+
+
+  <% include partials/footer.ejs %>
+
+
+</body>
+</html>
