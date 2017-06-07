@@ -3,6 +3,7 @@
 html
 {
     background-image: url("/imgs/backgr.jpg");
+    background-attachment: fixed;
     -webkit-background-size: cover;
     -moz-background-size: cover;
     -o-background-size: cover;
@@ -57,7 +58,7 @@ nav ul li
     float: right;
     top: 0px;
     text-align: center;
-    padding: 13px;
+    padding: 13px 0px 13px 13px;
 }
 nav ul li ,
 nav ul li:after,
