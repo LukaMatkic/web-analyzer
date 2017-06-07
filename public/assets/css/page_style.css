@@ -60,7 +60,7 @@ nav ul li
     text-align: center;
     padding: 13px 0px 13px 13px;
 }
-nav ul li ,
+nav ul li,
 nav ul li:after,
 nav ul li:before {
   transition: all .5s;
