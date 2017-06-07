@@ -1,6 +1,7 @@
 /* Stil za sve tablice koje koristimo */
 .data-table {
     background: white;
+    width:100%;
 }
 
 /* Stil za header i footer od tablice (vth i dno) */

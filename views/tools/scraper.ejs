@@ -56,27 +56,42 @@
 <center>
 
 <p>Enter URL of site you want to analyze:</p></center>
-  <form method="POST" action="/scraper">
-		<div class="container">
-		<div class="fieldRow">
-			<input type ="url" name="item" id="url" placeholder="" required />
-				<label for="url">Enter URL</label>
-			        <i class="fa fa-globe" aria-hidden="true"></i>
-			        <i id="iconWrong" class="iconCheck fa fa-times"></i>
-			        <i id="iconPassed" class="iconCheck fa fa-check"></i>
-			</div>
+<div id="holder1">
 
-			</div>
-		<% if(typeof user != 'undefined') { %>
-			<input type="checkbox" name="imgsnatch">Snatch image?</input>
-			<input type="checkbox" name="anonymous">Anonymous analyze?</input>
-			<input type="checkbox" name="headings">Analyze headings?</input>
-			<input type="checkbox" name="childs">Analyze childs?</input>
-		<% } %>
-    <input type="checkbox" name="redirect">Follow redirects?</input>
-    	<button type="submit" value="submit" class="pulse"> Scrape me</button>
-  </form>
+
+
+<!--Div za holder#2 input forme (open) -->
+<div id="holder2">
+
+<!--Div input forme (open) -->
+
+<div id="formDiv">
+<form method="POST" action="/">
+<div class="container">
+<div class="fieldRow">
+	<input type ="url" name="item" id="url" placeholder="" required />
+		<label for="url">Enter URL</label>
+	        <i class="fa fa-globe" aria-hidden="true"></i>
+	        <i id="iconWrong" class="iconCheck fa fa-times"></i>
+	        <i id="iconPassed" class="iconCheck fa fa-check"></i>
+	</div>
+	<% if(typeof user != 'undefined') { %>
+		<input type="checkbox" name="imgsnatch">Snatch image?</input>
+		<input type="checkbox" name="anonymous">Anonymous analyze?</input>
+		<input type="checkbox" name="headings">Analyze headings?</input>
+		<input type="checkbox" name="childs">Analyze childs?</input>
+	<% } %>
+	<input type="checkbox" name="redirect">Follow redirects?</input>
+		<button type="submit" value="submit" class="pulse"> Scrape me</button>
+	</div>
+</form>
 </div>
+<!--Div input forme (close) -->
+
+</div>
+<!--Div za holder#2 input forme (close) -->
+</div>
+
 
 
 <!-- If sucscr exists we display it in table -->
@@ -175,7 +190,6 @@
 <% } %>
 
 
-<hr>
 
 
 <div class="content-div">
