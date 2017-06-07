@@ -19,24 +19,26 @@ body
         margin: 0;
         padding: 0;
         position: relative;
+        width: 100%;
+        min-height: 100%;
 }
 
 /*NAVIGATION BAR STYLE*/
 nav{
   margin-right: 110px;
 }
-.navup
+nav
 {
     width: 95%;
     height: 50px;
 }
-.navup ul
+nav ul
 {
     right: 0px;
     position: absolute;
     margin: 0;
 }
-.navup ul div
+nav ul div
 {
     height: 50px;
     right: 0px;
@@ -47,7 +49,7 @@ nav{
     box-shadow: 0 0 25px rgba(0, 0, 0, 0.1), inset 0 0 1px rgba(255, 255, 255, 0.1);
     border-radius: 10px;
 }
-.navup ul li
+nav ul li
 {
     display: inline-block;
     width: 70px;
@@ -57,10 +59,48 @@ nav{
     text-align: center;
     padding: 13px;
 }
+nav ul li ,
+nav ul li:after,
+nav ul li:before {
+  transition: all .5s;
+}
+nav ul li:hover {
+  color:#004d99;
+}
+nav ul li a,
+nav ul li a:after,
+nav ul li a:before {
+  transition: all .5s;
+  text-decoration: none;
+}
+nav ul li a:hover {
+  color:#336699;
+}
+nav.stroke ul li a {
+  position: relative;
+}
+nav.stroke ul li a:after
+ {
+  position: absolute;
+  bottom: 0;
+  left: 0;
+  right: 0;
+  margin: auto;
+  width: 0%;
+  content: '.';
+  color: transparent;
+  background:#336699;
+  height: 1px;
+}
+nav.stroke ul li a:hover:after {
+  width: 100%;
+}
+
+
 
 #snatcherDiv p{
   font-size: 90px;
-  font-weight: 900;
+  font-weight: 500;
   margin:0 auto;
 }
 #titleDiv p{
@@ -75,8 +115,11 @@ footer
     width: 100%;
     background: linear-gradient(90deg, rgba(255, 255, 255, 0) 0%, rgba(255, 255, 255, 0.1) 25%, rgba(255, 255, 255, 0.1) 75%, rgba(255, 255, 255, 0) 100%);
     box-shadow: 0 0 25px rgba(0, 0, 0, 0.1), inset 0 0 1px rgba(255, 255, 255, 0.1);
-    position: fixed;
-    bottom: 0;
+    position:absolute;
+    margin-top: 120px;
+
+
+
 }
 footer p
 {

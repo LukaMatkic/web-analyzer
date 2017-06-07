@@ -21,6 +21,27 @@ module.exports = function(app, passport) {
 		 homepage.loadHomepage(req, res);
 	});
 
+	// User starts scrapper tool
+	app.post('/', urlencodedParser, function(req, res) {
+		// If user is logged in
+	  if(req.isAuthenticated()) {
+			// Scrapper for users starts
+	  	scrapEngine.scrapURL(
+				req.body.item,
+				req.body.redirect,
+				req.body.imgsnatch,
+				req.body.anonymous,
+				req.body.headings,
+				req.body.childs,
+				req,
+				res);
+		// If user is not logged in
+		} else {
+			// We start only simple scrapping
+			scrapEngine.simpleScrapUrl(req.body.item, res);
+		}
+	});
+
 	// Request for login page
 	app.get('/login', function(req, res) {
 		// If user is logged in in we redirect him to profile
