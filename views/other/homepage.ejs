@@ -1,85 +1,83 @@
-<!-- Includamo navigation file -->
-<% include ../partials/navigation.ejs %>
-
-
-
-
-<!-- Div za title stranice -->
-
-
-
 <div id="titleDiv">
-<p>
-Analyze webpages with...
-</p>
-</div>
-
-<!-- Div za naslov stranice -->
-
-<div id="snatcherDiv">
 	<center>
-		<p>
-			SNATCHER
-		</p>
+		<p>Analyze webpages with...</p>
 	</center>
 </div>
 
-<!--Div za pozadinski holder#1 input forme (open) -->
-<div id="holder1">
-
-<!--Div za logo stranice (open) -->
-<div id="logo">
+<div id="snatcherDiv">
+	<center>
+		<p>SNATCHER</p>
+	</center>
 </div>
-<!--Div za logo stranice (close) -->
 
-<!--Div za holder#2 input forme (open) -->
-<div id="holder2">
+<hr class="newstyle" style="margin-top: 30px">
 
-<!--Div input forme (open) -->
+<div style="font-size: 20px; margin-top: 20px; margin-bottom: 50px">
+	<center>
+		<p style="width: 70%">Welcome to Snatcher, free online tool for analyzing URLs. Snatcher is created
+			for educational purposes and everyone can use it ! If you are interested in
+			further development of Snatcher you can find source code
+			<a href="http://github.com/lukamatkic/web-analyzer">here</a>.
+			Enjoy !</p>
+	<center>
+</div>
 
-<div id="formDiv">
-<form method="POST" action="/">
-<div class="container">
-<div class="fieldRow">
-	<input type ="url" name="item" id="url" placeholder="" required />
-		<label for="url">Enter URL</label>
-	        <i class="fa fa-globe" aria-hidden="true"></i>
-	        <i id="iconWrong" class="iconCheck fa fa-times"></i>
-	        <i id="iconPassed" class="iconCheck fa fa-check"></i>
+<div id="holder1" style="margin-top: 20px; margin-bottom: 50px">
+
+
+	<div id="holder2">
+		<div id="formDiv">
+			<form method="POST" action="/scraper">
+				<div class="container">
+					<div class="fieldRow">
+						<input type ="url" name="item" id="url" placeholder="" required />
+						<label for="url">Enter URL</label>
+	        	<i class="fa fa-globe" aria-hidden="true"></i>
+	        	<i id="iconWrong" class="iconCheck fa fa-times"></i>
+	        	<i id="iconPassed" class="iconCheck fa fa-check"></i>
+					</div>
+					<button type="submit" value="submit" class="pulse">Analyze url</button>
+					<p>Access analyzer page <a href="/scraper">here</a>.</p>
+					<% if(typeof user == 'undefined') { %>
+						<p>For more advanced analyzer please log in or register <a href="/start">here</a>.</p>
+					<% } %>
+				</div>
+			</form>
+		</div>
 	</div>
-	<button type="submit" value="submit" class="pulse"> Scrape me</button>
+</div>
+
+<hr class="newstyle" style="margin-top: 30px">
+
+<div style="font-size: 20px; margin-top: 20px; margin-bottom: 20px">
+	<center>
+		<p style="width: 70%">This is open source site so we do not have to hide statistics.
+		Here you can see some basic statistics from this site.</p>
+	<center>
+</div>
+
+
+<div class ="holderStats">
+	<div id="fdw-pricing-table">
+	    <div class="plan plan1">
+	        <div class="header">User<br>Accounts</div>
+	        <div class="text"><%= data.users %></div>
+	    </div>
+	    <div class="plan plan2">
+	        <div class="header">User<br>logins</div>
+	        <div class="text"><%= data.logins %></div>
+	    </div>
+	    <div class="plan plan3">
+	        <div class="header">URL<br>Analyzes</div>
+	        <div class="text"><%= data.scraps %></div>
+	    </div>
+			<div class="plan plan5">
+					<div class="header">Analyed<br>childs</div>
+					<div class="text"><%= data.childs %></div>
+			</div>
+	    <div class="plan plan4">
+	        <div class="header">Analyed<br>headers</div>
+	        <div class="text"><%= data.headings %></div>
+			</div>
 	</div>
-</form>
 </div>
-<!--Div input forme (close) -->
-
-</div>
-<!--Div za holder#2 input forme (close) -->
-
-
-</div>
-<!--Div za pozadinski holder input forme (close) -->
-
-<div id="navigationDiv">
-<nav class="menu">
-  <input type="checkbox" href="#" class="menu-open" name="menu-open" id="menu-open"/>
-  <label class="menu-open-button" for="menu-open">
-    <span class="hamburger hamburger-1"></span>
-    <span class="hamburger hamburger-2"></span>
-    <span class="hamburger hamburger-3"></span>
-  </label>
-
-	<a href="/" class="menu-item"><i class="fa fa-home fa-2x" aria-hidden="true"></i> </a>
-  <a href="/lastanalyzes" class="menu-item"> <i class="fa fa-book fa-2x" aria-hidden="true"></i> </a>
-  <a href="/start" class="menu-item"> <i class="fa fa-user-secret fa-2x" aria-hidden="true"></i> </a>
-  <a href="/imgsnatch" class="menu-item"> <i class="fa fa-camera fa-2x" aria-hidden="true"></i></a>
-
-
-</nav>
-</div>
-</div>
-
-
-<script src="/assets/Js/inputField.js"></script>
-<!-- Includamo footer file -->
-<% include ../partials/footer.ejs %>

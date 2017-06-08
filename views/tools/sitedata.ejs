@@ -1,21 +1,14 @@
-<!-- Includamo navigation file -->
-<% include ../partials/navigation.ejs %>
-
 <div class="content-title statistic-title">
 	<br/>
-	<center>
-
 	<h3>Statistic tools</h3>
-	<h2>Site Data</h2></center>
+	<h2>Site Data</h2>
 </div>
 
 
 <!--If there is error we display it -->
 <% if(typeof sucess != 'undefined') { %>
   <div class="sucmsg">
-    <center>
-
-		<p><%= sucess %></p></center>
+    <p><%= sucess %></p>
   </div>
 <% } %>
 
@@ -23,9 +16,7 @@
 <!--If there is error we display it -->
 <% if(typeof error != 'undefined') { %>
   <div class="errmsg">
-    <center>
-
-		<p><%= error %></p></center>
+    <p><%= error %></p>
   </div>
 <% } %>
 
@@ -33,9 +24,7 @@
 <!-- If there is warning we display it -->
 <% if(typeof warn != 'undefined') { %>
   <div class="wrnmsg">
-    <center>
-
-		<p><%= warn %></p></center>
+    <p><%= warn %></p>
   </div>
 <% } %>
 
@@ -43,21 +32,17 @@
 <!--If there is warning we display it -->
 <% if(typeof info != 'undefined') { %>
   <div class="infmsg">
-    <center>
-
-		<p><%= info %></p></center>
+    <p><%= info %></p>
   </div>
 <% } %>
 
 
 <!-- Form for ID input to search for scrap -->
 <div class="content-div">
-	<center>
-
-	<p>Enter analyzed ID to preview analyzed data !</p></center>
+	<p>Enter analyzed ID to preview analyzed data !</p>
 	<form method="POST" action="/sitedata">
 	  <input type ="text" name="enterid" placeholder="Enter ID here..." required />
-	  <button type="submit" value="submit" name="idbutton">Preview image</button>
+	  <button type="submit" value="submit" name="idbutton">Preview analyze</button>
 	</form>
 </div>
 
@@ -152,7 +137,6 @@
 						<th><%=analyzed[0].server%></th>
 					</tr>
 				</tbody>
-			</table>
 			<!-- ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~ -->
 
 			<!-- ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~ -->
@@ -242,10 +226,12 @@
 								<td style="text-indent: 30px"><%= headers[i].head_text %></td>
 							</tr>
 						<% } else if(headers[i].head_value == 6) { %>
-							<tr class="p-style">
-								<td style="color: blue"><%= headers2[i] %></td>
-								<td style="text-indent: 35px"><%= headers[i].head_text %></td>
-							</tr>
+							<% if(headers[i].head_text.length > 2) { %>
+								<tr class="p-style">
+									<td style="color: blue"><%= headers2[i] %></td>
+									<td style="text-indent: 35px"><%= headers[i].head_text %></td>
+								</tr>
+							<% } %>
 						<% } else if(headers[i].head_value == 7) { %>
 							<% if(headers[i].head_text.length > 0) { %>
 								<tr class="a-style">
@@ -294,11 +280,9 @@
 	</div>
 
 <% } %>
-
+<hr>
 
 
 <div class="content-div">
 	<p>Select scraps to preview <a href="/lastanalyzes">here</a>.</p>
 </div>
-<!-- Includamo footer file -->
-<% include ../partials/footer.ejs %>

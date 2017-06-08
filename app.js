@@ -49,4 +49,3 @@ console.log('\n--------------------[SERVER END]----------------------');
 
 require('./controllers/passport')(passport); // pass passport for configuration
 require('./controllers/routes.js')(app, passport); // load our routes and pass in our app and fully configured passport
-app.use(express.static(__dirname + '/public/assets'));

@@ -1,10 +1,17 @@
 <!-- Title -->
-<div class="content-title users-title">
-	<br/>
-	<h3>User account</h3>
-	<h2>Profile page</h2>
+<div id="titleDiv2">
+	<center>
+		<p>User account</p>
+	</center>
 </div>
 
+<div id="snatcherDiv2">
+	<center>
+		<p>PROFILE</p>
+	</center>
+</div>
+
+<hr style="newstyle">
 
 <!--If there is sucess we display it -->
 <% if(typeof sucess != 'undefined') { %>
@@ -36,4 +43,10 @@
 		<strong>username</strong>: <%= user.username %><br>
 		<strong>password</strong>: <%= user.password %>
 	</p>
+</div>
+
+<hr style="newstyle">
+
+<div class="content-div">
+	<p>Want to scrape some site ? Click <a href="/scraper">here</a>.</p>
 </div>

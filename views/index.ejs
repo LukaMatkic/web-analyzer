@@ -4,9 +4,7 @@
 
 <body>
 
-  <div id="page-header">
-      <% include partials/heading.ejs %>
-  </div>
+  <% include partials/heading.ejs %>
 
   <!-- div za content stranice -->
   <div id="page-style">
@@ -14,65 +12,57 @@
     <!-- Neki tekst na front pageu -->
     <div id="page-content">
       <%-include(content) %>
+
     </div>
   </div>
 
   <!-- div za sidebar -->
   <div id="page-sidebar">
     <% include partials/sidebar.ejs %>
+
   </div>
-<script>var scrollW = document.getElementById("wrap-scroll");
-var scrollUl = document.getElementById("ul-scroll");
-var itemsScrolled,
-    itemsMax,
-    cloned = false;
 
-var listOpts = {
-  itemCount: null,
-  itemHeight: null,
-  items: [],
-};
-
-function scrollWrap () {
-
-  itemsScrolled = Math.ceil( (this.scrollTop + listOpts.itemHeight / 2 ) / listOpts.itemHeight);
-
-  if (this.scrollTop < 1) {
-    itemsScrolled = 0;
+<% include partials/footer.ejs %>
+<script>
+  var scrollUl = document.getElementById("ul-scroll");
+  var itemsScrolled,
+      itemsMax,
+      cloned = false;
+  var listOpts = {
+    itemCount: null,
+    itemHeight: null,
+    items: [],
+  };
+  function scrollWrap () {
+    itemsScrolled = Math.ceil( (this.scrollTop + listOpts.itemHeight / 2 ) / listOpts.itemHeight);
+    if (this.scrollTop < 1) {
+      itemsScrolled = 0;
+    }
+    listOpts.items.forEach(function (ele) {
+      ele.classList.remove("active");
+    })
+    if (itemsScrolled < listOpts.items.length) {
+      listOpts.items[itemsScrolled].classList.add("active");
+    }
   }
-
-  listOpts.items.forEach(function (ele) {
-    ele.classList.remove("active");
-  })
-
-  if (itemsScrolled < listOpts.items.length) {
-    listOpts.items[itemsScrolled].classList.add("active");
+  function initItems (scrollSmooth) {
+    listOpts.items = [].slice.call(scrollUl.querySelectorAll("li"));
+    listOpts.itemHeight = listOpts.items[0].clientHeight;
+    listOpts.itemCount = listOpts.items.length;
+    if (!itemsMax) {
+      itemsMax = listOpts.itemCount;
+    }
+    if (scrollSmooth) {
+      var seamLessScrollPoint = ((itemsMax - 3) * listOpts.itemHeight);
+      scrollW.scrollTop = seamLessScrollPoint;
+    }
   }
-
-
-}
-
-function initItems (scrollSmooth) {
-
-  listOpts.items = [].slice.call(scrollUl.querySelectorAll("li"));
-  listOpts.itemHeight = listOpts.items[0].clientHeight;
-  listOpts.itemCount = listOpts.items.length;
-
-  if (!itemsMax) {
-    itemsMax = listOpts.itemCount;
-  }
-
-  if (scrollSmooth) {
-    var seamLessScrollPoint = ((itemsMax - 3) * listOpts.itemHeight);
-    scrollW.scrollTop = seamLessScrollPoint;
-  }
-
-}
-
-document.addEventListener("DOMContentLoaded", function(event) {
-  initItems();
-  scrollW.onscroll = scrollWrap;
-});
+  document.addEventListener("DOMContentLoaded", function(event) {
+    initItems();
+    scrollW.onscroll = scrollWrap;
+  });
 </script>
+
+<script src="/Js/inputField.js"></script>
 </body>
 </html>

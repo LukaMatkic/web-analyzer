@@ -1,33 +1,17 @@
-<ul>
+<div id="navigationDiv" style="position: fixed; left: 50px">
+<nav class="menu">
+  <input type="checkbox" href="#" class="menu-open" name="menu-open" id="menu-open"/>
+  <label class="menu-open-button" for="menu-open">
+    <span class="hamburger hamburger-1"></span>
+    <span class="hamburger hamburger-2"></span>
+    <span class="hamburger hamburger-3"></span>
+  </label>
 
-	<li>
-		<a href="/"> Home page </a>
-	</li>
+	<a href="/" class="menu-item"><i class="fa fa-home fa-3x" aria-hidden="true"></i> </a>
+  <a href="/start" class="menu-item"> <i class="fa fa-user	 fa-3x" aria-hidden="true"></i> </a>
+  <a href="/scraper" class="menu-item"> <i class="fa fa-wpexplorer fa-3x" aria-hidden="true"></i> </a>
+  <a href="/lastanalyzes" class="menu-item"> <i class="fa fa-bar-chart fa-3x" aria-hidden="true"></i></a>
 
-	<li>
-		<a href="/start">User Account</a>
-	</li>
 
-	<li>Scraping Tools</li>
-		<ul>
-			<li>
-				<a href="/scraper"> Scraper </a>
-			</li>
-			<% if(typeof user != 'undefined') { %>
-			<li>
-				<a href="/imgsnatch"> IMG Snatch </a>
-			</li>
-			<% } %>
-		</ul>
-
-	<li>Statistic Tools</li>
-		<ul>
-			<li>
-				<a href="/lastanalyzes"> Last Analyzes </a>
-			</li>
-			<li>
-				<a href="/sitedata"> Site Data </a>
-			</li>
-		</ul>
-
-</ul>
+</nav>
+</div>

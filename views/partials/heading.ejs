@@ -1,0 +1,21 @@
+<nav class="nav-up">
+
+  <ul>
+    <div>
+      <li>
+      <% if(typeof user != 'undefined') { %>
+        <a href="/logout">Logout</a>
+      <% } else { %>
+        <a href="/start">Account</a>
+      <% } %>
+      </li>
+      <li>
+        <a href="/lastanalyzes">Histroy</a>
+      </li>
+      <li>
+        <a href="/">Home</a>
+      </li>
+    </div>
+  </ul>
+
+</nav>

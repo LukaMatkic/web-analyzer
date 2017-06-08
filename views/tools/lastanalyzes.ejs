@@ -1,20 +1,23 @@
-<!-- Includamo navigation file -->
-<% include ../partials/navigation.ejs %>
-<div class="content-title statistic-title">
-	<br/>
+<!-- Title -->
+<div id="titleDiv2">
 	<center>
-
-	<h3>Statistic tools</h3>
-	<h2>Last Analyzes</h2></center>
+		<p>Statistic tools</p>
+	</center>
 </div>
+
+<div id="snatcherDiv2">
+	<center>
+		<p>ANALYZES HYSTORY</p>
+	</center>
+</div>
+
+<hr class="newstyle">
 
 
 <!--If there is error we display it -->
 <% if(typeof error != 'undefined') { %>
   <div class="errmsg">
-    <center>
-
-		<p><%= error %></p></center>
+    <p><%= error %></p>
   </div>
 <% } %>
 
@@ -22,15 +25,18 @@
 <!--If there is warning we display it -->
 <% if(typeof info != 'undefined') { %>
   <div class="infmsg">
-  <center>
-
-	 <p><%= info %></p></center>
+    <p><%= info %></p>
   </div>
 <% } %>
 
+<center>
+	<p style="width: 70%">Analyzes history tools is tool witch displays last 10
+	analyzes to user. Guests are shown only anonymous analyzes, but registered
+	users have full preview of every analyze !</p>
+</center>
 
 <% if(typeof scrapped != 'undefined') { %>
-<div id="scrap-table" class="content-div">
+<div id="scrap-table">
 	<section>
 
 		<table class="data-table">
@@ -51,6 +57,10 @@
 						<th>ANON</td>
 					<% } %>
 					<th>IMAG</th>
+					<th>HEAD</th>
+					<% if(typeof childs != 'undefined') { %>
+						<th>CHIL</td>
+					<% } %>
 					<th>VIEW</th>
 				</tr>
 			</thead>
@@ -71,6 +81,10 @@
 						<th>ANON</td>
 					<% } %>
 					<th>IMAG</th>
+					<th>HEAD</th>
+					<% if(typeof childs != 'undefined') { %>
+						<th>CHIL</td>
+					<% } %>
 					<th>VIEW</th>
 				</tr>
 			</tfoot>
@@ -80,9 +94,9 @@
 
 				<!-- Svakom drugom stavljamo crnu pozadinu -->
 				<% if(i%2 == 0) {%>
-					<tbody>
-				<%} else {%>
 					<tbody class="table-body">
+				<%} else {%>
+					<tbody>
 				<% } %>
 
 					<tr>
@@ -102,7 +116,7 @@
 								</td>
 							<% } %><% if(typeof anonim != 'undefined') { %>
 							<td>
-								<% if(anonim[i] == true) { %>
+								<% if(anonim[i] == false) { %>
 									<img src= "/imgs/true.png" class="icon"></img>
 								<% } else { %>
 									<img src= "/imgs/false.png" class="icon"></img>
@@ -115,7 +129,23 @@
 							<% } else { %>
 								<img src= "/imgs/false.png" class="icon"></img>
 							<% } %>
-						</td>
+							</td>
+							<td>
+							<% if(heading[i] == true) { %>
+								<img src= "/imgs/true.png" class="icon"></img>
+							<% } else { %>
+								<img src= "/imgs/false.png" class="icon"></img>
+							<% } %>
+							</td>
+							<% if(typeof childs != 'undefined') { %>
+								<td>
+								<% if(childs[i] == true) { %>
+									<img src= "/imgs/true.png" class="icon"></img>
+								<% } else { %>
+									<img src= "/imgs/false.png" class="icon"></img>
+								<% } %>
+								</td>
+							<% } %>
 						<td>
 							<form method="POST" action="/sitedata">
 		          	<button type="submit" name="enterid" value="<%=scrapped[i].id%>">View</button>
@@ -131,11 +161,9 @@
 <% } %>
 
 
-
+<hr class="newstyle">
 
 
 <div class="content-div">
 	<p>Want to scrape some site ? Click <a href="/scraper">here</a>.</p>
 </div>
-<!-- Includamo footer file -->
-<% include ../partials/footer.ejs %>
