@@ -57,10 +57,10 @@
 			<input type="checkbox" name="childs">Analyze childs?</input>
 		<% } %>
     <input type="checkbox" name="redirect">Follow redirects?</input>
-    <button type="submit" value="submit"> Scrape url</button>
+    <button id="Scrapebtn" type="submit" value="submit"> Scrape url</button>
   </form>
 </div>
-
+<span id="span"></span>
 
 <!-- If sucscr exists we display it in table -->
 <% if(typeof sucscr != 'undefined') { %>
@@ -196,3 +196,4 @@
 <div class="content-div">
 	<p>Want to take preview URL analyze ? Click <a href="/lastanalyzes">here</a>.</p>
 </div>
+<script src="ScraperSocket.js"></script>
