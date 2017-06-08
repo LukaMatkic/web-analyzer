@@ -26,7 +26,7 @@ var scrapURL = function(url, redirect, img, anon, headings, child, req, res) {
     time: "",
     id_user: 0
   };
-console.log('Varijabla redirect: ' + redirect);
+//console.log('Varijabla redirect: ' + redirect);
   function redirs(){
       var maxRedirs = 5;
       if(redirect == 'on'){
@@ -45,16 +45,16 @@ console.log('Varijabla redirect: ' + redirect);
       }
   }
   var redirs2 = redirs();
-  console.log('Follow Redirects: ' + redirs2.followRedirs);
-  console.log('Follow ALL Redirects: ' + redirs2.followAll);
-  console.log('Max Redirects: ' + redirs2.maxredirs);
+  //console.log('Follow Redirects: ' + redirs2.followRedirs);
+  //console.log('Follow ALL Redirects: ' + redirs2.followAll);
+  //console.log('Max Redirects: ' + redirs2.maxredirs);
 
   // Sending request
   request(options = { url: url, followRedirect: redirs2.followRedirs, followAllRedirects: redirs2.followAll, maxRedirects: redirs2.maxredirs}, function(error, response, body) {
 
-      console.log('Follow Redirects: ' + redirs2.followRedirs);
-      console.log('Follow ALL Redirects: ' + redirs2.followAll);
-      console.log('Max Redirects: ' + redirs2.maxredirs);
+    //  console.log('Follow Redirects: ' + redirs2.followRedirs);
+    //  console.log('Follow ALL Redirects: ' + redirs2.followAll);
+    //  console.log('Max Redirects: ' + redirs2.maxredirs);
 
     //Body se loada u cheerio module
     var $ = cheerio.load(body);
