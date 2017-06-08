@@ -11,6 +11,7 @@ var scrapEngine = require('./tools/scraper'); // Potrebno za scrappati url
 var showAnalyze = require('./tools/sitedata'); // Potrebno za osvjeziti alanyze dio
 var imgsnatch = require('./tools/imgsnatch'); //
 var homepage = require('./homepage');
+var childs = require('./tools/childs');
 //..............................................................................
 
 // We export all our routes
@@ -187,6 +188,37 @@ module.exports = function(app, passport) {
 		// Else if user clicks on ID button
 		} else {
 			imgsnatch.previewScr(req.body.enterid, res);
+		}
+	});
+
+	// User requests childs tool
+	app.get('/childs', urlencodedParser, function(req, res){
+		// If user is logged in
+		if(req.isAuthenticated()) {
+			// We display him page
+			res.render('index', {
+				content: 'tools/childs.ejs',
+				user: req.user});
+		// Else if user is not logged in
+		} else {
+			//We display him error page
+			res.render('index', {
+				content: 'other/errorpage.ejs',
+				error: 'You are not welcome here !'});
+		}
+	});
+
+	// User starts childs tool with ID
+	app.post('/childs', urlencodedParser, function(req, res){
+		// If user is logged in
+		if(req.isAuthenticated()) {
+			// Sending request
+			childs.loadChilds(req.body.enterid, req, res);
+		} else {
+			//We display him error page
+			res.render('index', {
+				content: 'other/errorpage.ejs',
+				error: 'You are not welcome here !'});
 		}
 	});
 
