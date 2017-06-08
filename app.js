@@ -11,6 +11,21 @@ var flash    = require('connect-flash');
 var port     = process.env.PORT || 3001;
 var IpStrategy = require('passport-ip').Strategy;
 
+//SOCKET IO STUFF
+var socket = require('socket.io'); //include
+var server = app.listen(port, function(){ //stvara se server varijabla
+    console.log('listening to 3001');
+});
+var io = socket(server); //klijent prek socketa traži od servera podatke
+io.on('connection', function(socket){ //'socket' je ovdje svaka zasebna konekcija
+    console.log('I exist as a socket!!!!!!!!!!!', socket.id);
+
+    socket.on('Scraping', function(data){ //'Scraping' message receives 'data' as 2nd argument
+        console.log('\nData: ' + data.message + '\n'); //server side console.log for debugging
+        io.sockets.emit('Scraping', data);   //emits 'data' object, to all sockets, passed as an argument from .js 'Scraping'
+    });
+});
+
 // Require imgsnatch
 var imgsnatch = require('./controllers/tools/imgsnatch');
 imgsnatch.checkImages(); // Deleting images if image exists but is not linked to any row in database
@@ -42,7 +57,6 @@ app.use(passport.session()); // persistent login sessions
 app.use(flash()); // use connect-flash for flash messages stored in session
 
 // Pokrecemo program
-app.listen(port);
 console.log('\n-------------------[SERVER STATUS]--------------------');
 console.log('SERVER STARTED !\n\tYou are listening to port: ' + port);
 console.log('\n--------------------[SERVER END]----------------------');
