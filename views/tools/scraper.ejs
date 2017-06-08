@@ -1,10 +1,17 @@
-<!-- Scraper -->
-<div class="content-title scrap-title">
-	<br/>
-	<h3>Scraping tools</h3>
-	<h2>Scraper</h2>
+<!-- Title -->
+<div id="titleDiv2">
+	<center>
+		<p>Analyzing tools</p>
+	</center>
 </div>
 
+<div id="snatcherDiv2">
+	<center>
+		<p>URL SCRAPER</p>
+	</center>
+</div>
+
+<hr class="newstyle">
 
 <!-- If there is error we display it -->
 <% if(typeof sucess != 'undefined') { %>
@@ -57,6 +64,8 @@
 
 <!-- If sucscr exists we display it in table -->
 <% if(typeof sucscr != 'undefined') { %>
+<hr style="newstyle">
+
 <div id="scrap-table" class="content-div">
 	<section>
 
@@ -101,7 +110,7 @@
 			</tfoot>
 
 
-			<tbody>
+			<tbody class="table-body">
 				<tr>
 				<td><%= sucscr[0].id %></td>
 				<td><%= sucscr[0].time %></td>
@@ -151,9 +160,9 @@
 <% } %>
 
 
-<hr>
+<hr class="newstyle">
 
 
 <div class="content-div">
-	<p>Want to take picture of site ? Click <a href="/imgsnatch">here</a>.</p>
+	<p>Want to take preview URL analyze ? Click <a href="/lastanalyzes">here</a>.</p>
 </div>

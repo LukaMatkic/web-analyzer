@@ -22,7 +22,7 @@
 
 
 <% if(typeof scrapped != 'undefined') { %>
-<div id="scrap-table" class="content-div">
+<div id="scrap-table">
 	<section>
 
 		<table class="data-table">
@@ -72,9 +72,9 @@
 
 				<!-- Svakom drugom stavljamo crnu pozadinu -->
 				<% if(i%2 == 0) {%>
-					<tbody>
-				<%} else {%>
 					<tbody class="table-body">
+				<%} else {%>
+					<tbody>
 				<% } %>
 
 					<tr>
@@ -94,7 +94,7 @@
 								</td>
 							<% } %><% if(typeof anonim != 'undefined') { %>
 							<td>
-								<% if(anonim[i] == true) { %>
+								<% if(anonim[i] == false) { %>
 									<img src= "/imgs/true.png" class="icon"></img>
 								<% } else { %>
 									<img src= "/imgs/false.png" class="icon"></img>

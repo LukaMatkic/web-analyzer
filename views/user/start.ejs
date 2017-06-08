@@ -1,14 +1,84 @@
-<!-- Title -->
-<div class="content-title users-title">
-	<br/>
-	<h3>User account</h3>
-	<h2>Login/Register</h2>
+<div id="titleDiv2">
+	<center>
+		<p>User account</p>
+	</center>
 </div>
 
+<div id="snatcherDiv2">
+	<center>
+		<p>LOGIN or REGISTER</p>
+	</center>
+</div>
+
+<hr class="newstyle">
+
+<!--If there is error we display it -->
+<% if(typeof error != 'undefined') { %>
+	<% if(error.length > 0) { %>
+	  <div class="errmsg">
+			<center>
+			<%= error %></center>
+		</div>
+	<% } %>
+<% } %>
+
+<center>
+	<p style="width: 70%">Only logged in users have more advanced tools avaliable.
+		Guests can access only basic tools like Scraper and Hystory of analyzes. To access
+		all tools please login to your account or register one if you dont have any !</p>
+</center>
+
+<!--Login form -->
+<div class="login-wrap">
+	<div class="login-html">
+		<input id="tab-1" type="radio" name="tab" class="sign-in" checked><label for="tab-1" class="tab">Log In</label>
+		<input id="tab-2" type="radio" name="tab" class="sign-up"><label for="tab-2" class="tab">Sign Up</label>
+		<div class="login-form">
+			<div class="sign-in-htm">
+				<form action="/login" method="post">
+				<div class="group">
+					<label for="user" class="label">Username</label>
+					<input id="user" type="text" class="input" name="username">
+				</div>
+				<div class="group">
+					<label for="pass" class="label">Password</label>
+					<input id="pass" type="password" class="input" data-type="password" name="password">
+				</div>
+				<div class="group">
+					<input id="check" type="checkbox" class="check" checked>
+					<label for="check"><span class="icon"></span> Keep me Loged in</label>
+				</div>
+				<div class="group">
+
+					<input type="submit" class="button" value="Log In">
+				</div>
+				<div class="hr"></div>
+</form>
+			</div>
+			<div class="sign-up-htm">
+				<form action="/signup" method="post">
+				<div class="group">
+					<label for="user" class="label">Username</label>
+					<input id="user" type="text" class="input" name="username">
+				</div>
+				<div class="group">
+					<label for="pass" class="label">Password</label>
+					<input id="pass" type="password" class="input" data-type="password" name="password">
+				</div>
+
+
+				<div class="group">
+					<input type="submit" class="button" value="Sign Up">
+				</div>
+				<div class="hr"></div>
+			</form>
+			</div>
+		</div>
+	</div>
+</div>
+
+<hr class="newstyle">
 
 <div class="content-div">
-  <p>Login or Register:</p>
-
-  <a href="/login">Login</a>
-  <a href="/signup">Signup</a>
+	<p>Use LOGIN and SINGUP buttons to switch between forms !</p>
 </div>

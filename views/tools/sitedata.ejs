@@ -42,7 +42,7 @@
 	<p>Enter analyzed ID to preview analyzed data !</p>
 	<form method="POST" action="/sitedata">
 	  <input type ="text" name="enterid" placeholder="Enter ID here..." required />
-	  <button type="submit" value="submit" name="idbutton">Preview image</button>
+	  <button type="submit" value="submit" name="idbutton">Preview analyze</button>
 	</form>
 </div>
 
@@ -226,10 +226,12 @@
 								<td style="text-indent: 30px"><%= headers[i].head_text %></td>
 							</tr>
 						<% } else if(headers[i].head_value == 6) { %>
-							<tr class="p-style">
-								<td style="color: blue"><%= headers2[i] %></td>
-								<td style="text-indent: 35px"><%= headers[i].head_text %></td>
-							</tr>
+							<% if(headers[i].head_text.length > 2) { %>
+								<tr class="p-style">
+									<td style="color: blue"><%= headers2[i] %></td>
+									<td style="text-indent: 35px"><%= headers[i].head_text %></td>
+								</tr>
+							<% } %>
 						<% } else if(headers[i].head_value == 7) { %>
 							<% if(headers[i].head_text.length > 0) { %>
 								<tr class="a-style">

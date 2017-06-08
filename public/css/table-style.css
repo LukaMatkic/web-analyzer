@@ -1,0 +1,109 @@
+/* Stil za svaki drugi redak u tablici - radi lakseg pregleda */
+.table-body {
+  background: lightgrey;
+}
+
+/*For previewing images in tables*/
+.icon {
+  width: 20px;
+  height: 20px;
+}
+
+.h1-style {
+  font-size: 18px;
+}
+
+.h2-style {
+  font-size: 16px;
+}
+
+.h3-style {
+  font-size: 14px;
+}
+
+.h4-style {
+  font-size: 12px;
+}
+
+.h5-style {
+  font-size: 10px;
+}
+
+.h6-style {
+  font-size: 10px;
+}
+
+.p-style {
+  font-size: 10px;
+}
+
+.a-style {
+  font-size: 10px;
+}
+
+.href-style {
+  font-size: 10px;
+}
+
+table {
+  border-radius: 10px;
+  border-style: none;
+  color: black;
+  width: 100%;
+}
+
+.data-table{
+  background: linear-gradient(90deg, rgba(102, 179, 255, 0.7) 0%, rgba(102, 179, 255, 0.7) 25%, rgba(102, 179, 255, 0.7) 75%, rgba(102, 179, 255, 0.7) 100%);
+  box-shadow: 0 0 25px rgba(0, 0, 0, 1), inset 0 0 1px rgba(255, 255, 255, 1);
+  text-align: center;
+  border-collapse:collapse;
+  margin: 0 auto;
+  font-family: 'Poiret One';
+  font-weight: bold;
+  border-style: : 5px solid #ddd;
+  font-size: 20px;
+  box-sizing: border-box;
+}
+
+/* Stil za header i footer od tablice (vrh i dno) */
+.table-thead {
+  border-style: 20px solid #e6e6e6;
+  border-collapse: collapse;
+  height: 200px;
+  font-weight: 1000;
+  height: 100px;
+  font-size: 40px;
+  background: linear-gradient(90deg, rgba(255, 255, 255, 0) 0%, rgba(255, 255, 255, 0.1) 25%, rgba(255, 255, 255, 0.1) 75%, rgba(255, 255, 255, 0) 100%);
+  box-shadow: 0 0 25px rgba(0, 0, 0, 0.1), inset 0 0 1px rgba(255, 255, 255, 0.1);
+}
+
+tr {
+  background: linear-gradient(90deg, rgba(255, 255, 255, 0) 0%, rgba(255, 255, 255, 0.4) 25%, rgba(255, 255, 255, 0.4) 75%, rgba(255, 255, 255, 0) 100%);
+  box-shadow: 0 0 25px rgba(0, 0, 0, 0.1), inset 0 0 1px rgba(255, 255, 255, 0.1);
+  transition: all .2s ease-in-out;
+}
+
+tr:hover {
+  transform: scale(1.01);
+}
+
+td {
+  padding-left: 10px;
+}
+
+.table-body2 tr:nth-child(even) td {
+  background-color:#b3d9ff;
+  font-weight: 1000;
+  font-size: 50px !important;
+  background: linear-gradient(90deg, rgba(255, 255, 255, 0) 0%, rgba(255, 255, 255, 0.1) 25%, rgba(255, 255, 255, 0.1) 75%, rgba(255, 255, 255, 0) 100%);
+  box-shadow: 0 0 25px rgba(0, 0, 0, 0.1), inset 0 0 1px rgba(255, 255, 255, 0.1);
+}
+
+.table-body2 {
+ background-color:#b3d9ff;
+ font-weight: 1000;
+ height: 50px !important;
+ background: linear-gradient(90deg, rgba(255, 255, 255, 0) 0%, rgba(255, 255, 255, 0.1) 25%, rgba(255, 255, 255, 0.1) 75%, rgba(255, 255, 255, 0) 100%);
+ box-shadow: 0 0 25px rgba(0, 0, 0, 0.1), inset 0 0 1px rgba(255, 255, 255, 0.1);
+ padding-left: 7px;
+}

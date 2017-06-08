@@ -1,0 +1,22 @@
+/* Styling za stranicu za posloziti sidebar, i topbar? i content stranice*/
+
+/*Djelimo stranicu na 2 djela content i sidebar*/
+#page-style {
+  float: left;
+  width: 100%;
+}
+
+/*Namjestamo content css*/
+#page-content {
+  margin: 100px;
+}
+
+/*Namjestamo css od sidebar-a*/
+#page-sidebar {
+  position: relative;
+  float: left;
+  width: 100px; /*Width of left column*/
+  height: 100%;
+  margin-left: -100%;
+  overflow: hidden;
+}

@@ -48,6 +48,18 @@ var reloadTable = function(req, res) {
         );
       };
 
+      for(var i=0;i<rows.length;i++) {
+        if(rows[i].title.length > 24) {
+          rows[i].title = rows[i].title.substring(0, 20) + '...';
+        }
+      }
+
+      for(var i=0;i<rows.length;i++) {
+        if(rows[i].url.length > 32) {
+          rows[i].url = rows[i].url.substring(0, 28) + '...';
+        }
+      }
+
       // Rendering last analyzes page with data
       // If user is logged in
       if(req.isAuthenticated()) { // If user is logged in no info is shown

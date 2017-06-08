@@ -28,7 +28,7 @@ module.exports = function(app, passport) {
 			res.redirect('/profile');
 		} else {
 			res.render('index', {
-				content: 'user/login.ejs',
+				content: 'user/start.ejs',
 				error: req.flash('loginMessage')});
 		}
 	});
@@ -36,7 +36,7 @@ module.exports = function(app, passport) {
 	// Request from user to login into his account
 	app.post('/login', passport.authenticate('local-login', {
             successRedirect : '/profile', // redirect to the secure profile section
-            failureRedirect : '/login', // redirect back to the signup page if there is an error
+            failureRedirect : '/start', // redirect back to the signup page if there is an error
             failureFlash : true // allow flash messages
 		}),
         function(req, res) {
@@ -57,7 +57,7 @@ module.exports = function(app, passport) {
 		// render the page and pass in any flash data if it exists
 		} else {
 			res.render('index', {
-				content: 'user/signup.ejs',
+				content: 'user/start.ejs',
 				error: req.flash('signupMessage')});
 		};
 	});
@@ -65,7 +65,7 @@ module.exports = function(app, passport) {
 	// Procesuiranje registracije
 	app.post('/signup', passport.authenticate('local-signup', {
 		successRedirect : '/profile',
-		failureRedirect : '/signup',
+		failureRedirect : '/start',
 		failureFlash : true
 	}));
 
@@ -90,9 +90,12 @@ module.exports = function(app, passport) {
 		if(req.isAuthenticated()) {
 			res.render('index', {
 				content: 'user/profile.ejs',
-				user: req.user});
+				user: req.user,
+				error: req.flash('loginMessage')});
 		} else {
-			res.render('index', {content: 'user/start.ejs'});
+			res.render('index', {
+				content: 'user/start.ejs',
+				error: req.flash('loginMessage')});
 		}
 	});
 

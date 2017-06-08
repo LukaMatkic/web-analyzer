@@ -1,0 +1,32 @@
+.nav-up
+{
+    width: 95%;
+    height: 50px;
+}
+.nav-up ul
+{
+    right: 0px;
+    position: absolute;
+    margin: 0;
+}
+.nav-up ul div
+{
+    height: 50px;
+    right: 0px;
+    list-style: none;
+    margin: 0;
+    padding: 0;
+    background: linear-gradient(90deg, rgba(255, 255, 255, 0) 0%, rgba(255, 255, 255, 0.1) 25%, rgba(255, 255, 255, 0.1) 75%, rgba(255, 255, 255, 0) 100%);
+    box-shadow: 0 0 25px rgba(0, 0, 0, 0.1), inset 0 0 1px rgba(255, 255, 255, 0.1);
+    border-radius: 10px;
+}
+.nav-up ul li
+{
+    display: inline-block;
+    width: 70px;
+    height: 25px;
+    float: right;
+    top: 0px;
+    text-align: center;
+    padding: 13px;
+}
