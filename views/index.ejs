@@ -12,17 +12,17 @@
     <!-- Neki tekst na front pageu -->
     <div id="page-content">
       <%-include(content) %>
-      <% include partials/footer.ejs %>
+
     </div>
   </div>
 
   <!-- div za sidebar -->
   <div id="page-sidebar">
     <% include partials/sidebar.ejs %>
-    <% include partials/sidebar.ejs %>
+
   </div>
 
-
+<% include partials/footer.ejs %>
 <script>
   var scrollUl = document.getElementById("ul-scroll");
   var itemsScrolled,
@@ -63,6 +63,6 @@
   });
 </script>
 
-
+<script src="/Js/inputField.js"></script>
 </body>
 </html>

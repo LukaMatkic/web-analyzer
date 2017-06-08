@@ -1,21 +1,16 @@
 #holder1 {
-  position:relative;
-  margin:0 auto;
-  height:380px;
-  width:50%;
+  height: auto;
+  margin: 0 auto;
+  padding: 10px;
+  width:40%;
+  position: relative;
   background: linear-gradient(90deg, rgba(255, 255, 255, 0) 0%, rgba(255, 255, 255, 0.1) 25%, rgba(255, 255, 255, 0.1) 75%, rgba(255, 255, 255, 0) 100%);
   box-shadow: 0 0 25px rgba(0, 0, 0, 0.1), inset 0 0 1px rgba(255, 255, 255, 0.1);
+  border-radius: 15px;
+  padding-top: 1%;
 }
 
-#holder1 #logo {
-  width:25%;
-  height:200px;
-  margin:0 auto;
-  margin-top: 20px;
-  background-image: url("/imgs/logo.png");
-  background-size: cover;
 
-}
 
 #holder1 #holder2 {
   width:80%;
@@ -23,15 +18,31 @@
   margin:0 auto;
   background: linear-gradient(90deg, rgba(255, 255, 255, 0) 0%, rgba(255, 255, 255, 0.1) 25%, rgba(255, 255, 255, 0.1) 75%, rgba(255, 255, 255, 0) 100%);
   box-shadow: 0 0 25px rgba(0, 0, 0, 0.1), inset 0 0 1px rgba(255, 255, 255, 0.1);
-  padding-top:3%;
-  padding-left: 2%;
+  border-radius: 5px;
+  padding: 10px;
+
 }
 
 #holder1 #holder2 #formDiv{
   width:100%;
   height:80px;
-  margin-left:1%;
+
+
 }
+#formDiv form{
+  height:100%;
+}
+#formDiv form button{
+  margin: 0 auto;
+}
+.holderStats{
+  margin-bottom: 1%;
+}
+.holderStats #fdw-pricing-table{
+  display:inline-block;
+  padding-left: 15%;
+}
+
 
 .container {
    opacity: 1;

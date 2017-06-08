@@ -30,7 +30,8 @@ h1 {
   text-align: center;
   line-height: 80px;
   transform: translate3d(0, 0, 0);
-  transition: transform ease-out 200ms;}
+  transition: transform ease-out 200ms;
+  opacity: 1;}
 
 .menu-open {
   display: none; }

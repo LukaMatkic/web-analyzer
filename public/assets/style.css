@@ -1,0 +1,66 @@
+/*Main body styling*/
+body{
+    background: rgb(208, 198, 177);
+    margin: 0;
+}
+
+/*For previewing image from IMG scrap tool*/
+.imgtool {
+  max-height: 500px;
+}
+
+/*For previewing error messages*/
+.errmsg {
+  border: 1px solid;
+  width: auto;
+  margin: 5px 5px 20px;
+  padding-left: 40px;
+  background-repeat: no-repeat;
+  background-position: 10px center;
+  color: #D8000C;
+  background-color: #FFBABA;
+  background-image: url('../imgs/error.png');
+  background-size: 20px 20px;
+}
+
+/*For previewing sucessfull messages*/
+.sucmsg {
+  border: 1px solid;
+  width: auto;
+  margin: 5px 5px 20px;
+  padding-left: 40px;
+  background-repeat: no-repeat;
+  background-position: 10px center;
+  color: #006600;
+  background-color: #33cc33;
+  background-image: url('../imgs/sucess.png');
+  background-size: 20px 20px;
+}
+
+/*For previewing sucessfull messages*/
+.wrnmsg {
+  border: 1px solid;
+  width: auto;
+  margin: 5px 5px 20px;
+  padding-left: 40px;
+  background-repeat: no-repeat;
+  background-position: 10px center;
+  color: #918001;
+  background-color: #f4f25f;
+  background-image: url('../imgs/warn.png');
+  background-size: 20px 20px;
+}
+
+/*For previewing sucessfull messages*/
+.infmsg {
+  border: 1px solid;
+  width: auto;
+  margin: 5px 5px 20px;
+  padding-left: 40px;
+  background-repeat: no-repeat;
+  background-position: 10px center;
+  color: #0b5491;
+  background-color: #80c1f7;
+  background-image: url('../imgs/info.png');
+  background-size: 20px 20px;
+}

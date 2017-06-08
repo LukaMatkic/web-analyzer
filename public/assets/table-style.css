@@ -1,0 +1,57 @@
+/* Stil za sve tablice koje koristimo */
+.data-table {
+    background: white;
+    width:100%;
+}
+
+/* Stil za header i footer od tablice (vth i dno) */
+.table-thread {
+  background: skyblue;
+}
+
+/* Stil za svaki drugi redak u tablici - radi lakseg pregleda */
+.table-body {
+  background: lightgrey;
+}
+
+/*For previewing images in tables*/
+.icon {
+  width: 20px;
+  height: 20px;
+}
+
+.h1-style {
+  font-size: 18px;
+}
+
+.h2-style {
+  font-size: 16px;
+}
+
+.h3-style {
+  font-size: 14px;
+}
+
+.h4-style {
+  font-size: 12px;
+}
+
+.h5-style {
+  font-size: 10px;
+}
+
+.h6-style {
+  font-size: 10px;
+}
+
+.p-style {
+  font-size: 10px;
+}
+
+.a-style {
+  font-size: 10px;
+}
+
+.href-style {
+  font-size: 10px;
+}
