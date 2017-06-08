@@ -60,45 +60,95 @@ var reloadTable = function(req, res) {
         }
       }
 
-      // Rendering last analyzes page with data
-      // If user is logged in
-      if(req.isAuthenticated()) { // If user is logged in no info is shown
+      // Sending query for later headers check
+      mysql.sendQuery("SELECT id_scrap FROM headers GROUP BY id_scrap;",
+        function(errx, rowsx, fieldsx) {
 
-        var yours = [];
-        for(var i=0;i<rows.length;i++) {
-          if(rows[i].id_user == req.user.id) {
-            yours[i] = true;
-          } else {
-            yours[i] = false;
+        // Sending query for later childs check
+        mysql.sendQuery("SELECT id_scrap FROM child_scrap GROUP BY id_scrap;",
+          function(erry, rowsy, fieldsy) {
+
+          // Check if heading exists
+          var headings = [];
+          for(var i=0;i<rows.length;i++) {
+            var check = false;
+            for(var j=0;j<rowsx.length;j++) {
+              if(rows[i].id == rowsx[j].id_scrap) {
+                check = true;
+                break;
+              }
+            }
+            if(check) {
+              headings[i] = true;
+            } else {
+              headings[i] = false;
+            }
           }
-        }
 
-        var anonim = [];
-        for(var i=0;i<rows.length;i++) {
-          if(rows[i].id_user == 0) {
-            anonim[i] = false;
-          } else {
-            anonim[i] = true;
+          // Check if childs exists
+          var childs = [];
+          for(var i=0;i<rows.length;i++) {
+            var check = false;
+            for(var j=0;j<rowsy.length;j++) {
+              if(rows[i].id == rowsy[j].id_scrap) {
+                check = true;
+                break;
+              }
+            }
+            if(check) {
+              childs[i] = true;
+            } else {
+              childs[i] = false;
+            }
           }
-        }
 
-        res.render('index', {
-        content: 'tools/lastanalyzes.ejs',
-        scrapped: rows,
-        picture: picture,
-        anonim: anonim,
-        yours: yours,
-        user: req.user});
+          // Rendering last analyzes page with data
+          // If user is logged in
+          if(req.isAuthenticated()) { // If user is logged in no info is shown
 
-      } else { // If he is not we send him info too
-        res.render('index', {
-        content: 'tools/lastanalyzes.ejs',
-        scrapped: rows,
-        picture: picture,
-        user: req.user,
-        info: 'Guests can only preview anonymous analyzes or analyzes from other guests !'});
-      }
-    }
+            var yours = [];
+            for(var i=0;i<rows.length;i++) {
+              if(rows[i].id_user == req.user.id) {
+                yours[i] = true;
+              } else {
+                yours[i] = false;
+              }
+            }
+
+            var anonim = [];
+            for(var i=0;i<rows.length;i++) {
+              if(rows[i].id_user == 0) {
+                anonim[i] = false;
+              } else {
+                anonim[i] = true;
+              }
+            }
+
+            res.render('index', {
+            content: 'tools/lastanalyzes.ejs',
+            scrapped: rows,
+            picture: picture,
+            anonim: anonim,
+            yours: yours,
+            childs: childs,
+            heading: headings,
+            user: req.user});
+
+          } else { // If he is not we send him info too
+            res.render('index', {
+            content: 'tools/lastanalyzes.ejs',
+            scrapped: rows,
+            picture: picture,
+            heading: headings,
+            user: req.user,
+            info: 'Guests can only preview anonymous analyzes or analyzes from other guests !'});
+          }
+        });
+    });
+
+
+}
+
   });
 
 };

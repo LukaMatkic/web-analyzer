@@ -1,8 +1,17 @@
-<div class="content-title statistic-title">
-	<br/>
-	<h3>Statistic tools</h3>
-	<h2>Last Analyzes</h2>
+<!-- Title -->
+<div id="titleDiv2">
+	<center>
+		<p>Statistic tools</p>
+	</center>
 </div>
+
+<div id="snatcherDiv2">
+	<center>
+		<p>ANALYZES HYSTORY</p>
+	</center>
+</div>
+
+<hr class="newstyle">
 
 
 <!--If there is error we display it -->
@@ -20,6 +29,11 @@
   </div>
 <% } %>
 
+<center>
+	<p style="width: 70%">Analyzes history tools is tool witch displays last 10
+	analyzes to user. Guests are shown only anonymous analyzes, but registered
+	users have full preview of every analyze !</p>
+</center>
 
 <% if(typeof scrapped != 'undefined') { %>
 <div id="scrap-table">
@@ -43,6 +57,10 @@
 						<th>ANON</td>
 					<% } %>
 					<th>IMAG</th>
+					<th>HEAD</th>
+					<% if(typeof childs != 'undefined') { %>
+						<th>CHIL</td>
+					<% } %>
 					<th>VIEW</th>
 				</tr>
 			</thead>
@@ -63,6 +81,10 @@
 						<th>ANON</td>
 					<% } %>
 					<th>IMAG</th>
+					<th>HEAD</th>
+					<% if(typeof childs != 'undefined') { %>
+						<th>CHIL</td>
+					<% } %>
 					<th>VIEW</th>
 				</tr>
 			</tfoot>
@@ -107,7 +129,23 @@
 							<% } else { %>
 								<img src= "/imgs/false.png" class="icon"></img>
 							<% } %>
-						</td>
+							</td>
+							<td>
+							<% if(heading[i] == true) { %>
+								<img src= "/imgs/true.png" class="icon"></img>
+							<% } else { %>
+								<img src= "/imgs/false.png" class="icon"></img>
+							<% } %>
+							</td>
+							<% if(typeof childs != 'undefined') { %>
+								<td>
+								<% if(childs[i] == true) { %>
+									<img src= "/imgs/true.png" class="icon"></img>
+								<% } else { %>
+									<img src= "/imgs/false.png" class="icon"></img>
+								<% } %>
+								</td>
+							<% } %>
 						<td>
 							<form method="POST" action="/sitedata">
 		          	<button type="submit" name="enterid" value="<%=scrapped[i].id%>">View</button>
@@ -123,7 +161,7 @@
 <% } %>
 
 
-<hr>
+<hr class="newstyle">
 
 
 <div class="content-div">

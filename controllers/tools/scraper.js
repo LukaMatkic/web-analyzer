@@ -157,6 +157,11 @@ var startBaseScrape = function(req, res, data, url, response, img, anon, heading
           // Scrapping headings
           scrapHeadings($, rows, rows2, headings, req, res, function(rowsx) {
 
+            var heads = headings;
+            if(!heads) heads = false;
+            var urlchild = child;
+            if(!urlchild) urlchild = false;
+
             // Preparing picture object witch tells if picture of scrap exists
             var picture = [];
             if(fs.existsSync('./public/imgsnatch/' + rows2[0].id + '.png')) {
@@ -205,6 +210,8 @@ var startBaseScrape = function(req, res, data, url, response, img, anon, heading
                 picture: picture,
                 yours: yours,
                 anonim: anonim,
+                heading: heads,
+                child: urlchild,
                 user: req.user,
                 warn: 'Image will be avaliable after magic is applyed !'});
             } else {
@@ -216,6 +223,8 @@ var startBaseScrape = function(req, res, data, url, response, img, anon, heading
                 picture: picture,
                 yours: yours,
                 anonim: anonim,
+                child: urlchild,
+                heading: heads,
                 user: req.user});
             }
 

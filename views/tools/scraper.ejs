@@ -64,7 +64,7 @@
 
 <!-- If sucscr exists we display it in table -->
 <% if(typeof sucscr != 'undefined') { %>
-<hr style="newstyle">
+<hr class="newstyle">
 
 <div id="scrap-table" class="content-div">
 	<section>
@@ -86,6 +86,12 @@
 						<th>ANON</td>
 					<% } %>
 					<th>IMAG</th>
+					<% if(typeof heading != 'undefined') { %>
+						<th>HEAD</td>
+					<% } %>
+					<% if(typeof child != 'undefined') { %>
+						<th>CHIL</td>
+					<% } %>
 					<th>VIEW</th>
 				</tr>
 			</thead>
@@ -105,6 +111,12 @@
 						<th>ANON</td>
 					<% } %>
 					<th>IMAG</th>
+					<% if(typeof heading != 'undefined') { %>
+						<th>HEAD</td>
+					<% } %>
+					<% if(typeof child != 'undefined') { %>
+						<th>CHIL</td>
+					<% } %>
 					<th>VIEW</th>
 				</tr>
 			</tfoot>
@@ -144,7 +156,25 @@
 					<% } else { %>
 						<img src= "/imgs/false.png" class="icon"></img>
 					<% } %>
-				</td>
+					</td>
+					<% if(typeof heading != 'undefined') { %>
+						<td>
+						<% if(heading) { %>
+							<img src= "/imgs/true.png" class="icon"></img>
+						<% } else { %>
+							<img src= "/imgs/false.png" class="icon"></img>
+						<% } %>
+						</td>
+					<% } %>
+					<% if(typeof child != 'undefined') { %>
+						<td>
+						<% if(child) { %>
+							<img src= "/imgs/true.png" class="icon"></img>
+						<% } else { %>
+							<img src= "/imgs/false.png" class="icon"></img>
+						<% } %>
+						</td>
+					<% } %>
 					<td>
 						<form method="POST" action="/sitedata">
 	         		<button type="submit" name="enterid" value="<%=sucscr[0].id%>">View</button>
