@@ -1,7 +1,7 @@
 #fdw-pricing-table {
 	margin:0 auto;
 	text-align: center;
-	width: 928px; /* total computed width */
+	width: 95%; /* total computed width */
 	zoom: 1;
 }
 
@@ -155,4 +155,8 @@
 
 #fdw-pricing-table .plan4 .signup{
 	background: #45D0DA;
+}
+
+#fdw-pricing-table .plan5 .signup{
+	background: #8080FF;
 }

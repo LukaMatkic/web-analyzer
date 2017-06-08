@@ -400,6 +400,11 @@ var scrapeRedirects = function(id, $) {
       url = '';
     }
 
+    // If first letter is # or / we discard it too
+    if(url[0] === '#' || url[0] === '/') {
+      url = '';
+    }
+
     // If somewhere in string there is ' char string is deleted
     // ' char in link causes error while executing query
     for(var i=0;i<url.length;i++) {

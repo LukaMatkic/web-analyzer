@@ -10,7 +10,8 @@ var homeStatistics = function(callback) {
 		scraps: 0,
 		users: 0,
 		headings: 0,
-		logins: 0
+		logins: 0,
+		childs: 0
 	}
 
 	// Sending query to get number of scraps
@@ -29,9 +30,14 @@ var homeStatistics = function(callback) {
 				mysql.sendQuery('SELECT * FROM logins;', function(err, rows, fields) {
 					data.logins = rows.length;
 
-				// Returning object
-				return callback(data);
+					// Sending query to get number of users
+					mysql.sendQuery('SELECT * FROM child_scrap;', function(err, rows, fields) {
+						data.childs = rows.length;
 
+					// Returning object
+					return callback(data);
+
+					});
 				});
 			});
 		});
