@@ -10,22 +10,21 @@
 	</center>
 </div>
 
-<hr class="newstyle" style="margin-top: 30px">
 
-<div style="font-size: 20px; margin-top: 20px; margin-bottom: 50px">
+<div style="font-size: 20px; margin-top: 10px; margin-bottom: 20px">
 	<center>
 		<p style="width: 70%">Welcome to Snatcher, free online tool for analyzing URLs. Snatcher is created
-			for educational purposes and everyone can use it ! If you are interested in
-			further development of Snatcher you can find source code
-			<a href="http://github.com/lukamatkic/web-analyzer">here</a>.
-			Enjoy !</p>
+			for educational purposes and everyone can use it! If you are interested in
+			further development of Snatcher you can find the source code
+			<a href="http://github.com/lukamatkic/web-analyzer" id="site-nav__link">here.</a>
+			Enjoy!</p>
 	<center>
 </div>
 
 <div id="holder1" style="margin-top: 20px; margin-bottom: 50px">
 
 
-	<div id="holder2">
+
 		<div id="formDiv">
 			<form method="POST" action="/scraper">
 				<div class="container">
@@ -36,27 +35,19 @@
 	        	<i id="iconWrong" class="iconCheck fa fa-times"></i>
 	        	<i id="iconPassed" class="iconCheck fa fa-check"></i>
 					</div>
-					<button type="submit" value="submit" class="pulse">Analyze url</button>
-					<p>Access analyzer page <a href="/scraper">here</a>.</p>
-					<% if(typeof user == 'undefined') { %>
-						<p>For more advanced analyzer please log in or register <a href="/start">here</a>.</p>
-					<% } %>
+					<button type="submit" value="submit" class="pulse">Scrape me</button>
+
 				</div>
 			</form>
 		</div>
-	</div>
-</div>
 
-<hr class="newstyle" style="margin-top: 30px">
-
-<div style="font-size: 20px; margin-top: 20px; margin-bottom: 20px">
-	<center>
-		<p style="width: 70%">This is open source site so we do not have to hide statistics.
-		Here you can see some basic statistics from this site.</p>
-	<center>
 </div>
 
 
+
+
+
+<!--
 <div class ="holderStats">
 	<div id="fdw-pricing-table">
 	    <div class="plan plan1">
@@ -80,4 +71,4 @@
 	        <div class="text"><%= data.headings %></div>
 			</div>
 	</div>
-</div>
+</div>-->

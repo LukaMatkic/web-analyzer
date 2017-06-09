@@ -11,7 +11,6 @@
 	</center>
 </div>
 
-<hr class="newstyle">
 
 <!-- If there is error we display it -->
 <% if(typeof sucess != 'undefined') { %>
@@ -46,7 +45,40 @@
 
 
 <!-- Enter new scrap URL -->
-<div id ="scrap-table" class="content-div">
+<div id="holder1" style="margin-top: 20px; margin-bottom: 50px">
+
+			<div id="formDiv">
+<div id="formDiv">
+	<form method="POST" action="/scraper">
+		<div class="container">
+			<div class="fieldRow">
+				<input type ="url" name="item" id="url" placeholder="" required />
+				<label for="url">Enter URL</label>
+				<i class="fa fa-globe" aria-hidden="true"></i>
+				<i id="iconWrong" class="iconCheck fa fa-times"></i>
+				<i id="iconPassed" class="iconCheck fa fa-check"></i>
+			</div>
+			<button type="submit" value="submit" class="pulse">Scrape me</button>
+
+		</div>
+
+	</form>
+
+</div>
+</div>
+</div>
+<center>
+
+<% if(typeof user != 'undefined') { %>
+	<input type="checkbox" name="imgsnatch">Snatch image?</input>
+	<input type="checkbox" name="anonymous">Anonymous analyze?</input>
+	<input type="checkbox" name="headings">Analyze headings?</input>
+	<input type="checkbox" name="childs">Analyze childs?</input>
+<% } %>
+<input type="checkbox" name="redirect">Follow redirects?</input></center>
+
+
+<!--<div id ="scrap-table" class="content-div">
 	<p>Enter URL of site you want to analyze:</p>
   <form method="POST" action="/scraper">
     <input type ="text" name="item" placeholder="Enter url..." required />
@@ -57,11 +89,11 @@
 			<input type="checkbox" name="childs">Analyze childs?</input>
 		<% } %>
     <input type="checkbox" name="redirect">Follow redirects?</input>
-    <button type="submit" value="submit"> Scrape url</button>
+    <button type="submit" value="submit"> Scrape me</button>
   </form>
 </div>
 
-
+-->
 <!-- If sucscr exists we display it in table -->
 <% if(typeof sucscr != 'undefined') { %>
 <hr class="newstyle">
@@ -190,9 +222,4 @@
 <% } %>
 
 
-<hr class="newstyle">
-
-
-<div class="content-div">
-	<p>Want to take preview URL analyze ? Click <a href="/lastanalyzes">here</a>.</p>
-</div>
+<hr class="newstyle" style="margin-top: 30px">

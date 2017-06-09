@@ -1,10 +1,14 @@
-<footer>
 
 
-<center>
-Need an account ? <a href="/signup">Signup</a>
+  <center>
+    <p>Access analyzer page <a href="/scraper" id="site-nav__link">here.</a>
+    <% if(typeof user == 'undefined') { %>
+      For more advanced analyzer please log in or register <a href="/start" id="site-nav__link">here.</a></p>
+    <% } %>
+  This is open source site so we do not have to hide statistics.
+    Here you can see some basic statistics from this site.
 
-&copy Najbolji tim na cilon svitu!
+Need an account? <a href="/signup" id="site-nav__link">Signup</a>
+
+<br /><br />&copy Najbolji tim na cilon svitu!</p>
 </center>
-
-</footer>

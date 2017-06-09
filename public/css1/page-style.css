@@ -1,0 +1,70 @@
+
+html
+{
+
+}
+
+body .whole-page-wrapper
+{
+
+
+}
+#navbar
+{
+  height: 10%;
+  border-style: solid;
+  margin:0 auto;
+
+
+}
+.content-page-wrapper
+{
+position: relative;
+}
+.content-wrapper
+{
+height: 60%;
+border-style: solid;
+margin-top: 2%;
+
+}
+
+.footer
+{
+
+  border-style: solid;
+  width: 99%;
+  margin:0 auto;
+
+  position: absolute;
+  bottom:0;
+  left:0;
+  right:0;
+}
+
+.sidebar
+{
+
+}
+
+
+@media all and (min-width: 501px) {
+
+  body{
+    background-image: url("/imgs/background/backgrnormal.jpg");
+    -webkit-background-size: cover;
+    -moz-background-size: cover;
+    -o-background-size: cover;
+    background-size: cover;
+  }
+
+}
+@media all and (max-width: 500px) {
+  body{
+    background-image: url("/imgs/background/backgrmedium.jpg");
+    -webkit-background-size: cover;
+    -moz-background-size: cover;
+    -o-background-size: cover;
+    background-size: cover;
+  }
+}
