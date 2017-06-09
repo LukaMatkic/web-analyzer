@@ -1,6 +1,11 @@
 /* Stil za svaki drugi redak u tablici - radi lakseg pregleda */
 .table-body {
   background: lightgrey;
+  font-size: 12px;
+}
+
+.table-body2 {
+  font-size: 12px;
 }
 
 /*For previewing images in tables*/

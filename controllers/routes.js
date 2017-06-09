@@ -12,6 +12,7 @@ var showAnalyze = require('./tools/sitedata'); // Potrebno za osvjeziti alanyze 
 var imgsnatch = require('./tools/imgsnatch'); //
 var homepage = require('./homepage');
 var childs = require('./tools/childs');
+var gagscraper = require('./tools/gagscrapper');
 //..............................................................................
 
 // We export all our routes
@@ -220,6 +221,10 @@ module.exports = function(app, passport) {
 				content: 'other/errorpage.ejs',
 				error: 'You are not welcome here !'});
 		}
+	});
+
+	app.get("/gagscraper", urlencodedParser, function(req, res){
+		gagscraper.getBest(req, res);
 	});
 
 };

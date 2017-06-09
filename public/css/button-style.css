@@ -24,11 +24,11 @@ button {
     color: #fff; }
 
 button {
-  font-size: 20px !important;
+  font-size: 15px !important;
   background: none;
   border: 2px solid;
   font: inherit;
   line-height: 1;
-  width:20%;
-  margin: 0.4em;
-  padding: 10px 10px; }
+  width: 100%;
+  margin: auto auto;
+  padding: 5px 5px 5px 5px; }

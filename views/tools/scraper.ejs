@@ -189,6 +189,43 @@
 </div>
 <% } %>
 
+<!-- If sucscr exists we display it in table -->
+<% if(typeof child != 'undefined') { %>
+<hr class="newstyle">
+
+<div id="scrap-table" class="content-div">
+	<section>
+		<table class="data-table">
+			<thead class="table-thread">
+				<tr>
+					<th>CHILDS ID</th>
+					<th>URL</th>
+					<th>VIEW</th>
+				</tr>
+			</thead>
+			<tfoot class="table-thread">
+				<tr>
+					<th>CHILDS ID</th>
+					<th>URL</th>
+					<th>VIEW</th>
+				</tr>
+			</tfoot>
+			<tbody class="table-body">
+				<tr>
+				<td><%= sucscr[0].id %></td>
+				<td><%= sucscr[0].url %></td>
+				<td>
+					<form method="POST" action="/childs">
+	       		<button type="submit" name="enterid" value="<%=sucscr[0].id%>">View</button>
+	     		</form>
+				</td>
+				</tr>
+			</tbody>
+		</table>
+	</section>
+</div>
+<% } %>
+
 
 <hr class="newstyle">
 
