@@ -1,5 +1,8 @@
 /* Styling za stranicu za posloziti sidebar, i topbar? i content stranice*/
-
+::-webkit-scrollbar {
+    width: 0px;  /* remove scrollbar space */
+    background: transparent;
+    }  /* optional: just make scrollbar invisible */
 /*Djelimo stranicu na 2 djela content i sidebar*/
 #page-style {
   float: left;
@@ -27,4 +30,79 @@
 footer {
 width:100%;
 height:70px;
+}
+
+#liHolder{
+
+
+
+    position:relative;
+
+}
+
+#liHolder ul{
+    padding:0;
+}
+
+.item{
+    width:85%;
+    margin:0 auto;
+    margin-bottom: 30px;
+}
+
+li{
+
+    list-style: none;
+}
+
+
+
+#scroll-container {
+
+  max-width: 100%;
+  position: relative;
+  min-height: 200px;
+}
+
+.wrap-container {
+
+  max-height: 400px;
+  width: 100%;
+  max-width: 100%;
+  overflow: auto;
+  /* background: #eee; */
+  padding-right: 20px;
+  mask: url(#masking);
+  -webkit-mask-image: -webkit-gradient(linear, left bottom, left top, color-stop(0.5, black), color-stop(1, transparent)); }
+
+
+.wrap-container ul {
+    list-style: none;
+    position: relative;
+    transition: transform .3s;
+    top: 50px; }
+  .wrap-container ul, .wrap-container ul li {
+    margin: 0;
+    padding: 0;
+    text-align: center; }
+
+  .wrap-container ul li {
+
+    padding-top:10px;
+    line-height: 50px;
+    transition: transform .3s;
+    overflow: hidden; }
+
+    .wrap-container ul li.active .item {
+      transform: scale(1); }
+.wrap-container ul li .item {
+    position: relative;
+    transition: transform 400ms;
+    display: inline-block; }
+#element::-webkit-scrollbar {
+    display: none;
+}
+
+.content-div{
+  margin:0 auto;
 }
