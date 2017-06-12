@@ -8,12 +8,12 @@ var loadScrapID = function(req, res, id) {
   // If there is no rows in return user entered wrong ID
   if(id.length > 20) {
     if(typeof req.user != 'undefined') {
-      res.render('index',{
+      res.render('index1',{
         content: 'tools/sitedata.ejs',
         error: 'Length of ID can not be more than 20 characters !',
         user: req.user});
     } else {
-      res.render('index',{
+      res.render('index1',{
         content: 'tools/sitedata.ejs',
         error: 'Length of ID can not be more than 20 characters !'});
     }
@@ -26,12 +26,12 @@ var loadScrapID = function(req, res, id) {
     // If there is no rows in return user entered wrong ID
     if(rows == '') {
       if(typeof req.user != 'undefined') {
-        res.render('index',{
+        res.render('index1',{
           content: 'tools/sitedata.ejs',
           error: 'There is no scrap with requested ID \"' + id + '\" !',
           user: req.user});
       } else {
-        res.render('index',{
+        res.render('index1',{
           content: 'tools/sitedata.ejs',
           error: 'There is no scrap with requested ID \"' + id + '\" !'});
       }
@@ -44,7 +44,7 @@ var loadScrapID = function(req, res, id) {
       if(rows[0].private == true) {
         // If user is not creator we send err msh too
         if(req.user.id != rows[0].id_user) {
-        res.render('index',{
+        res.render('index1',{
           content: 'tools/sitedata.ejs',
           error: 'Analyze id ID \"' + id + '\" is private !',
           info: 'You can make your analyzes private too !',
@@ -58,13 +58,13 @@ var loadScrapID = function(req, res, id) {
       // *guests can preview only anonymous analyzes
       if(rows[0].id_user != '') {
         if(typeof req.user != 'undefined') {
-          res.render('index',{
+          res.render('index1',{
             content: 'tools/sitedata.ejs',
             error: 'Scrap with requested ID \"' + id + '\" is private and can not be shown !',
             info: 'Only registered users can make their analyzes private !',
             user: req.user});
         } else {
-          res.render('index',{
+          res.render('index1',{
             content: 'tools/sitedata.ejs',
             error: 'Scrap with requested ID \"' + id + '\" is private and can not be shown !',
             info: 'Only registered users can make their analyzes private !'});
@@ -112,7 +112,7 @@ var loadScrapID = function(req, res, id) {
         if(typeof req.user != 'undefined') {
           // We send picture id to preview too
           var idx = {id: '/imgsnatch/' + id + '.png'};
-          res.render('index',{
+          res.render('index1',{
             content: 'tools/sitedata.ejs',
             analyzed: rows,
             headers: rows2,
@@ -121,7 +121,7 @@ var loadScrapID = function(req, res, id) {
             sucess: 'Data from scrap ID \"' + id + '\" loaded sucessfully !'});
         // If user is not logged in
         } else {
-          res.render('index',{
+          res.render('index1',{
             content: 'tools/sitedata.ejs',
             analyzed: rows,
             headers: rows2,
@@ -131,7 +131,7 @@ var loadScrapID = function(req, res, id) {
         }
       // If there is no picture we preview it without
       } else {
-        res.render('index',{
+        res.render('index1',{
           content: 'tools/sitedata.ejs',
           analyzed: rows,
           headers: rows2,

@@ -10,12 +10,12 @@
 		</p>
 		</div>
 
-
+<div id="pageTextContent">
 <!-- If there is error we display it -->
 <% if(typeof sucess != 'undefined') { %>
-  <div id="pageTextContent">
+
 <center>    <p><%= sucess %></p></center>
-  </div>
+
 <% } %>
 
 
@@ -30,7 +30,7 @@
 <!-- If there is warning we display it -->
 <% if(typeof info != 'undefined') { %>
   <div id="pageTextContent">
-  <center>  <p><%= info %></p></center>
+  <center> <p><%= info %></p></center>
   </div>
 <% } %>
 
@@ -41,7 +41,7 @@
   <center>  <p><%= warn %></p> </center>
   </div>
 <% } %>
-
+</div>
 
 <!-- Enter new scrap URL -->
 <div id="holder">
@@ -86,19 +86,20 @@
     <th>STATUS</th>
     <th>TITLE</th>
     <th>DATE</th>
-
 		<th>VIEW</th>
 
 
   </tr>
   <tr>
-     <td data-th="Scrap ID"><%= sucscr[0].id %></td>
+    <td data-th="Scrap ID"><%= sucscr[0].id %></td>
     <td data-th="Time"><%= sucscr[0].time %></td>
     <td data-th="URL"><%= sucscr[0].url %></td>
     <td data-th="Http_status"><%= sucscr[0].http_status %></td>
     <td data-th="Title"><%= sucscr[0].title %></td>
     <td data-th="Date"><%= sucscr[0].date.getDate() + '.' + parseInt(sucscr[0].date.getMonth()+1) + '.' + sucscr[0].date.getFullYear() + '.' %></td>
-
+		<td data-th="View"><form method="POST" action="/sitedata">
+			<button type="submit" name="enterid" value="<%=sucscr[0].id%>">View</button>
+		</form></td>
   </tr>
 </table>
 
