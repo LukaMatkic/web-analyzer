@@ -143,7 +143,16 @@ function myFunc(oEle)
 	});
 }
 </script>
-
+<script>
+if($( window ).width()<800){
+$("#navigationBar").removeClass("nav-desktop").addClass("nav-mobile");
+$(".footer").css("position", "static");
+}
+else{
+$("#navigationBar").removeClass("nav-mobile").addClass("nav-desktop");
+$(".footer").css("position", "absolute");
+}
+</script>
 
 </body>
 </html>

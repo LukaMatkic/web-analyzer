@@ -14,7 +14,10 @@ body{
   margin:0;
   margin-top: -10px;
   position:relative;
-  background: url(/imgs/backgr_horizontal.jpg);
+  background: url(/imgs/backgr_horizontal.jpg)no-repeat center center fixed;
+  -webkit-background-size: cover;
+  -moz-background-size: cover;
+  -o-background-size: cover;
   background-size: cover;
 }
 
@@ -110,9 +113,7 @@ body .whole-page-wrapper
 
 /*********************PAGE OBJECTS*********************/
 
-
 #titleDiv{
-
   text-align: center;
   font-size: 70px;
   font-weight: 600;
@@ -125,9 +126,10 @@ body .whole-page-wrapper
   color:white;
   z-index: 9998;
 }
-#index1{
-  font-weight: 600;
-  font-size: 20px;
+#pageTextContent{
+  text-align: center;
+  font-size: 25px;
+  font-weight: 900;
 }
 #holder{
   margin: 60px 15px;
