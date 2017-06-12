@@ -1,68 +1,24 @@
-#holder1 {
-  height: auto;
-  margin: 0 auto;
-  padding: 10px;
-  width:40%;
-  position: relative;
-  background: linear-gradient(90deg, rgba(255, 255, 255, 0) 0%, rgba(255, 255, 255, 0.1) 25%, rgba(255, 255, 255, 0.1) 75%, rgba(255, 255, 255, 0) 100%);
-  box-shadow: 0 0 25px rgba(0, 0, 0, 0.1), inset 0 0 1px rgba(255, 255, 255, 0.1);
-  border-radius: 15px;
-  padding-top: 1%;
-}
-
-
-
-#holder1 #holder2 {
-  width:90%;
-  height:80px;
-  margin:0 auto;
-  background: linear-gradient(90deg, rgba(255, 255, 255, 0) 0%, rgba(255, 255, 255, 0.1) 25%, rgba(255, 255, 255, 0.1) 75%, rgba(255, 255, 255, 0) 100%);
-  box-shadow: 0 0 25px rgba(0, 0, 0, 0.1), inset 0 0 1px rgba(255, 255, 255, 0.1);
-  border-radius: 5px;
-  padding: 10px;
-
-}
-
-#holder1 #holder2 #formDiv{
-  width:100%;
-  height:20px;
-
-
-}
-#formDiv form{
-  height:40px;
-}
-#formDiv form button{
-  margin: 0 auto;
-}
-.holderStats{
-  margin-bottom: 1%;
-}
-.holderStats #fdw-pricing-table{
-  display:inline-block;
-  padding-left: 15%;
-}
-
-
+/*****INPUT FIELD *******/
 .container {
    opacity: 1;
-   width: 100%;
+   width: 70%;
    display: inline-block;
-   min-height: 80px;
+   float:left;
    position:relative;
-   text-align: center; }
+   text-align: center;
+   margin-right: 10px;
+  }
    .container h1 {
-     font-family:  'Poiret One', cursive;}
+     font-family: 'Quicksand', sans-serif; }
    .container p {
-     font-family:  'Poiret One', cursive;
+     font-family: 'Quicksand', sans-serif;
      color: #888;
    }
    .container .fieldRow {
      position: relative;
-     display: inline-block;
-     width: 60%;
+     width: 100%;
      float:left;
-     margin-right: 3%;
+     padding-right: 10px;
       }
      .container .fieldRow.focus input {
        outline: none;
@@ -144,3 +100,49 @@
      color: #ea4949 ; }
    .container #iconPassed {
      color: #73ba4b ; }
+.content-wrapper #formDiv form{
+  margin:0;
+}
+
+/********************BUTTON************/
+button {
+  color: var(--color);
+  transition: 0.25s; }
+  button:hover, button:focus {
+    border-color: var(--hover);
+    color: #fff; }
+
+button {
+  display: inline-block;
+  font-size: 20px;
+  float:left;
+  background: none;
+  border: 2px solid;
+  font: inherit;
+  line-height: 1;
+  width:25%;
+  padding: 10px 10px;
+  border-radius: 4px;
+  height: 55px;}
+
+ .pulse:hover,
+ .pulse:focus {
+   animation: pulse 1s;
+   box-shadow: 0 0 0 0.3em rgba(255, 255, 255, 0); }
+
+ @keyframes pulse {
+   0% {
+     box-shadow: 0 0 0 0 var(--hover); } }
+
+ .offset {
+   box-shadow: 0.1em 0.1em 0 0 var(--color), inset 0.3em 0.3em 0 0 var(--color); }
+   .offset:hover, .offset:focus {
+     box-shadow: 0 0 0 0 var(--hover), inset 3em 2em 0 0 var(--hover); }
+
+ .pulse {
+   --color: #fff;
+   --hover: #fff; }
+
+
+
+/*****INPUT FIELD *******/

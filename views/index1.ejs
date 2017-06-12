@@ -1,7 +1,12 @@
 <html>
   <!-- Includamo head file -->
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <link href="/css1/page-style.css" rel="stylesheet" type="text/css" />
+  <link href="/css/partials/page-style.css" rel="stylesheet" type="text/css" />
+  <link href="/css/partials/accountForms.css" rel="stylesheet" type="text/css" />
+  <link href="/css/partials/inputForm.css" rel="stylesheet" type="text/css" />
+  <link href="/css/partials/mediaQueries.css" rel="stylesheet" type="text/css" />
+  <link href="/css/partials/messages.css" rel="stylesheet" type="text/css" />
+  <link href="/css/partials/tableStyles.css" rel="stylesheet" type="text/css" />
   <link href="https://fonts.googleapis.com/css?family=Poiret+One" rel="stylesheet">
 <!--  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">-->
   <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
@@ -114,7 +119,30 @@ window.addEventListener ? window.addEventListener("mousemove", showMouseXY, fals
     });
 })(jQuery);
 </script>
+<script>
 
+$(document).ready(function() {
+    myFunc($(".show"));
+});
+
+function myFunc(oEle)
+{
+	oEle.delay(3000).fadeOut('slow', function(){
+		if (oEle.next().length)
+		{
+			oEle.next().fadeIn('3000', function(){
+				myFunc(oEle.next());
+			});
+		}
+		else
+		{
+			oEle.siblings(":first").fadeIn('3000', function(){
+				myFunc(oEle.siblings(":first"));
+			});
+		}
+	});
+}
+</script>
 
 
 </body>

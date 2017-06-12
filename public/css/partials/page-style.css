@@ -1,0 +1,158 @@
+/* KASNIJE PROMJENITI SVE KLASE I ID-OVE KOJI IMAJU ISTA SVOJSTVA U ISTA CSS PRAVILA */
+/***************INDEX**************/
+::-webkit-scrollbar {
+    width: 0px;  /* remove scrollbar space */
+    background: transparent;
+    }
+html
+{
+font-family: 'Poiret One', cursive;
+margin:0;
+}
+
+body{
+  margin:0;
+  margin-top: -10px;
+  position:relative;
+  background: url(/imgs/backgr_horizontal.jpg);
+  background-size: cover;
+}
+
+
+
+body .whole-page-wrapper
+{
+  min-height: 100vh;
+  position: relative;
+  margin:0;
+}
+
+/*********************NAVIGATION*********************/
+              /*******DESKTOP*******/
+              /******START**********/
+.nav-desktop{
+  position:fixed;
+  left:0;
+  top:150;
+  font-weight: 900;
+  box-sizing: border-box;
+  text-align: center;
+  z-index: 9999;
+
+}
+.nav-desktop ul{
+  list-style: none;
+  padding: 5px;
+  margin:0 auto;
+  text-align: center;
+
+
+}
+.nav-desktop ul li{
+    padding:40px 15px;
+}
+.nav-desktop ul li i{
+  color:white;
+  -webkit-transition-duration: .2s; /* Safari */
+  transition-duration: .2s;
+}
+.nav-desktop ul li i:hover{
+  color:#3762a8;
+  transform: scale(1.5);
+}
+/*********************NAVIGATION*********************/
+              /*******DESKTOP*******/
+              /******END**********/
+
+              /*********************NAVIGATION*********************/
+                            /*******MOBILE*******/
+                            /******START**********/
+.nav-mobile{
+  font-weight: 900;
+  box-sizing: border-box;
+  text-align: center;
+}
+.nav-mobile ul{
+  list-style: none;
+  padding: 5px;
+  margin:0 auto;
+  text-align: center;
+
+}
+.nav-mobile ul li{
+    padding:20px 15px;
+    display: inline-block;
+}
+.nav-mobile ul li i{
+  color:white;
+  -webkit-transition-duration: .2s; /* Safari */
+  transition-duration: .2s;
+}
+.nav-mobile ul li i:hover{
+  color:#3762a8;
+  transform: scale(1.5);
+
+
+}
+/*********************NAVIGATION*********************/
+              /*******MOBILE*******/
+              /******START**********/
+.content-wrapper{
+
+
+}
+.content-wrapper #formDiv{
+  margin: 0 auto;
+  height:85px;
+  padding:10px;
+  max-width: 500px;
+}
+
+/*********************PAGE OBJECTS*********************/
+
+
+#titleDiv{
+
+  text-align: center;
+  font-size: 70px;
+  font-weight: 600;
+  margin: 10px 15px;
+}
+#snatcherDiv p{
+  text-align: center;
+  font-size: 90px;
+  margin: 40px 15px;
+  color:white;
+  z-index: 9998;
+}
+#index1{
+  font-weight: 600;
+  font-size: 20px;
+}
+#holder{
+  margin: 60px 15px;
+  margin-bottom: 0;
+}
+#infoSection{
+  margin:20px auto;
+  width:70%;
+}
+
+.footer{
+  height:200px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  box-sizing: border-box;
+  position: static;
+  bottom:0;
+  left:0;
+  right:0;
+}
+
+.footer p{
+  font-weight: 900;
+  width:80%;
+  margin:0 auto;
+  text-align: center;
+}

@@ -1,0 +1,48 @@
+/************MESSAGES*************/
+/*For previewing messages*/
+.errmsg, .sucmsg, .wrnmsg, .infmsg {
+  background-size: 25px 25px;
+  color: black;
+  border: 1px solid;
+  width: 90%;
+  padding: 1px 0 1px 45px;
+  margin: 5px auto 5px;
+  background-repeat: no-repeat;
+  background-position: 10px center;
+  -moz-border-radius: 3px;
+	-webkit-border-radius: 3px;
+	border-radius: 3px;
+  border: 0 solid;
+}
+
+/*For previewing error messages*/
+.errmsg {
+  background-color: #FFBABA;
+  background-image: url('../imgs/error.png');
+}
+
+/*For previewing sucessfull messages*/
+.sucmsg {
+  background-color: #33cc33;
+  background-image: url('../imgs/sucess.png');
+}
+
+/*For previewing sucessfull messages*/
+.wrnmsg {
+  background-color: #f4f25f;
+  background-image: url('../imgs/warn.png');
+}
+
+/*For previewing sucessfull messages*/
+.infmsg {
+  background-color: #b3f0ff;
+  background-image: url('../imgs/info.png');
+}
+
+.hiddenStat{
+  display: none;
+}
+.listitem {
+    list-style-type: none;
+    list-style: none;
+}

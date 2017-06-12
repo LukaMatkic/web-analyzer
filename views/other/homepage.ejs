@@ -47,30 +47,42 @@
 
 </div>
 
-
-</div>
-
 <div class ="holderStats">
 	<div id="fdw-pricing-table">
-	    <div class="plan plan1">
-	        <div class="header">User<br>Accounts</div>
-	        <div class="text"><%= data.users %></div>
-	    </div>
-	    <div class="plan plan2">
-	        <div class="header">User<br>logins</div>
-	        <div class="text"><%= data.logins %></div>
-	    </div>
-	    <div class="plan plan3">
-	        <div class="header">URL<br>Analyzes</div>
-	        <div class="text"><%= data.scraps %></div>
-	    </div>
-			<div class="plan plan5">
-					<div class="header">Analyed<br>childs</div>
-					<div class="text"><%= data.childs %></div>
-			</div>
-	    <div class="plan plan4">
-	        <div class="header">Analyed<br>headers</div>
-	        <div class="text"><%= data.headings %></div>
-			</div>
+		<ul class="listitem">
+				<li class="show">
+				    <div class="plan plan1">
+				        <div class="header">User<br>Accounts</div>
+				        <div class="text"><%= data.users %></div>
+				    </div>
+				</li>
+
+				<li class="hiddenStat">
+				    <div class="plan plan2">
+				        <div class="header">User<br>logins</div>
+				        <div class="text"><%= data.logins %></div>
+				    </div>
+				</li>
+
+				<li class="hiddenStat">
+				    <div class="plan plan3">
+				        <div class="header">URL<br>Analyzes</div>
+				        <div class="text"><%= data.scraps %></div>
+				    </div>
+				</li>
+
+				<li class="hiddenStat">
+						<div class="plan plan5">
+								<div class="header">Analyed<br>childs</div>
+								<div class="text"><%= data.childs %></div>
+						</div>
+				</li>
+
+				<li class="hiddenStat">
+				    <div class="plan plan4">
+				        <div class="header">Analyed<br>headers</div>
+				        <div class="text"><%= data.headings %></div>
+						</div>
+				</li>
 	</div>
 </div>

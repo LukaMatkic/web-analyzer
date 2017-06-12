@@ -1,0 +1,52 @@
+/**********MEDIA QUERIESS ********************/
+
+@media only screen and (max-width: 1366px){
+
+
+}
+
+@media only screen and (max-width: 768px){
+  #titleDiv{
+    font-size: 55px;
+  }
+  #snatcherDiv p{
+    font-size: 70px;
+  }
+}
+@media only screen and (max-width: 610px){
+  #titleDiv{
+    font-size: 45px;
+  }
+  #snatcherDiv p{
+    font-size: 60px;
+  }
+  #pageTextContent{
+    font-size: 15px;
+    font-weight: 900;
+  }
+}
+@media only screen and (max-width: 582px){
+  #titleDiv{
+    font-size: 25px;
+  }
+  #snatcherDiv p{
+    margin-top: 0;
+    font-size: 60px;
+  }
+  button {
+    font-size: 15px;
+  }
+
+#pageTextContent{
+
+}
+
+.footer p{
+  font-size: 15px;
+}
+}
+@media only screen and (max-width: 360px){
+  .footer{
+    position: static;
+  }
+}
