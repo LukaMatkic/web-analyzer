@@ -1,18 +1,16 @@
 <!-- Title -->
-<div id="titleDiv2">
-	<center>
-		<p>User account</p>
-	</center>
+<div id="titleDiv">
+		User account
 </div>
 
-<div id="snatcherDiv2">
-	<center>
-		<p>PROFILE</p>
-	</center>
-</div>
+<div id="snatcherDiv">
+		<p>
+		PROFILE
+		</p>
+		</div>
 
-<hr style="newstyle">
-
+		<div id="pageTextContent">
+<center>
 <!--If there is sucess we display it -->
 <% if(typeof sucess != 'undefined') { %>
 	<% if(sucess.length > 0) { %>
@@ -34,7 +32,7 @@
 
 
 <div class="content-div">
-	<a href="/logout">Logout</a>
+	<a href="/logout" id="site-nav__link">Logout</a>
 </div>
 
 <div class="content-div">
@@ -44,9 +42,5 @@
 		<strong>password</strong>: <%= user.password %>
 	</p>
 </div>
-
-<hr style="newstyle">
-
-<div class="content-div">
-	<p>Want to scrape some site ? Click <a href="/scraper">here</a>.</p>
 </div>
+</center>

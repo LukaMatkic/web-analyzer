@@ -61,7 +61,7 @@ console.log('Varijabla redirect: ' + redirect);
 
     // If error happens
     if(error) {
-      res.render('index', {
+      res.render('index1', {
         content: 'tools/scraper.ejs',
         error: 'Error happened while analyzing URL !',
         user: req.user});
@@ -124,7 +124,7 @@ var startBaseScrape = function(req, res, data, url, response, img, anon, heading
 
         // If error happend while writing to database
         if(err) {
-          res.render('index', {
+          res.render('index1', {
             content: 'tools/scraper.ejs',
             error: 'Error happened while writing analyze to database !',
             user: req.user});
@@ -147,7 +147,7 @@ var startBaseScrape = function(req, res, data, url, response, img, anon, heading
 
             // If error happens while reading from base
           if(err2) {
-            res.render('index', {
+            res.render('index1', {
               content: 'tools/scraper.ejs',
               error: 'Error happened while reading analyze to database !',
               user: req.user});
@@ -202,7 +202,7 @@ var startBaseScrape = function(req, res, data, url, response, img, anon, heading
 
             // If there is picture scraped too we send warning
             if(img) {
-              res.render('index', {
+              res.render('index1', {
                 content: 'tools/scraper.ejs',
                 sucess: 'Analyze of URL \"' + data.url + '\" and ID \"' + rows2[0].id + '\" has completed sucessfully !',
                 sucscr: rows2,
@@ -215,7 +215,7 @@ var startBaseScrape = function(req, res, data, url, response, img, anon, heading
                 user: req.user,
                 warn: 'Image will be avaliable after magic is applyed !'});
             } else {
-              res.render('index', {
+              res.render('index1', {
                 content: 'tools/scraper.ejs',
                 sucess: 'Analyze of URL \"' + data.url + '\" and ID \"' + rows2[0].id + '\" has completed sucessfully !',
                 sucscr: rows2,
@@ -259,7 +259,7 @@ var startRedirScrape = function(req, res, data, url, response, $){
 
     // If error happend while writing to database
     if(err) {
-      res.render('index', {
+      res.render('index1', {
         content: 'tools/scraper.ejs',
         error: 'Error happened while writing analyze to database !',
         warn: 'URL returned status code \"' + data.http_status + '\" !',
@@ -273,7 +273,7 @@ var startRedirScrape = function(req, res, data, url, response, $){
 
       // If error happens while reading from base
       if(err2) {
-        res.render('index', {
+        res.render('index1', {
           content: 'tools/scraper.ejs',
           error: 'Error happened while reading analyze to database !',
           warn: 'URL returned status code \"' + data.http_status + '\" !',
@@ -282,7 +282,7 @@ var startRedirScrape = function(req, res, data, url, response, $){
       }
 
       // If everything works
-      res.render('index', {
+      res.render('index1', {
         content: 'tools/scraper.ejs',
         sucess: 'Analyze of URL \"' + data.url + '\" and ID \"' + rows2[0].id + '\" has completed sucessfully !',
         warn: 'URL returned status code \"' + data.http_status + '\" !',
@@ -455,7 +455,7 @@ var simpleScrapUrl = function(url, res) {
 
     // If error happens
     if(error) {
-      res.render('index', {
+      res.render('index1', {
         content: 'tools/scraper.ejs',
         error: 'Error happened while analyzing URL !'});
       return;
@@ -463,7 +463,7 @@ var simpleScrapUrl = function(url, res) {
 
     // If status code is not 200 - OK
     if(response.statusCode != 200) {
-      res.render('index', {
+      res.render('index1', {
         content: 'tools/scraper.ejs',
         error: 'Status code of given URL is not 200 !',
         info: 'Login for advanced URL analyzing options !'});
@@ -521,7 +521,7 @@ var simpleScrapUrl = function(url, res) {
 
       // If there is error happened
       if(err) {
-        res.render('index', {
+        res.render('index1', {
           content: 'tools/scraper.ejs',
           error: 'Something went wrong with inserton of analyze into database !'});
         return;
@@ -533,7 +533,7 @@ var simpleScrapUrl = function(url, res) {
 
         // If there is error happened
         if(err) {
-          res.render('index', {
+          res.render('index1', {
             content: 'tools/scraper.ejs',
             error: 'Something went wrong with reading analyze from database !'});
           return;
@@ -560,7 +560,7 @@ var simpleScrapUrl = function(url, res) {
         }
 
         // Displaying scraper
-        res.render('index', {
+        res.render('index1', {
           content: 'tools/scraper.ejs',
           sucess: 'Analyze of URL \"' + data.url + '\" and ID \"' + rows[0].id + '\" has completed sucessfully !',
           info: 'All your analyzes are anonymous, to track your analyzes please login !',

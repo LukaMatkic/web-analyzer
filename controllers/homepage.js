@@ -50,7 +50,7 @@ var homeStatistics = function(callback) {
 var loadHomepage = function(req, res) {
 
 	homeStatistics(function(data) {
-		res.render('index', {
+		res.render('index1', {
 			content: 'other/homepage.ejs',
 			data: data,
 			user: req.user});

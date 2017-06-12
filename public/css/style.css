@@ -66,15 +66,15 @@ html
 hr.newstyle {
 	height: 10px;
 	border: 0;
-  width: 90%;
+  width: 100%;
 	box-shadow: 0 10px 10px -10px #8c8b8b inset;
 }
 
 
 #snatcherDiv p {
   font-size: 80px;
-  font-weight: 900;
-  margin: 0 auto;
+  font-weight:550;
+
 }
 
 #titleDiv p {
@@ -83,12 +83,49 @@ hr.newstyle {
 }
 
 #snatcherDiv2 p {
-  font-size: 50px;
-  font-weight: 900;
+  font-size: 60px;
+  font-weight: 550;
   margin: 0 auto;
+  
 }
 
 #titleDiv2 p {
   font-size: 30px;
   margin: 0;
+}
+#site-nav {
+
+  text-align: center;
+  margin: 150px 0;
+  padding: 0
+}
+
+#site-nav__item {
+  display: inline-block;
+  text-align: center;
+  line-height: 1em;
+  vertical-align: middle;
+}
+
+#site-nav__link {
+    color: #00264d;
+    display: inline-block;
+    font-size: 0.9em;
+    font-weight: 700;
+    line-height: 1em;
+
+    text-decoration: none;
+
+}
+#site-nav__link:after {
+
+    border-bottom: 1px solid #00264d;
+    content: "";
+    display: block;
+    transition: width 250ms ease-in-out 0s;
+    width: 0;
+}
+#site-nav__link:hover:after {
+    transition: width 100ms ease-in-out 0s;
+    width: 100%;
 }

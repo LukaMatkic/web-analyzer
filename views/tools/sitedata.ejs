@@ -1,7 +1,16 @@
+
 <div id="titleDiv">
 	<center>
 		<p>Site Data</p>
 	</center>
+
+<div>
+	<center>
+
+	<h3>Statistic tools</h3>
+	<br />
+	<h2>SITE DATA</h2></center>
+
 </div>
 
 
@@ -20,6 +29,32 @@
   </div>
 <% } %>
 
+<<<<<<< HEAD
+=======
+
+<!-- Form for ID input to search for scrap -->
+<div class="content-div">
+	<p>Enter analyzed ID to preview analyzed data !</p>
+	<form method="POST" action="/sitedata">
+		<div class="container">
+			<div class="fieldRow">
+				<input type ="text" name="enterid" placeholder="" required />
+				<label for="url">Enter ID </label>
+				<i class="fa fa-globe" aria-hidden="true"></i>
+				<i id="iconWrong" class="iconCheck fa fa-times"></i>
+				<i id="iconPassed" class="iconCheck fa fa-check"></i>
+			</div>
+			<button type="submit" value="submit" class="pulse">Preview analyze</button>
+
+		</div>
+
+	</form>
+
+</div>
+
+
+<!-- Ako samo prikazujemo stranicu  -->
+>>>>>>> 330aeb6b3a8e788892459bb3964a8a203a804bde
 <% if(typeof analyzed != 'undefined') { %>
 	<div class="content-div">
 		<p><%= analyzed[0].title %></p>
@@ -263,6 +298,11 @@
         </li>
   </div>
 
+<<<<<<< HEAD
+=======
+<div class="content-div">
+	<p>Select scraps to preview <a href="/lastanalyzes" id="site-nav__link">here.</a></p>
+>>>>>>> 330aeb6b3a8e788892459bb3964a8a203a804bde
 </div>
 
 </div>

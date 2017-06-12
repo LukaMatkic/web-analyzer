@@ -28,7 +28,7 @@ module.exports = function(app, passport) {
 		if(req.isAuthenticated()) {
 			res.redirect('/profile');
 		} else {
-			res.render('index', {
+			res.render('index1', {
 				content: 'user/start.ejs',
 				error: req.flash('loginMessage')});
 		}
@@ -57,7 +57,7 @@ module.exports = function(app, passport) {
 			res.redirect('/profile');
 		// render the page and pass in any flash data if it exists
 		} else {
-			res.render('index', {
+			res.render('index1', {
 				content: 'user/start.ejs',
 				error: req.flash('signupMessage')});
 		};
@@ -72,7 +72,7 @@ module.exports = function(app, passport) {
 
 	// Sekcija s profilom
 	app.get('/profile', isLoggedIn, function(req, res) {
-		res.render('index', {
+		res.render('index1', {
 			content: 'user/profile.ejs',
 			user : req.user, // get the user out of session and pass to template
 			sucess: req.flash('loginMessageW'),
@@ -89,12 +89,12 @@ module.exports = function(app, passport) {
 	// If user requests /start dir, if he is logged in we redirect him to his profile
 	app.get('/start', function(req, res) {
 		if(req.isAuthenticated()) {
-			res.render('index', {
+			res.render('index1', {
 				content: 'user/profile.ejs',
 				user: req.user,
 				error: req.flash('loginMessage')});
 		} else {
-			res.render('index', {
+			res.render('index1', {
 				content: 'user/start.ejs',
 				error: req.flash('loginMessage')});
 		}
@@ -105,13 +105,13 @@ module.exports = function(app, passport) {
 		// If user is logged in
 		if(req.isAuthenticated()) {
 			// Display him normal page with user
-	  	res.render('index', {
+	  	res.render('index1', {
 				content: 'tools/scraper.ejs',
 				user: req.user});
 		// If user is not logged in
 		} else {
 			// Display hm page with info
-			res.render('index', {
+			res.render('index1', {
 				content: 'tools/scraper.ejs',
 				info: "Guests can only analyze HTTP headings. Login for more !"});
 		}
@@ -142,11 +142,11 @@ module.exports = function(app, passport) {
 	app.get('/sitedata', urlencodedParser, function(req, res){
 	  // Prikazujemo Site Tools stranicu
 		if(req.isAuthenticated()) { // Ako je logiran prikazujemo bez infa
-			res.render('index', {
+			res.render('index1', {
 				content: 'tools/sitedata.ejs',
 				user: req.user});
 		} else {
-			res.render('index', {
+			res.render('index1', {
 				content: 'tools/sitedata.ejs',
 				info: 'Guests can only preview analyzes from other guests !'});
 		}
@@ -168,13 +168,13 @@ module.exports = function(app, passport) {
 		// If user is logged in
 		if(req.isAuthenticated()) {
 			// We display him page
-			res.render('index', {
+			res.render('index1', {
 				content: 'tools/imgsnatch.ejs',
 				user: req.user});
 		// Else if user is not logged in
 		} else {
 			//We display him error page
-			res.render('index', {
+			res.render('index1', {
 				content: 'other/errorpage.ejs',
 				error: 'You are not welcome here !'});
 		}
@@ -196,13 +196,13 @@ module.exports = function(app, passport) {
 		// If user is logged in
 		if(req.isAuthenticated()) {
 			// We display him page
-			res.render('index', {
+			res.render('index1', {
 				content: 'tools/childs.ejs',
 				user: req.user});
 		// Else if user is not logged in
 		} else {
 			//We display him error page
-			res.render('index', {
+			res.render('index1', {
 				content: 'other/errorpage.ejs',
 				error: 'You are not welcome here !'});
 		}
@@ -216,7 +216,7 @@ module.exports = function(app, passport) {
 			childs.loadChilds(req.body.enterid, req, res);
 		} else {
 			//We display him error page
-			res.render('index', {
+			res.render('index1', {
 				content: 'other/errorpage.ejs',
 				error: 'You are not welcome here !'});
 		}

@@ -1,16 +1,16 @@
 .pulse:hover,
 .pulse:focus {
   animation: pulse 1s;
-  box-shadow: 0 0 0 1em rgba(255, 255, 255, 0); }
+  box-shadow: 0 0 0 0.3em rgba(255, 255, 255, 0); }
 
 @keyframes pulse {
   0% {
     box-shadow: 0 0 0 0 var(--hover); } }
 
 .offset {
-  box-shadow: 0.3em 0.3em 0 0 var(--color), inset 0.3em 0.3em 0 0 var(--color); }
+  box-shadow: 0.1em 0.1em 0 0 var(--color), inset 0.3em 0.3em 0 0 var(--color); }
   .offset:hover, .offset:focus {
-    box-shadow: 0 0 0 0 var(--hover), inset 6em 3.5em 0 0 var(--hover); }
+    box-shadow: 0 0 0 0 var(--hover), inset 3em 2em 0 0 var(--hover); }
 
 .pulse {
   --color: #fff;
@@ -29,6 +29,8 @@ button {
   border: 2px solid;
   font: inherit;
   line-height: 1;
-  width:20%;
+  width:25%;
   margin: 0.4em;
-  padding: 10px 10px; }
+  padding: 10px 10px;
+border-radius: 4px;
+height: 55px;}

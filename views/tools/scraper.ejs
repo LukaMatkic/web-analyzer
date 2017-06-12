@@ -1,198 +1,106 @@
-<!-- Title -->
-<div id="titleDiv2">
-	<center>
-		<p>Analyzing tools</p>
-	</center>
+
+<div class="content-wrapper">
+<div id="titleDiv">
+		Snatch content you want with...
 </div>
 
-<div id="snatcherDiv2">
-	<center>
-		<p>URL SCRAPER</p>
-	</center>
-</div>
+<div id="snatcherDiv">
+		<p>
+		SNATCHER
+		</p>
+		</div>
 
-<hr class="newstyle">
 
 <!-- If there is error we display it -->
 <% if(typeof sucess != 'undefined') { %>
-  <div class="sucmsg">
-    <p><%= sucess %></p>
+  <div id="pageTextContent">
+<center>    <p><%= sucess %></p></center>
   </div>
 <% } %>
 
 
 <!-- If there is error we display it -->
 <% if(typeof error != 'undefined') { %>
-  <div class="errmsg">
-    <p><%= error %></p>
+  <div id="pageTextContent">
+  <center>  <p><%= error %></p></center>
   </div>
 <% } %>
 
 
 <!-- If there is warning we display it -->
 <% if(typeof info != 'undefined') { %>
-  <div class="infmsg">
-    <p><%= info %></p>
+  <div id="pageTextContent">
+  <center>  <p><%= info %></p></center>
   </div>
 <% } %>
 
 
 <!-- If there is warning we display it -->
 <% if(typeof warn != 'undefined') { %>
-  <div class="wrnmsg">
-    <p><%= warn %></p>
+  <div id="pageTextContent">
+  <center>  <p><%= warn %></p> </center>
   </div>
 <% } %>
 
 
 <!-- Enter new scrap URL -->
-<div id ="scrap-table" class="content-div">
-	<p>Enter URL of site you want to analyze:</p>
-  <form method="POST" action="/scraper">
-    <input type ="text" name="item" placeholder="Enter url..." required />
-		<% if(typeof user != 'undefined') { %>
-			<input type="checkbox" name="imgsnatch">Snatch image?</input>
-			<input type="checkbox" name="anonymous">Anonymous analyze?</input>
-			<input type="checkbox" name="headings">Analyze headings?</input>
-			<input type="checkbox" name="childs">Analyze childs?</input>
-		<% } %>
-    <input type="checkbox" name="redirect">Follow redirects?</input>
-    <button type="submit" value="submit"> Scrape url</button>
-  </form>
+<div id="holder">
+<div id="formDiv">
+	<form method="POST" action="/scraper">
+		<div class="container">
+			<div class="fieldRow">
+				<input type ="url" name="item" id="url" placeholder="" required />
+				<label for="url">Enter URL</label>
+				<i class="fa fa-globe" aria-hidden="true"></i>
+				<i id="iconWrong" class="iconCheck fa fa-times"></i>
+				<i id="iconPassed" class="iconCheck fa fa-check"></i>
+			</div>
+		</div>
+
+	<button type="submit" value="submit" class="pulse">Scrape me</button>
+
+		</div>
+	</form>
 </div>
 
+</div>
 
-<!-- If sucscr exists we display it in table -->
+<center>
+<% if(typeof user != 'undefined') { %>
+	<input type="checkbox" name="imgsnatch"><strong>Snatch image</strong></input>
+	<input type="checkbox" name="anonymous"><strong>Anonymous analyze</strong></input>
+	<input type="checkbox" name="headings"><strong>Analyze headings</strong></input>
+	<input type="checkbox" name="childs"><strong>Analyze childs</strong></input>
+<% } %>
+</center>
+
+
 <% if(typeof sucscr != 'undefined') { %>
-<hr class="newstyle">
-
-<div id="scrap-table" class="content-div">
-	<section>
-
-		<table class="data-table">
-
-			<thead class="table-thread">
-				<tr>
-					<th>SCRAP ID</th>
-					<th>TIME</th>
-					<th>URL</th>
-					<th>STATUS</th>
-					<th>TITLE</th>
-					<th>DATE</th>
-					<% if(typeof yours != 'undefined') { %>
-						<th>YOUR</td>
-					<% } %>
-					<% if(typeof anonim != 'undefined') { %>
-						<th>ANON</td>
-					<% } %>
-					<th>IMAG</th>
-					<% if(typeof heading != 'undefined') { %>
-						<th>HEAD</td>
-					<% } %>
-					<% if(typeof child != 'undefined') { %>
-						<th>CHIL</td>
-					<% } %>
-					<th>VIEW</th>
-				</tr>
-			</thead>
-
-			<tfoot class="table-thread">
-				<tr>
-					<th>SCRAP ID</th>
-					<th>TIME</th>
-					<th>URL</th>
-					<th>STATUS</th>
-					<th>TITLE</th>
-					<th>DATE</th>
-					<% if(typeof yours != 'undefined') { %>
-						<th>YOUR</td>
-					<% } %>
-					<% if(typeof anonim != 'undefined') { %>
-						<th>ANON</td>
-					<% } %>
-					<th>IMAG</th>
-					<% if(typeof heading != 'undefined') { %>
-						<th>HEAD</td>
-					<% } %>
-					<% if(typeof child != 'undefined') { %>
-						<th>CHIL</td>
-					<% } %>
-					<th>VIEW</th>
-				</tr>
-			</tfoot>
 
 
-			<tbody class="table-body">
-				<tr>
-				<td><%= sucscr[0].id %></td>
-				<td><%= sucscr[0].time %></td>
-				<td><%= sucscr[0].url %></td>
-				<td><%= sucscr[0].http_status %></td>
-				<td><b><%= sucscr[0].title %></b></td>
-				<td><%= sucscr[0].date.getDate() + '.' + parseInt(sucscr[0].date.getMonth()+1) + '.' + sucscr[0].date.getFullYear() + '.' %></td>
+<table class="rwd-table">
+  <tr>
+    <th>SCRAP ID</th>
+    <th>TIME</th>
+    <th>URL</th>
+    <th>STATUS</th>
+    <th>TITLE</th>
+    <th>DATE</th>
 
-				<% if(typeof yours != 'undefined') { %>
-					<td>
-						<% if(yours[0] == true) { %>
-							<img src= "/imgs/true.png" class="icon"></img>
-						<% } else { %>
-							<img src= "/imgs/false.png" class="icon"></img>
-						<% } %>
-					</td>
-					<% } %>
-
-					<% if(typeof anonim != 'undefined') { %>
-					<td>
-						<% if(anonim[0] == false) { %>
-							<img src= "/imgs/true.png" class="icon"></img>
-						<% } else { %>
-							<img src= "/imgs/false.png" class="icon"></img>
-						<% } %>
-						</td>
-					<% } %>
-					<td>
-					<% if(picture[0] == true) { %>
-						<img src= "/imgs/true.png" class="icon"></img>
-					<% } else { %>
-						<img src= "/imgs/false.png" class="icon"></img>
-					<% } %>
-					</td>
-					<% if(typeof heading != 'undefined') { %>
-						<td>
-						<% if(heading) { %>
-							<img src= "/imgs/true.png" class="icon"></img>
-						<% } else { %>
-							<img src= "/imgs/false.png" class="icon"></img>
-						<% } %>
-						</td>
-					<% } %>
-					<% if(typeof child != 'undefined') { %>
-						<td>
-						<% if(child) { %>
-							<img src= "/imgs/true.png" class="icon"></img>
-						<% } else { %>
-							<img src= "/imgs/false.png" class="icon"></img>
-						<% } %>
-						</td>
-					<% } %>
-					<td>
-						<form method="POST" action="/sitedata">
-	         		<button type="submit" name="enterid" value="<%=sucscr[0].id%>">View</button>
-	       		</form>
-					</td>
-				</tr>
-			</tbody>
+		<th>VIEW</th>
 
 
-		</table>
-	</section>
+  </tr>
+  <tr>
+     <td data-th="Scrap ID"><%= sucscr[0].id %></td>
+    <td data-th="Time"><%= sucscr[0].time %></td>
+    <td data-th="URL"><%= sucscr[0].url %></td>
+    <td data-th="Http_status"><%= sucscr[0].http_status %></td>
+    <td data-th="Title"><%= sucscr[0].title %></td>
+    <td data-th="Date"><%= sucscr[0].date.getDate() + '.' + parseInt(sucscr[0].date.getMonth()+1) + '.' + sucscr[0].date.getFullYear() + '.' %></td>
+
+  </tr>
+</table>
+
 </div>
 <% } %>
-
-
-<hr class="newstyle">
-
-
-<div class="content-div">
-	<p>Want to take preview URL analyze ? Click <a href="/lastanalyzes">here</a>.</p>
-</div>

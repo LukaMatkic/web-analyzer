@@ -4,6 +4,8 @@
 
 <body>
 
+
+
   <% include partials/heading.ejs %>
 
   <!-- div za content stranice -->
@@ -14,6 +16,10 @@
       <%-include(content) %>
 
     </div>
+
+    <div id="footer-div">
+      <% include partials/footer.ejs %>
+    </div>
   </div>
 
   <!-- div za sidebar -->
@@ -22,7 +28,6 @@
 
   </div>
 
-<% include partials/footer.ejs %>
 <script>
   var scrollUl = document.getElementById("ul-scroll");
   var itemsScrolled,
@@ -64,5 +69,6 @@
 </script>
 
 <script src="/Js/inputField.js"></script>
+
 </body>
 </html>

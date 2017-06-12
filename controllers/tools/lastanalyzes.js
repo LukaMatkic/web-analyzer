@@ -21,7 +21,7 @@ var reloadTable = function(req, res) {
   {
     // Ako ne dobijemo nitijedan rows onda za sada ne saljemo nistas
     if(rows == '') {
-      res.render('index', {
+      res.render('index1', {
         content: 'tools/lastanalyzes.ejs',
         error: "No analyzes to preview !"});
         return;
@@ -124,7 +124,7 @@ var reloadTable = function(req, res) {
               }
             }
 
-            res.render('index', {
+            res.render('index1', {
             content: 'tools/lastanalyzes.ejs',
             scrapped: rows,
             picture: picture,
@@ -135,7 +135,7 @@ var reloadTable = function(req, res) {
             user: req.user});
 
           } else { // If he is not we send him info too
-            res.render('index', {
+            res.render('index1', {
             content: 'tools/lastanalyzes.ejs',
             scrapped: rows,
             picture: picture,

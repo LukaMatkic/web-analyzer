@@ -1,0 +1,121 @@
+<html>
+  <!-- Includamo head file -->
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <link href="/css1/page-style.css" rel="stylesheet" type="text/css" />
+  <link href="https://fonts.googleapis.com/css?family=Poiret+One" rel="stylesheet">
+<!--  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">-->
+  <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
+  <link rel="stylesheet" href="//maxcdn.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css">
+
+<body>
+
+<div class="whole-page-wrapper">
+  <!-- NAVIGATION -->
+  <% include partials/heading.ejs %>
+
+  <!--CONTENT -->
+  <%-include(content) %>
+
+<% include partials/footer.ejs %>
+</div>
+
+<script>
+var $field = $('input');
+var $iconCC = $('#iconCC');
+
+$field.on('focus', function() {
+$(this).parent().addClass('focus');
+$(this).parent().removeClass('active');
+})
+
+$field.on('blur', function() {
+$(this).parent().removeClass('focus');
+
+if ($field.val() !== "") {
+$(this).parent().addClass('active');
+} else {
+$(this).parent().removeClass('active');
+//$('.iconCheck').hide();
+}
+});
+
+$field.on('keydown', function() {
+var emailaddress = $field.val();
+
+if( !isValidEmailAddress( emailaddress ) ) {
+//$('#iconPassed').hide();
+//$('#iconWrong').show();
+} else {
+//  $('#iconPassed').show();
+//$('#iconWrong').hide();
+}
+
+})
+
+function isValidEmailAddress(emailAddress) {
+var pattern = /^(([a-zA-Z]|[0-9])|([-]|[_]|[.]))+[@](([a-zA-Z0-9])|([-])){2,63}[.](([a-zA-Z0-9]){2,63})+$/gi;
+return pattern.test(emailAddress);
+};
+
+</script>
+
+<script>
+window.addEventListener ? window.addEventListener("mousemove", showMouseXY, false) : window.attachEvent && window.attachEvent("onmousemove", showMouseXY);
+
+    function text3d(x, y) {
+      var colors3d = ["#cccccc", "#c9c9c9", "#bbbbbb", "#b9b9b9", "#aaaaaa", "#a9a9a9"];
+      var styleStore = "";
+      for (var i = 0; i < 6; i++) {
+        styleStore += (x * (i * .03)) + "px " + (y * (i * .03)) + "px 0 " + colors3d[i] + ",";
+      }
+      return styleStore.substr(0, styleStore.length - 1);
+    }
+
+    function shadow3d(x, y) {
+      var shadow = ["rgba(0,0,0,.1)", "rgba(0,0,0,.15)", "rgba(0,0,0,.2)", "rgba(0,0,0,.2)", "rgba(0,0,0,.25)", "rgba(0,0,0,.5)"];
+      var styleStore = "";
+      for (var i = 0; i < 6; i++) {
+        styleStore += (x * (i * .15)) + "px " + (y * (i * .15)) + "px " + (i * 4) + "px " + shadow[i] + ",";
+      }
+      return styleStore.substr(0, styleStore.length - 1);
+    }
+
+    function showMouseXY(event) {
+      var target = document.querySelector("#snatcherDiv p");
+      var body = document.querySelector("body");
+      var cX = -(window.innerWidth / 2 - event.clientX) /40 ;
+      var cY = (window.innerHeight / 2 - event.clientY) /40;
+      target.setAttribute("style", "text-shadow:" + text3d(-(cX), cY) + "," + shadow3d(-(cX), cY) + ";transform:rotateY(" + cX + "deg) rotateX(" + cY + "deg);");
+      var radX = (event.clientX > (window.innerWidth * .333333) ? (event.clientX < window.innerWidth * .666666 ? "center" : "right") : "left");
+      var radY = (event.clientY > (window.innerHeight * .333333) ? (event.clientY < window.innerHeight * .666666 ? "center" : "bottom") : "top");
+
+
+
+
+    }
+</script>
+<script>
+(function($) {
+    $(document).ready(function() {
+
+    $(window).on('load, resize', function mobileViewUpdate() {
+    var viewportWidth = $(window).width();
+    if (viewportWidth < 800) {
+    $("#navigationBar").removeClass("nav-desktop").addClass("nav-mobile");
+    $(".footer").CSS("position","static");
+
+      }
+      else{
+      $("#navigationBar").removeClass("nav-mobile").addClass("nav-desktop");
+      $(".footer").css("position","absolute");
+      }
+
+});
+    });
+})(jQuery);
+</script>
+
+
+
+</body>
+</html>
