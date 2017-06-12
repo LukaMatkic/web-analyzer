@@ -107,12 +107,12 @@ window.addEventListener ? window.addEventListener("mousemove", showMouseXY, fals
     var viewportWidth = $(window).width();
     if (viewportWidth < 800) {
     $("#navigationBar").removeClass("nav-desktop").addClass("nav-mobile");
-    $(".footer").CSS("position","static");
+    $(".footer").css("position", "static");
 
       }
       else{
       $("#navigationBar").removeClass("nav-mobile").addClass("nav-desktop");
-      $(".footer").css("position","absolute");
+      $(".footer").css("position", "absolute");
       }
 
 });
@@ -149,9 +149,24 @@ $("#navigationBar").removeClass("nav-desktop").addClass("nav-mobile");
 $(".footer").css("position", "static");
 }
 else{
+if($("table").height()>0 || $(.login-html).height()>0 || $(#fdw-pricing-table).height()>0){
+$(".footer").css("position", "static");
+}
+else{
 $("#navigationBar").removeClass("nav-mobile").addClass("nav-desktop");
 $(".footer").css("position", "absolute");
 }
+
+}
+</script>
+
+<!--Table-->
+
+<script>
+$(window).on("load resize ", function() {
+  var scrollWidth = $('.tbl-content').width() - $('.tbl-content table').width();
+  $('.tbl-header').css({'padding-right':scrollWidth});
+}).resize();
 </script>
 
 </body>

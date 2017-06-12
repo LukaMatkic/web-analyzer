@@ -37,7 +37,54 @@
 </div>
 
 <% if(typeof scrapped != 'undefined') { %>
-	<table class="rwd-table">
+
+<section>
+
+<div class="tbl-header">
+		<table cellpadding="0" cellspacing="0" border="0">
+				<thead>
+						<tr>
+							<th>SCRAP ID</th>
+							<th>TIME</th>
+							<th>URL</th>
+							<th>STATUS</th>
+							<th>TITLE</th>
+							<th>DATE</th>
+							<th>VIEW</th>
+						</tr>
+				</thead>
+		</table>
+	</div>
+<div class="tbl-content">
+		<table cellpadding="0" cellspacing="0" border="0">
+				<tbody>
+				<% for(var i=0;i<scrapped.length;i++) {%>
+					<tr>
+							<td><%= scrapped[i].id %></td>
+							<td><%= scrapped[i].time %></td>
+							<td><%= scrapped[i].url %></td>
+							<td><%= scrapped[i].http_status %></td>
+							<td><%= scrapped[i].title %></td>
+							<td><%= scrapped[i].date.getDate() + '.' + parseInt(scrapped[i].date.getMonth()+1) + '.' + scrapped[i].date.getFullYear() + '.' %></td>
+							<td>
+								<form method="POST" action="/sitedata">
+									<button type="submit" name="enterid" value="<%=scrapped[i].id%>">View</button>
+								</form>
+							</td>
+					</tr>
+				<%}%>
+				</tbody>
+
+		</table>
+</div>
+
+</section>
+
+
+
+
+
+	<!--<table class="rwd-table">
 		<tr>
 			<th>SCRAP ID</th>
 			<th>TIME</th>
@@ -62,7 +109,7 @@
 			</td>
 			</tr>
 		<%}%>
-	</table>
+	</table>-->
 
 
 
