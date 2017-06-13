@@ -22,7 +22,7 @@
 <% } %>
 <div id="pageTextContent">
 	<center>
-	<p style="width: 70%">Only logged in users have more advanced tools available.
+	<p style="width: 70%">
 		Guests can access only basic tools like Scraper and History of analyzes. To access
 		all tools please login to your account or sign up if you don't have any!</p>
 	<center>
@@ -37,20 +37,20 @@ align-items: center;
 box-sizing: border-box;}">
 <div class="login-wrap">
 	<div class="login-html">
-		<input id="tab-1" type="radio" name="tab" class="sign-in" checked><label for="tab-1" class="tab">Log In</label>
-		<input id="tab-2" type="radio" name="tab" class="sign-up"><label for="tab-2" class="tab">Sign Up</label>
+		<input id="tab-1" type="radio" name="tab" class="sign-in" checked><label for="tab-1" class="tab" id="tab1">Log In</label>
+		<input id="tab-2" type="radio" name="tab" class="sign-up"><label for="tab-2" class="tab" id="tab2">Sign Up</label>
 		<div class="login-form">
 			<div class="sign-in-htm">
 				<form action="/login" method="post">
 				<div class="group">
-					<label for="user" class="label">Username</label>
+					<label for="user" class="label" id="userLabel">Username</label>
 					<input id="user" type="text" class="input" name="username">
 				</div>
 				<div class="group">
-					<label for="pass" class="label">Password</label>
+					<label for="pass" class="label" id="passLabel">Password</label>
 					<input id="pass" type="password" class="input" data-type="password" name="password">
 				</div>
-				<div class="group">
+				<div class="group" id="checkBoxGroup">
 					<input id="check" type="checkbox" class="check" checked>
 					<label for="check"><span class="icon"></span> Keep me Loged in</label>
 				</div>
@@ -58,17 +58,18 @@ box-sizing: border-box;}">
 
 					<input type="submit" class="button" value="Log In">
 				</div>
-				
+
 </form>
 			</div>
 			<div class="sign-up-htm">
 				<form action="/signup" method="post">
 				<div class="group">
-					<label for="user" class="label">Username</label>
+
+					<label for="user" class="label" id="userLabel">Username</label>
 					<input id="user" type="text" class="input" name="username">
 				</div>
 				<div class="group">
-					<label for="pass" class="label">Password</label>
+					<label for="pass" class="label" id="passLabel">Password</label>
 					<input id="pass" type="password" class="input" data-type="password" name="password">
 				</div>
 
@@ -84,8 +85,6 @@ box-sizing: border-box;}">
 </div>
 </div>
 
-
-<hr class="newstyle" style="margin-top: 30px">
 
 
 </div>

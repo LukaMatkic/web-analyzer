@@ -20,6 +20,11 @@ table{
    border: 1px solid rgba(255,255,255,0.3);
  }
 
+ #historyTable{
+
+   height:300px;
+ }
+
  th{
    padding: 20px 15px;
    border-top-left-radius:10px;
@@ -45,11 +50,9 @@ table{
  }
 
 @media
-only screen and (max-width: 1122px),(min-device-width: 768px) and (max-device-width: 1024px)  {
+only screen and (max-width: 1560px),(min-device-width: 768px) and (max-device-width: 1024px)  {
 
-  hr {
-    margin-top: 0;
-  }
+
   td{
     padding-top: 0;
   }
