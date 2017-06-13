@@ -278,6 +278,101 @@
 
 }
 
+@media only screen and (max-width: 1280px){
+
+  #titleDiv{
+    font-size: 60px;
+  }
+  #snatcherDiv p{
+    font-size: 100px;
+  }
+
+  .nav-desktop{
+    top:250;
+  }
+
+  #pageTextContent{
+    font-size: 20px;
+  }
+
+  #formDiv{
+    width:600px;
+    height:60px;
+  }
+
+  form, .container, .fieldRow , .fieldRow input, button {
+    height: 50px;
+  }
+
+  .pulse{
+    width:134px;
+  }
+
+  #formDiv form .fieldRow label{
+    top:15;
+    left:30;
+    font-size: 20px;
+  }
+
+  .holderStats{
+    margin-top: -100px;
+  }
+
+  #bottomLine{
+    margin-top: 150px;
+  }
+
+.footer{
+  position:static;
+}
+  .footer p{
+    font-size: 15px;
+  }
+
+  .login-wrap{
+    width:300px;
+    height:400px;
+  }
+
+  .login-html{
+    margin-top: 15px;
+    height:400px;
+    width:250px;
+  }
+
+  #tab1{
+    margin-left: 45px;
+    font-size: 20px;
+  }
+  #tab2{
+
+    font-size: 20px;
+  }
+
+  .sign-in-htm form .group #userLabel, .sign-in-htm form .group #passLabel {
+    font-size: 20px;
+    margin-bottom: 10px;
+  }
+
+   #checkBoxGroup{
+    font-size: 20px;
+    margin-bottom: 30px !important;
+  }
+  .sign-up-htm form .group #userLabel, .sign-in-htm form .group #passLabel {
+    font-size: 20px;
+    margin-top: 30px;
+    margin-bottom: 10px;
+  }
+
+  .tbl-header th{
+    font-size: 30px;
+  }
+  .tbl-content td{
+    font-size: 18px;
+  }
+
+}
+
 
 @media only screen and (max-width: 768px){
   #titleDiv{

@@ -1,6 +1,16 @@
 <html>
-<!-- Includamo head file -->
-  <% include partials/head.ejs %>
+  <!-- Includamo head file -->
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <link href="/css/partials/page-style.css" rel="stylesheet" type="text/css" />
+  <link href="/css/partials/accountForms.css" rel="stylesheet" type="text/css" />
+  <link href="/css/partials/inputForm.css" rel="stylesheet" type="text/css" />
+  <link href="/css/partials/mediaQueries.css" rel="stylesheet" type="text/css" />
+  <link href="/css/partials/messages.css" rel="stylesheet" type="text/css" />
+  <link href="/css/partials/tableStyles.css" rel="stylesheet" type="text/css" />
+  <link href="https://fonts.googleapis.com/css?family=Poiret+One" rel="stylesheet">
+<!--  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">-->
+  <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
+  <link rel="stylesheet" href="//maxcdn.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css">
 
 <body>
 
@@ -54,12 +64,10 @@ window.addEventListener ? window.addEventListener("mousemove", showMouseXY, fals
 <script>
 (function($) {
     $(document).ready(function() {
-    var width = $(window).width();
-
     $(window).on('load, resize', function mobileViewUpdate() {
     var viewportWidth = $(window).width();
     var viewportHeight = $(window).height();
-    if (viewportWidth <= 1610 && viewportHeight>2000) {
+    if (viewportWidth <= 1610) {
     $("#navigationBar").removeClass("nav-desktop").addClass("nav-mobile");
     $(".footer").css("position", "static");
 
@@ -115,6 +123,7 @@ $(".footer").css("position", "static");
 else{
 $("#navigationBar").removeClass("nav-mobile").addClass("nav-desktop");
 $(".footer").css("position", "absolute");
+
 }
 
 }
