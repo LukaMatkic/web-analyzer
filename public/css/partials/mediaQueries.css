@@ -492,12 +492,139 @@
 
 }
 
-@media only screen and (max-width: 768px){
+@media only screen and (max-width: 800px){
   #titleDiv{
-    font-size: 55px;
+    font-size: 60px;
   }
   #snatcherDiv p{
-    font-size: 70px;
+    font-size: 80px;
+  }
+
+  .nav-desktop{
+    top:150;
+  }
+
+  #pageTextContent{
+    font-size: 20px;
+  }
+
+  #formDiv{
+    width:450px;
+    height:50px;
+  }
+
+  form, .container, .fieldRow , .fieldRow input, button {
+    height: 60px;
+
+  }
+
+  .pulse{
+    width:124px;
+  }
+
+  #formDiv form .fieldRow label{
+    top:20;
+    left:20;
+    font-size: 15px;
+  }
+
+  .holderStats{
+    margin-top: -280px;
+  }
+
+
+  #fdw-pricing-table  ul  li.show  div, #fdw-pricing-table  ul  li.hiddenStat  div{
+    width:200px;
+  }
+
+  #fdw-pricing-table{
+    margin-top: 100px;
+
+  }
+
+#holder{
+  margin-top: 30px;
+}
+  #bottomLine{
+    margin-top: 150px;
+  }
+
+.footer{
+  position:absolute;
+}
+  .footer p{
+    font-size: 15px;
+  }
+
+  .login-wrap{
+    width:400px;
+    height:500px;
+    padding-top: 100px;
+  }
+
+  .login-html{
+    height:500px;
+    width:350px;
+  }
+
+  #tab1{
+    margin-left: 45px;
+    font-size: 30px;
+  }
+  #tab2{
+
+    font-size: 30px;
+  }
+
+  .sign-in-htm form .group #userLabel, .sign-in-htm form .group #passLabel {
+    font-size: 20px;
+    margin-top: 30px;
+    margin-bottom: 10px;
+  }
+
+   #checkBoxGroup{
+    font-size: 20px;
+    margin-bottom: 30px !important;
+  }
+  .sign-up-htm form .group #userLabel, .sign-in-htm form .group #passLabel {
+    font-size: 20px;
+    margin-top: 30px;
+    margin-bottom: 10px;
+  }
+
+  .tbl-header th{
+    font-size: 50px;
+  }
+  .tbl-content td{
+    font-size: 18px;
+  }
+
+#historyTable{
+  height:500px !important;
+}
+
+  #arrow{
+    margin-top: -25px;
+    margin-left: 325px;
+    opacity:0.4;
+
+    display: flex;
+    justify-content: center;
+    align-items: center;
+  }
+}
+@media only screen and (max-width: 768px){
+  .footer{
+    position: static;
+  }
+  #arrow{
+    margin-top: -25px;
+    margin-left: 310px;
+    opacity:0.4;
+
+    display: flex;
+    justify-content: center;
+    align-items: center;
   }
 }
 @media only screen and (max-width: 600px){
