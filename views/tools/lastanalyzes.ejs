@@ -28,7 +28,8 @@
 	</div>
 <% } %>
 
-<% if(typeof scrapped != 'undefined') { %>
+
+<% if(typeof scrap != 'undefined') { %>
 
 <section>
 
@@ -36,12 +37,18 @@
 		<table cellpadding="0" cellspacing="0" border="0">
 				<thead>
 						<tr>
-							<th>SCRAP ID</th>
+							<th>ID</th>
 							<th>TIME</th>
 							<th>URL</th>
 							<th>STATUS</th>
-							<th>TITLE</th>
 							<th>DATE</th>
+							<th>HP</th>
+							<th>HL</th>
+							<th>HD</th>
+							<th>CH</th>
+							<th>IM</th>
+							<th>YR</th>
+							<th>PR</th>
 							<th>VIEW</th>
 						</tr>
 				</thead>
@@ -50,17 +57,77 @@
 <div class="tbl-content" id="historyTable">
 		<table>
 				<tbody>
-				<% for(var i=0;i<scrapped.length;i++) {%>
+				<% for(var i=0;i<scrap.length;i++) {%>
 					<tr>
-							<td><%= scrapped[i].id %></td>
-							<td><%= scrapped[i].time %></td>
-							<td><%= scrapped[i].url %></td>
-							<td><%= scrapped[i].http_status %></td>
-							<td><%= scrapped[i].title %></td>
-							<td><%= scrapped[i].date.getDate() + '.' + parseInt(scrapped[i].date.getMonth()+1) + '.' + scrapped[i].date.getFullYear() + '.' %></td>
+							<td><%= scrap[i].id %></td>
+							<td><%= scrap[i].time %></td>
+							<td><%= scrap[i].url %></td>
+							<td><%= scrap[i].status %></td>
+							<td><%= scrap[i].date.getDate() + '.' + parseInt(scrap[i].date.getMonth()+1) + '.' + scrap[i].date.getFullYear() + '.' %></td>
+
+							<td>
+								<% if(https[i] == true) { %>
+									<img src= "/imgs/true.png" class="icon"></img>
+								<% } else { %>
+									<img src= "/imgs/false.png" class="icon"></img>
+								<% } %>
+							</td>
+
+							<td>
+								<% if(htmls[i] == true) { %>
+									<img src= "/imgs/true.png" class="icon"></img>
+								<% } else { %>
+									<img src= "/imgs/false.png" class="icon"></img>
+								<% } %>
+							</td>
+
+							<td>
+								<% if(heading[i] == true) { %>
+									<img src= "/imgs/true.png" class="icon"></img>
+								<% } else { %>
+									<img src= "/imgs/false.png" class="icon"></img>
+								<% } %>
+							</td>
+
+							<td>
+								<% if(childs[i] == true) { %>
+									<img src= "/imgs/true.png" class="icon"></img>
+								<% } else { %>
+									<img src= "/imgs/false.png" class="icon"></img>
+								<% } %>
+							</td>
+
+							<td>
+								<% if(picture[i] == true) { %>
+									<img src= "/imgs/true.png" class="icon"></img>
+								<% } else { %>
+									<img src= "/imgs/false.png" class="icon"></img>
+								<% } %>
+							</td>
+
+							<td>
+								<% if(typeof user == 'undefined') { %>
+									<img src= "/imgs/false.png" class="icon"></img>
+								<% } else { %>
+									<% if(scrap[i].id_user == user.id) { %>
+										<img src= "/imgs/true.png" class="icon"></img>
+									<% } else { %>
+										<img src= "/imgs/false.png" class="icon"></img>
+									<% } %>
+								<% } %>
+							</td>
+
+							<td>
+								<% if(scrap[i].private == true) { %>
+									<img src= "/imgs/true.png" class="icon"></img>
+								<% } else { %>
+									<img src= "/imgs/false.png" class="icon"></img>
+								<% } %>
+							</td>
+
 							<td>
 								<form method="POST" action="/sitedata">
-									<button type="submit" name="enterid" value="<%=scrapped[i].id%>">View</button>
+									<button type="submit" name="enterid" value="<%=scrap[i].id%>">View</button>
 								</form>
 							</td>
 					</tr>
@@ -71,7 +138,6 @@
 </div>
 
 </section>
-
 
 
 <% } %>

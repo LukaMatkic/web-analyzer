@@ -2,6 +2,7 @@
 var mysql = require('./mysql');
 //------------------------------------------------------------------------------
 
+
 // Function for showing satistics on home page
 var homeStatistics = function(callback) {
 
@@ -10,8 +11,12 @@ var homeStatistics = function(callback) {
 		scraps: 0,
 		users: 0,
 		headings: 0,
+		childs: 0,
+		https: 0,
+		htmls: 0,
+		graphs: 0,
 		logins: 0,
-		childs: 0
+		clength: 0
 	}
 
 	// Sending query to get number of scraps
@@ -19,24 +24,44 @@ var homeStatistics = function(callback) {
 		data.scraps = rows.length;
 
 		// Sending query to get number of headers
-		mysql.sendQuery('SELECT * FROM headers;', function(err, rows, fields) {
+		mysql.sendQuery('SELECT * FROM headings;', function(err, rows, fields) {
 			data.headings = rows.length;
 
 			// Sending query to get number of users
 			mysql.sendQuery('SELECT * FROM user;', function(err, rows, fields) {
 				data.users = rows.length;
 
-				// Sending query to get number of users
+				// Sending query to get number of logins
 				mysql.sendQuery('SELECT * FROM logins;', function(err, rows, fields) {
 					data.logins = rows.length;
 
-					// Sending query to get number of users
-					mysql.sendQuery('SELECT * FROM child_scrap;', function(err, rows, fields) {
+					// Sending query to get number of child urls
+					mysql.sendQuery('SELECT * FROM child_urls;', function(err, rows, fields) {
 						data.childs = rows.length;
 
-					// Returning object
-					return callback(data);
+						// Sending query to get number of analyzed http headers
+						mysql.sendQuery('SELECT * FROM https;', function(err, rows, fields) {
+							data.https = rows.length;
 
+							// Getting total content length
+							for(var i=0;i<rows.length;i++) {
+								data.clength += rows[i].length;
+							}
+
+							// Sending query to get number of analyzed html tags
+							mysql.sendQuery('SELECT * FROM htmls;', function(err, rows, fields) {
+								data.htmls = rows.length;
+
+								// Sending query to get number analyzed open graphs
+								mysql.sendQuery('SELECT * FROM graphs;', function(err, rows, fields) {
+									data.htmls = rows.length;
+
+									// Returning data
+									return callback(data);
+
+								});
+							});
+						});
 					});
 				});
 			});
@@ -49,8 +74,11 @@ var homeStatistics = function(callback) {
 // Function for rendering front page
 var loadHomepage = function(req, res) {
 
+	// Loading statistics data
 	homeStatistics(function(data) {
-		res.render('index1', {
+
+		// Rendering data to homepage
+		res.render('index', {
 			content: 'other/homepage.ejs',
 			data: data,
 			user: req.user});
@@ -60,7 +88,8 @@ var loadHomepage = function(req, res) {
 //------------------------------------------------------------------------------
 
 
-// Exporting
+// Exporting functions
 module.exports = {
 	loadHomepage: loadHomepage
 }
+//------------------------------------------------------------------------------

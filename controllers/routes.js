@@ -4,22 +4,24 @@ var urlencodedParser = bodyParser.urlencoded({extended:false});
 var flash    = require('connect-flash');
 //------------------------------------------------------------------------------
 
+
 // Project includes
-var mysql = require('./mysql'); // Potrebno za mysql querije
-var lastScrapsTable = require('./tools/lastanalyzes'); // Potrebno za kontrolirati tablicu najnovijih scrapova
-var scrapEngine = require('./tools/scraper'); // Potrebno za scrappati url
-var showAnalyze = require('./tools/sitedata'); // Potrebno za osvjeziti alanyze dio
-var imgsnatch = require('./tools/imgsnatch'); //
+var mysql = require('./mysql');
+var lastScrapsTable = require('./tools/lastanalyzes');
+var scrapEngine = require('./tools/scraper');
+var showAnalyze = require('./tools/sitedata');
 var homepage = require('./homepage');
 var childs = require('./tools/childs');
 //..............................................................................
+
 
 // We export all our routes
 module.exports = function(app, passport) {
 
 	// Request for home page
 	app.get('/', function(req, res) {
-		 homepage.loadHomepage(req, res);
+		// Loading homepage
+		homepage.loadHomepage(req, res);
 	});
 
 	// Request for login page
@@ -27,8 +29,9 @@ module.exports = function(app, passport) {
 		// If user is logged in in we redirect him to profile
 		if(req.isAuthenticated()) {
 			res.redirect('/profile');
+		// If not we redirect him to start
 		} else {
-			res.render('index1', {
+			res.render('index', {
 				content: 'user/start.ejs',
 				error: req.flash('loginMessage')});
 		}
@@ -36,45 +39,34 @@ module.exports = function(app, passport) {
 
 	// Request from user to login into his account
 	app.post('/login', passport.authenticate('local-login', {
-            successRedirect : '/profile', // redirect to the secure profile section
-            failureRedirect : '/start', // redirect back to the signup page if there is an error
-            failureFlash : true // allow flash messages
+    successRedirect : '/profile', // Redirect to his profile
+    failureRedirect : '/start', // Redirect him back
+    failureFlash : true // Allow flash messages
 		}),
-        function(req, res) {
+    function(req, res) {
 
-            if (req.body.remember) {
-              req.session.cookie.maxAge = 1000 * 60 * 3;
-            } else {
-              req.session.cookie.expires = false;
-            }
-    });
+		// If 'remember me' box is checked
+    if (req.body.remember) {
+      req.session.cookie.maxAge = 1000 * 60 * 3;
+		// Else if it is not
+    } else {
+      req.session.cookie.expires = false;
+    }
+  });
 
-
-	// User requests signup form
-	app.get('/signup', function(req, res) {
-		// If user is logged in in we redirect him to profile
-		if(req.isAuthenticated()) {
-			res.redirect('/profile');
-		// render the page and pass in any flash data if it exists
-		} else {
-			res.render('index1', {
-				content: 'user/start.ejs',
-				error: req.flash('signupMessage')});
-		};
-	});
-
-	// Procesuiranje registracije
+	// Processing signup
 	app.post('/signup', passport.authenticate('local-signup', {
-		successRedirect : '/profile',
-		failureRedirect : '/start',
+		successRedirect : '/profile', // If signup is sucessfull redirect him to profile
+		failureRedirect : '/start', // If not redirect him to start agine
 		failureFlash : true
 	}));
 
-	// Sekcija s profilom
+	// User requests profile
 	app.get('/profile', isLoggedIn, function(req, res) {
-		res.render('index1', {
+		// If he is logged in (check with 'isLoggedIn') rendering his profile
+		res.render('index', {
 			content: 'user/profile.ejs',
-			user : req.user, // get the user out of session and pass to template
+			user : req.user, // Get user from session and pass as user
 			sucess: req.flash('loginMessageW'),
 			error: req.flash('loginMessage')
 		});
@@ -82,21 +74,25 @@ module.exports = function(app, passport) {
 
 	// User logs out
 	app.get('/logout', function(req, res) {
-		req.logout();
-		res.redirect('/start');
+		req.logout(); // Logout user
+		res.redirect('/start'); // Redirect him
 	});
 
-	// If user requests /start dir, if he is logged in we redirect him to his profile
+	// If user requests /start dir
 	app.get('/start', function(req, res) {
+		// If he is logged in we redirect him to his profile
 		if(req.isAuthenticated()) {
-			res.render('index1', {
+			res.render('index', {
 				content: 'user/profile.ejs',
 				user: req.user,
-				error: req.flash('loginMessage')});
+				error: req.flash('loginMessage'),
+				error2: req.flash('signupMessage')});
+		// If he is not logged render him login/start page
 		} else {
-			res.render('index1', {
+			res.render('index', {
 				content: 'user/start.ejs',
-				error: req.flash('loginMessage')});
+				error: req.flash('loginMessage'),
+				error2: req.flash('signupMessage')});
 		}
 	});
 
@@ -105,13 +101,13 @@ module.exports = function(app, passport) {
 		// If user is logged in
 		if(req.isAuthenticated()) {
 			// Display him normal page with user
-	  	res.render('index1', {
+	  	res.render('index', {
 				content: 'tools/scraper.ejs',
 				user: req.user});
 		// If user is not logged in
 		} else {
 			// Display hm page with info
-			res.render('index1', {
+			res.render('index', {
 				content: 'tools/scraper.ejs',
 				info: "Guests can only analyze HTTP headings. Login for more !"});
 		}
@@ -124,99 +120,90 @@ module.exports = function(app, passport) {
 			// Scrapper for users starts
 	  	scrapEngine.scrapURL(
 				req.body.item,
+				req.body.scrap_https,
+				req.body.scrap_htmls,
+				req.body.scrap_headings,
+				req.body.scrap_childs,
+				req.body.scrap_image,
+				req.body.scrap_private,
 				req.body.redirect,
-				req.body.imgsnatch,
-				req.body.anonymous,
-				req.body.headings,
-				req.body.childs,
 				req,
 				res);
 		// If user is not logged in
 		} else {
 			// We start only simple scrapping
-			scrapEngine.simpleScrapUrl(req.body.item, res);
+			scrapEngine.simpleScrapUrl(
+				req.body.item,
+				req.body.scrap_https,
+				req.body.scrap_htmls,
+				res);
 		}
+	});
+
+	// User starts scrapper tool on homepage
+	app.post('/scraperx', urlencodedParser, function(req, res) {
+		// We start only simple scrapping
+		scrapEngine.simpleScrapUrl(req.body.item, 'on', 'on', res);
 	});
 
 	// Request for sitedata tool
 	app.get('/sitedata', urlencodedParser, function(req, res){
-	  // Prikazujemo Site Tools stranicu
-		if(req.isAuthenticated()) { // Ako je logiran prikazujemo bez infa
-			res.render('index1', {
+	  // If user is logged prevew without info
+		if(req.isAuthenticated()) {
+			res.render('index', {
 				content: 'tools/sitedata.ejs',
+				picture: '',
+				headings: '',
 				user: req.user});
+		// Else preview with info
 		} else {
-			res.render('index1', {
+			res.render('index', {
 				content: 'tools/sitedata.ejs',
+				picture: '',
+				headings: '',
 				info: 'Guests can only preview analyzes from other guests !'});
 		}
 	});
 
 	// User runs sitedata request
-	app.post('/sitedata', urlencodedParser, function(req, res){
+	app.post('/sitedata', urlencodedParser, function(req, res) {
+		// Calling functon for data preview
 	  showAnalyze.loadScrapID(req, res, req.body.enterid);
 	});
 
-	// User request last analyzes tool
+	// User request last analyzes tool (history)
 	app.get('/lastanalyzes', urlencodedParser, function(req, res){
-	  // Updateamo tablicu za pregled podataka o stranici
+	  // Previewing him data
 		lastScrapsTable.reloadTable(req, res);
 	});
 
-	// User requests imgsnatch tool
-	app.get('/imgsnatch/', urlencodedParser, function(req, res){
-		// If user is logged in
-		if(req.isAuthenticated()) {
-			// We display him page
-			res.render('index1', {
-				content: 'tools/imgsnatch.ejs',
-				user: req.user});
-		// Else if user is not logged in
-		} else {
-			//We display him error page
-			res.render('index1', {
-				content: 'other/errorpage.ejs',
-				error: 'You are not welcome here !'});
-		}
-	});
-
-	// User starts imgsnatch tool with URL
-	app.post('/imgsnatch', urlencodedParser, function(req, res){
-		// If user clicks on button for URL
-		if(req.body.hasOwnProperty("urlbutton")) {
-	  	imgsnatch.takeScr(req.body.item, res);
-		// Else if user clicks on ID button
-		} else {
-			imgsnatch.previewScr(req.body.enterid, res);
-		}
-	});
-
-	// User requests childs tool
+	// User requests child URLs tool
 	app.get('/childs', urlencodedParser, function(req, res){
 		// If user is logged in
 		if(req.isAuthenticated()) {
 			// We display him page
-			res.render('index1', {
+			res.render('index', {
 				content: 'tools/childs.ejs',
 				user: req.user});
 		// Else if user is not logged in
 		} else {
 			//We display him error page
-			res.render('index1', {
+			res.render('index', {
 				content: 'other/errorpage.ejs',
 				error: 'You are not welcome here !'});
 		}
 	});
 
-	// User starts childs tool with ID
+	// User starts childs URLs tool with ID
 	app.post('/childs', urlencodedParser, function(req, res){
 		// If user is logged in
 		if(req.isAuthenticated()) {
 			// Sending request
 			childs.loadChilds(req.body.enterid, req, res);
+		// Else if user is not logged in
 		} else {
 			//We display him error page
-			res.render('index1', {
+			res.render('index', {
 				content: 'other/errorpage.ejs',
 				error: 'You are not welcome here !'});
 		}
@@ -225,7 +212,8 @@ module.exports = function(app, passport) {
 };
 //------------------------------------------------------------------------------
 
-// Check if user is logged in
+
+// Fonction for check if user is logged in
 function isLoggedIn(req, res, next) {
 
 	// If user is logged in we continue
@@ -236,3 +224,4 @@ function isLoggedIn(req, res, next) {
 	// If they are not we redirect them to homepage
 	res.redirect('/');
 }
+//------------------------------------------------------------------------------

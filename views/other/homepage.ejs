@@ -28,7 +28,7 @@
 		</div>
 <div id="holder">
 <div id="formDiv">
-	<form method="POST" action="/scraper">
+	<form method="POST" action="/scraperx">
 		<div class="container">
 			<div class="fieldRow">
 				<input type ="url" name="item" id="url" placeholder="" required />
@@ -54,39 +54,61 @@
 <div class ="holderStats">
 	<div id="fdw-pricing-table">
 		<ul class="listitem">
+
 				<li class="show">
-				    <div class="plan plan1">
-				        <div class="header">User<br>Accounts</div>
-				        <div class="text"><%= data.users %></div>
-				    </div>
+					<div class="plan plan1">
+			        <div class="header">User<br>Accounts</div>
+			        <div class="text"><%= data.users %></div>
+			    </div>
 				</li>
-
 				<li class="hiddenStat">
-				    <div class="plan plan2">
-				        <div class="header">User<br>logins</div>
-				        <div class="text"><%= data.logins %></div>
-				    </div>
+			    <div class="plan plan2">
+			        <div class="header">User<br>logins</div>
+			        <div class="text"><%= data.logins %></div>
+			    </div>
 				</li>
-
 				<li class="hiddenStat">
-				    <div class="plan plan3">
-				        <div class="header">URL<br>Analyzes</div>
-				        <div class="text"><%= data.scraps %></div>
-				    </div>
+			    <div class="plan plan3">
+			        <div class="header">URL<br>Analyzes</div>
+			        <div class="text"><%= data.scraps %></div>
+			    </div>
 				</li>
-
 				<li class="hiddenStat">
-						<div class="plan plan5">
-								<div class="header">Analyed<br>childs</div>
-								<div class="text"><%= data.childs %></div>
-						</div>
+					<div class="plan plan5">
+							<div class="header">Child<br>URLs</div>
+							<div class="text"><%= data.childs %></div>
+					</div>
 				</li>
-
 				<li class="hiddenStat">
-				    <div class="plan plan4">
-				        <div class="header">Analyed<br>headers</div>
-				        <div class="text"><%= data.headings %></div>
-						</div>
+			    <div class="plan plan4">
+			        <div class="header">Analyzed<br>headers</div>
+			        <div class="text"><%= data.headings %></div>
+					</div>
 				</li>
+				<li class="hiddenStat">
+					<div class="plan plan4">
+							<div class="header">HTTP<br>headers</div>
+							<div class="text"><%= data.https %></div>
+					</div>
+				</li>
+				<li class="hiddenStat">
+					<div class="plan plan4">
+			        <div class="header">HTML<br>tags</div>
+			        <div class="text"><%= data.htmls %></div>
+					</div>
+				</li>
+				<li class="hiddenStat">
+					<div class="plan plan4">
+			        <div class="header">Open<br>graphs</div>
+			        <div class="text"><%= data.graphs %></div>
+					</div>
+				</li>
+				<li class="hiddenStat">
+					<div class="plan plan4">
+			        <div class="header">Content<br>length</div>
+			        <div class="text"><%= data.clength %></div>
+					</div>
+				</li>
+			</ul>
 	</div>
 </div>

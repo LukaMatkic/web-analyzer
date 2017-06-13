@@ -33,15 +33,16 @@
 
 
 <div class="content-div">
-	<a href="/logout" id="site-nav__link">Logout</a>
+	<form method="GET" action="/logout">
+		<div class="group">
+			<input type="submit" class="button" value="Logout">
+		</div>
+	</form>
 </div>
 
 <div class="content-div">
-	<p>
-		<strong>id</strong>: <%= user.id %><br>
-		<strong>username</strong>: <%= user.username %><br>
-		<strong>password</strong>: <%= user.password %>
-	</p>
+	<p><strong> Welcome <%= user.username %> </strong></p>
+	<p> This is your profile page !</p>
 </div>
 </div>
 </center>

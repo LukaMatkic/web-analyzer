@@ -11,7 +11,7 @@ var flash    = require('connect-flash');
 var port     = process.env.PORT || 3001;
 var IpStrategy = require('passport-ip').Strategy;
 
-// Require imgsnatch
+// Require imgsnatch a
 //var imgsnatch = require('./controllers/tools/imgsnatch');
 //imgsnatch.checkImages(); // Deleting images if image exists but is not linked to any row in database
 

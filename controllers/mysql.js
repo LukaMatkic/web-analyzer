@@ -1,66 +1,76 @@
-// Includamo potrebne libraryje
-var express   =    require("express");
-var app       =    express();
-
-var mysql = require('mysql'); // Includamo mysql libraty da mozemo koristiti mysql bazu
-
+// Including
+var express = require("express");
+var app = express();
+var mysql = require('mysql');
 //-----------------------------------------------------------------------------
-// Podatci za connect na mysql bazu
+
+
+// Data for connecting to database
 var connection = mysql.createPool({
-  connectionLimit : 1000, // Broju korisnika koji se odjednom mogu spojiti, ostali idu u red za cekanje - queue
+  connectionLimit : 1000,
   host     : 'localhost',
   user     : 'root',
-  password : '',
+  password : 'lozinka',
   database : 'analyzer',
   debug    : false
 });
 //-----------------------------------------------------------------------------
 
-//-----------------------------------------------------------------------------
-// Globalna funkcija za slanje querija u bazu i "return" podataka
+
+// Function for sending queries
 var sendQuery = function(query, callback) {
 
-    connection.getConnection(function(err, connection) {
+  // Checking connection
+  connection.getConnection(function(err, connection) {
 
-        // Ako se ne moze connectirati ispisujemo u konzolu
-        if (err) {
-          console.log("ERROR [#1] [Cannot connect to database]");
-          return callback(err);
-        }
+    // If there is error with connection
+    if (err) {
+      console.log("ERROR [#1] [Cannot connect to database]");
+      //console.log(err);
+      return callback(err);
+    }
 
-        // Saljemo queri u bazu
-        connection.query(query, function(err2, rows, fields) {
+    // Sending query to database
+    connection.query(query, function(err2, rows, fields) {
 
-            connection.release();
+      connection.release();
 
-            // Ako nema nista od podataka za prikazati
-            if(!rows) {
-              console.log("WARNING [#1] [No results from query]");
-              console.log(err2);
-            }
+      // If there is no data to preview we send warning because sometimes query
+      // will not return any data
+      if(typeof rows == 'undefined ' || !rows) {
+        console.log("WARNING [#1] [No results from query]");
+        //console.log(err2);
+      }
 
-            return callback(err2, rows, fields);
+      console.log(err2);
 
-        });
+      // If everything is okay we return callback
+      return callback(err2, rows, fields);
 
-        // Ako se pojavi error prilikom povrata izbaze ispisujemo ga
-        connection.on('error', function(err) {
-          console.log("ERROR [#2] [No query retured from database]");
-          return callback(err);
-        });
+    });
 
-        // DEBUG - query status
-        console.log('\n--------------------[QUERY STATUS]--------------------');
-        console.log('CONNECTION ID:\n\t' + connection.threadId);
-        console.log('QUERY:\n\t\'' + query +'\'');
-        console.log('ERROR:\n\t' + err)
-        console.log('------------------[QUERY STATUS END]------------------\n');
+    // If error occurs while waiting for data from database
+    connection.on('error', function(err) {
+
+      // Printing error and returning one
+      console.log("ERROR [#2] [No query retured from database]");
+      //console.log(err);
+      return callback(err);
+    });
+
+    // DEBUG - Printing query for testing purposes
+    console.log('\n--------------------[QUERY STATUS]--------------------');
+    console.log('CONNECTION ID:\n\t' + connection.threadId);
+    console.log('QUERY:\n\t\'' + query +'\'');
+    console.log('ERROR:\n\t' + err)
+    console.log('------------------[QUERY STATUS END]------------------\n');
+
   });
 };
 //-----------------------------------------------------------------------------
 
-//-----------------------------------------------------------------------------
-// Module.exports aktiviraju da se funkcija moze includati
+
+// Exporting functon
 module.exports = {
   sendQuery: sendQuery
 }

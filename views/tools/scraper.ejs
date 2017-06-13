@@ -60,17 +60,20 @@
 	<button type="submit" value="submit" class="pulse">Scrape me</button>
 
 		</div>
+		<center>
+			<input type="checkbox" name="scrap_https"><strong>Analyze HTTP headers</strong></input>
+			<input type="checkbox" name="scrap_htmls"><strong>Analyze HTML tags</strong></input>
+			<% if(typeof user != 'undefined') { %>
+				<input type="checkbox" name="scrap_headings"><strong>Analyze headings</strong></input>
+				<input type="checkbox" name="scrap_childs"><strong>Analyze child URLs</strong></input>
+				<input type="checkbox" name="scrap_image"><strong>Snatch image</strong></input>
+				<input type="checkbox" name="scrap_private"><strong>Private analyze</strong></input>
+				<input type="checkbox" name="redirects"><strong>Follow redirects</strong></input>
+			<% } %>
+		</center>
 	</form>
 </div>
-<center>
-<% if(typeof user != 'undefined') { %>
-	<input type="checkbox" name="imgsnatch"><strong>Snatch image</strong></input>
-	<input type="checkbox" name="anonymous"><strong>Anonymous analyze</strong></input>
-	<input type="checkbox" name="headings"><strong>Analyze headings</strong></input>
-	<input type="checkbox" name="childs"><strong>Analyze childs</strong></input>
-	<input type="checkbox" name="redirect" checked>Follow redirects?</input>
-<% } %>
-</center>
+
 </div>
 
 
@@ -81,26 +84,41 @@
 
 <table class="rwd-table">
   <tr>
-    <th>SCRAP ID</th>
+		<th>SCRAP ID</th>
     <th>TIME</th>
     <th>URL</th>
     <th>STATUS</th>
-    <th>TITLE</th>
     <th>DATE</th>
+		<th>HTTP</th>
+		<th>HTML</th>
 		<th>VIEW</th>
-
-
   </tr>
-  <tr>
-    <td data-th="Scrap ID"><%= sucscr[0].id %></td>
+	<tr>
+     <td data-th="Scrap ID"><%= sucscr[0].id %></td>
     <td data-th="Time"><%= sucscr[0].time %></td>
     <td data-th="URL"><%= sucscr[0].url %></td>
-    <td data-th="Http_status"><%= sucscr[0].http_status %></td>
-    <td data-th="Title"><%= sucscr[0].title %></td>
+    <td data-th="status"><%= sucscr[0].status %></td>
     <td data-th="Date"><%= sucscr[0].date.getDate() + '.' + parseInt(sucscr[0].date.getMonth()+1) + '.' + sucscr[0].date.getFullYear() + '.' %></td>
-		<td data-th="View"><form method="POST" action="/sitedata">
-			<button type="submit" name="enterid" value="<%=sucscr[0].id%>">View</button>
-		</form></td>
+		<td data-th="https">
+		<% if(scrap_https == 'on') { %>
+			<img src= "/imgs/true.png" class="icon"></img>
+		<% } else { %>
+			<img src= "/imgs/false.png" class="icon"></img>
+		<% } %>
+		</td>
+		<td data-th="htmls">
+		<% if(scrap_htmls == 'on') { %>
+			<img src= "/imgs/true.png" class="icon"></img>
+		<% } else { %>
+			<img src= "/imgs/false.png" class="icon"></img>
+		<% } %>
+		</td>
+		<td data-th="View">
+			<form method="POST" action="/sitedata">
+				<button type="submit" name="enterid" value="<%=sucscr[0].id%>">View</button>
+			</form>
+		</td>
+
   </tr>
 </table>
 

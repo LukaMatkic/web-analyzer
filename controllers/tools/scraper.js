@@ -1,29 +1,49 @@
-// All includes
+// Includes
 var cheerio = require('cheerio');
 var request = require('request');
-var mysql = require('../mysql'); // Including mysql.js so we can send queries
+var mysql = require('../mysql');
 var fs = require('fs');
 var timeAgo = require('node-time-ago');
 var screenshot = require('url-to-image');
 //------------------------------------------------------------------------------
 
+
 // Function for web page scrapping
-var scrapURL = function(url, redirect, img, anon, headings, child, req, res) {
+var scrapURL = function(
+  url,
+  scrap_https,
+  scrap_htmls,
+  scrap_headings,
+  scrap_childs,
+  scrap_image,
+  scrap_private,
+  redirect,
+  req,
+  res) {
+
+  // If user does not check any box
+  if(!scrap_https && !scrap_htmls && !scrap_headings && !scrap_childs && !scrap_image) {
+    res.render('index', {
+      content: 'tools/scraper.ejs',
+      error: 'You need to analyze utleast one parameter !',
+      user: req.user});
+    return;
+  }
+
   // Preparing data var
   var data = {
-    url: "",
     // HTTP headers
-    http_status: -1,
-    con_length: -1,
-    con_type: "",
-    server: "",
+    status: -1,
+    length: -1,
+    type: '',
+    server: '',
     // HTML tags
-    title: "",
-    charset: "",
+    title: '',
+    charset: '',
     // OG pen Graph
     // Other
-    date: "",
-    time: "",
+    date: '',
+    time: '',
     id_user: 0
   };
 console.log('Varijabla redirect: ' + redirect);
@@ -61,7 +81,7 @@ console.log('Varijabla redirect: ' + redirect);
 
     // If error happens
     if(error) {
-      res.render('index1', {
+      res.render('index', {
         content: 'tools/scraper.ejs',
         error: 'Error happened while analyzing URL !',
         user: req.user});
@@ -71,60 +91,93 @@ console.log('Varijabla redirect: ' + redirect);
     // If status code is between 301 and 400
     if (response.statusCode >= 301 && response.statusCode <= 400) {
         console.log('No Redirect Allowed!');
-        startRedirScrape(req, res, data, url, response, $);
+        startRedirScrape(req, res, url, response, $);
         return;
-    }
-    else {
-        console.log('Found, or redirected!');
-    startBaseScrape(req, res, data, url, response, img, anon, headings, child, $);
 
+    } else {
+        console.log('Found, or redirected!');
+        startBaseScrape(
+          req,
+          res,
+          data,
+          url,
+          scrap_https,
+          scrap_htmls,
+          scrap_headings,
+          scrap_childs,
+          scrap_image,
+          scrap_private,
+          $,
+          response);
   }
 });
 };
 //-----------------------------------------------------------------------------
 
 // Function basic scrapping
-var startBaseScrape = function(req, res, data, url, response, img, anon, headings, child, $) {
+var startBaseScrape = function(
+  req,
+  res,
+  data,
+  url,
+  scrap_https,      //
+  scrap_htmls,      //
+  scrap_headings,
+  scrap_childs,     // //
+  scrap_image,      // //
+  scrap_private,    // //
+  $,
+  response) {
 
     // Loading data
-    data.url = url;
-    if(typeof req.user != 'undefined') data.id_user = req.user.id;
-    data.http_status = response.statusCode;
-    data.con_length = response.headers['content-length'];
-    data.con_type = response.headers['content-type'];
-    data.server = response.headers['server'];
-    data.title = $('title').text();
-    data.charset = response.headers['Accept-Charset'];
-    data.date = require('moment')().format('YYYY-MM-DD');
-    data.time = require('moment')().format('HH:mm:ss');
+    // Creating var for data storing
+    var data = {
+      https: {len: 0, type: '', server: ''},
+      htmls: {title: '', charset: ''},
+      userid: 0,
+      private: 0
+    };
 
-    // If some data is set to undefined we set it to ''
-    if(data.con_type === undefined) data.con_type = '';
-    if(data.server === undefined) data.server = '';
-    if(data.title === undefined) data.title = '';
-    if(data.con_length === undefined) data.con_length = -1;
-    if(data.charset === undefined) data.charset = '';
+    // If scrap https is clicked
+    if(scrap_https) {
+      data.https.len = response.headers['content-length'];
+      data.https.type = response.headers['content-type'];
+      data.https.server = response.headers['server'];
+      if(data.https.len === undefined) data.https.len = 0;
+      if(data.https.type === undefined) data.https.type = '';
+      if(data.https.server === undefined) data.https.server = '';
+    }
 
-    // Set id_user to 0 if anonymous
-    if(anon) data.id_user = 0;
+    // If user selected html tags too
+    if(scrap_htmls) {
+      data.htmls.title = $('title').text();
+
+      $('meta').map(function() { // Map every meta
+        if(typeof this.attribs.charset != 'undefined') { // If charset exists
+          data.htmls.charset = this.attribs.charset; // Save it
+        }
+      });
+
+      if(data.htmls.title === undefined) data.htmls.title = '';
+      if(data.htmls.charset === undefined) data.htmls.charset = '';
+    }
+
+    if(typeof req.user != 'undefined') data.userid = req.user.id;
+    if(scrap_private) data.private = true;
 
     // Sending query to database
-    mysql.sendQuery("INSERT INTO scrap (url,id_user,http_status,con_type,con_length,server,title,charset,date,time) VALUES ( \
-      '" + data.url + "', \
-      " + data.id_user + ", \
-      " + data.http_status + ", \
-      '" + data.con_type + "', \
-      " + data.con_length + ", \
-      '" + data.server + "', \
-      '" + data.title + "', \
-      '" + data.charset + "', \
-      '" + data.date + "', \
-      '" + data.time + "');",
+    mysql.sendQuery("INSERT INTO scrap (url,id_user,status,date,time,private) VALUES ( \
+      '" + url + "', \
+      " + data.userid + ", \
+      " + response.statusCode + ", \
+      '" + require('moment')().format('YYYY-MM-DD') + "', \
+      '" + require('moment')().format('HH:mm:ss') + "', \
+      " + data.private + ");",
       function(err, rows, fields) {
 
         // If error happend while writing to database
         if(err) {
-          res.render('index1', {
+          res.render('index', {
             content: 'tools/scraper.ejs',
             error: 'Error happened while writing analyze to database !',
             user: req.user});
@@ -132,12 +185,31 @@ var startBaseScrape = function(req, res, data, url, response, img, anon, heading
         }
 
         // If image scrape is selected we scrape image of site
-        if(img) {
+        if(scrap_image) {
           screenshot(url, './public/imgsnatch/' + rows.insertId + '.png').done(function() {});
         }
 
+        // If http checkbox is clicked go sending query
+        if(scrap_https) {
+        mysql.sendQuery("INSERT INTO https (id_scrap,length,type,server) VALUES ( \
+          '" + rows.insertId + "', \
+          '" + data.https.len + "', \
+          '" + textLength(data.https.type, 24) + "', \
+          '" + textLength(data.https.server, 128) + "');",
+          function(){});
+        }
+
+        // If html checkbox is clicked go sending query
+        if(scrap_htmls) {
+        mysql.sendQuery("INSERT INTO htmls (id_scrap,title,charset) VALUES ( \
+          '" + rows.insertId + "', \
+          '" + textLength(data.htmls.title, 128) + "', \
+          '" + textLength(data.htmls.charset, 24) + "');",
+          function(){});
+        }
+
         // If scrape child urls is selected
-        if(child) {
+        if(scrap_childs) {
           scrapeRedirects(rows.insertId, $);
         }
 
@@ -147,7 +219,7 @@ var startBaseScrape = function(req, res, data, url, response, img, anon, heading
 
             // If error happens while reading from base
           if(err2) {
-            res.render('index1', {
+            res.render('index', {
               content: 'tools/scraper.ejs',
               error: 'Error happened while reading analyze to database !',
               user: req.user});
@@ -155,11 +227,11 @@ var startBaseScrape = function(req, res, data, url, response, img, anon, heading
           }
 
           // Scrapping headings
-          scrapHeadings($, rows, rows2, headings, req, res, function(rowsx) {
+          scrapHeadings($, rows, rows2, scrap_headings, req, res, function(rowsx) {
 
-            var heads = headings;
+            var heads = scrap_headings;
             if(!heads) heads = false;
-            var urlchild = child;
+            var urlchild = scrap_childs;
             if(!urlchild) urlchild = false;
 
             // Preparing picture object witch tells if picture of scrap exists
@@ -201,23 +273,13 @@ var startBaseScrape = function(req, res, data, url, response, img, anon, heading
             }
 
             // If there is picture scraped too we send warning
-            if(img) {
-              res.render('index1', {
+            res.render('index', {
                 content: 'tools/scraper.ejs',
-                sucess: 'Analyze of URL \"' + data.url + '\" and ID \"' + rows2[0].id + '\" has completed sucessfully !',
-                sucscr: rows2,
-                headers: rowsx,
-                picture: picture,
-                yours: yours,
-                anonim: anonim,
-                heading: heads,
-                child: urlchild,
-                user: req.user,
-                warn: 'Image will be avaliable after magic is applyed !'});
-            } else {
-              res.render('index1', {
-                content: 'tools/scraper.ejs',
-                sucess: 'Analyze of URL \"' + data.url + '\" and ID \"' + rows2[0].id + '\" has completed sucessfully !',
+                sucess: 'Analyze of URL \"' + url + '\" and ID \"' + rows2[0].id + '\" has completed sucessfully !',
+                scrap_https: scrap_https,
+                scrap_htmls: scrap_htmls,
+                scrap_childs: scrap_childs,
+                scrap_headings: scrap_headings,
                 sucscr: rows2,
                 headers: rowsx,
                 picture: picture,
@@ -226,7 +288,7 @@ var startBaseScrape = function(req, res, data, url, response, img, anon, heading
                 child: urlchild,
                 heading: heads,
                 user: req.user});
-            }
+
 
           });
         });
@@ -235,31 +297,21 @@ var startBaseScrape = function(req, res, data, url, response, img, anon, heading
 //------------------------------------------------------------------------------
 
 // Function for scrapping data from redirected page
-var startRedirScrape = function(req, res, data, url, response, $){
-
-  // Loading basic data of site
-  data.url = url;
-  data.http_status = response.statusCode;
-  data.title = $('title').text();
-  data.date = require('moment')().format('YYYY-MM-DD');
-  data.time = require('moment')().format('HH:mm:ss');
-
-  // If some data is set to undefined we set it to ''
-  if (data.title === undefined) data.title = '';
+var startRedirScrape = function(req, res, url, response, $){
 
   // Sending query
-  mysql.sendQuery("INSERT INTO scrap (url,id_user,http_status,title,date,time) VALUES ( \
-    '" + data.url + "', \
+  mysql.sendQuery("INSERT INTO scrap (url,id_user,status,date,time) VALUES ( \
+    '" + url + "', \
     " + req.user.id + ", \
-    " + data.http_status + ", \
+    " + response.statusCode + ", \
     '" + data.title + "', \
-    '" + data.date + "', \
-    '" + data.time + "';",
+    '" + require('moment')().format('YYYY-MM-DD') + "', \
+    '" + require('moment')().format('HH:mm:ss') + "';",
     function(err, rows, fields) {
 
     // If error happend while writing to database
     if(err) {
-      res.render('index1', {
+      res.render('index', {
         content: 'tools/scraper.ejs',
         error: 'Error happened while writing analyze to database !',
         warn: 'URL returned status code \"' + data.http_status + '\" !',
@@ -273,7 +325,7 @@ var startRedirScrape = function(req, res, data, url, response, $){
 
       // If error happens while reading from base
       if(err2) {
-        res.render('index1', {
+        res.render('index', {
           content: 'tools/scraper.ejs',
           error: 'Error happened while reading analyze to database !',
           warn: 'URL returned status code \"' + data.http_status + '\" !',
@@ -282,9 +334,9 @@ var startRedirScrape = function(req, res, data, url, response, $){
       }
 
       // If everything works
-      res.render('index1', {
+      res.render('index', {
         content: 'tools/scraper.ejs',
-        sucess: 'Analyze of URL \"' + data.url + '\" and ID \"' + rows2[0].id + '\" has completed sucessfully !',
+        sucess: 'Analyze of URL \"' + url + '\" and ID \"' + rows2[0].id + '\" has completed sucessfully !',
         warn: 'URL returned status code \"' + data.http_status + '\" !',
         user: req.user});
         return;
@@ -306,7 +358,7 @@ var scrapHeadings = function($, rows5, rows, headings, req, res, callback) {
   var count = 0;
 
   // Head of the query
-  var query = "INSERT INTO headers (id_scrap,head_text,head_value,head_order) VALUES ";
+  var query = "INSERT INTO headings (id_scrap,text,value,orderby) VALUES ";
 
   // For every * we do
   $("*").map(function() {
@@ -320,7 +372,7 @@ var scrapHeadings = function($, rows5, rows, headings, req, res, callback) {
         // Getting and checking text and saving for database query
         var hText = $(this).text();
         hText = checkHeaderText(hText);
-        query += "(" + rows[0].id + ",'" + hText + "'," + hValue + "," + count + "),\n";
+        query += "(" + rows[0].id + ",'" + textLength(hText, 512) + "'," + hValue + "," + count + "),\n";
         count++;
 
         // If hValue is 7 it means this heading is link from a
@@ -329,11 +381,6 @@ var scrapHeadings = function($, rows5, rows, headings, req, res, callback) {
 
           // Change this.attrigs.href to string
           var nes = '' + this.attribs.href + '';
-
-          // If length is over 127 we dont save it
-          if (nes.length > 127) {
-              nes = '';
-          }
 
           // If href doesnt have two dots it cant be link
           // Maybe it can but this is good filter for bad links
@@ -351,7 +398,7 @@ var scrapHeadings = function($, rows5, rows, headings, req, res, callback) {
           }
 
           // Sending href to database
-          query += "(" + rows[0].id + ",'" + nes + "'," + 8 + "," + count + "),\n";
+          query += "(" + rows[0].id + ",'" + textLength(nes, 512) + "'," + 8 + "," + count + "),\n";
           count++;
 
         }
@@ -381,7 +428,7 @@ var scrapeRedirects = function(id, $) {
   var count = 0;
 
   // Head of the query
-  var query = "INSERT INTO child_scrap (id_scrap,url) VALUES ";
+  var query = "INSERT INTO child_urls (id_scrap,url) VALUES ";
 
   // Function to map every a from $ (body)
   $("a").map(function() {
@@ -448,14 +495,22 @@ var scrapeRedirects = function(id, $) {
 //------------------------------------------------------------------------------
 
 // Function for guests to scrape some URL, guests can only scrape HTML tags from given URL
-var simpleScrapUrl = function(url, res) {
+var simpleScrapUrl = function(url, scrap_https, scrap_htmls, res) {
+
+  // If user does not check any box
+  if(!scrap_https && !scrap_htmls) {
+    res.render('index', {
+      content: 'tools/scraper.ejs',
+      error: 'You need to analyze utleast one parameter !'});
+    return;
+  }
 
   // Sending request to URL
   request(url, function(error, response, body) {
 
     // If error happens
     if(error) {
-      res.render('index1', {
+      res.render('index', {
         content: 'tools/scraper.ejs',
         error: 'Error happened while analyzing URL !'});
       return;
@@ -463,7 +518,7 @@ var simpleScrapUrl = function(url, res) {
 
     // If status code is not 200 - OK
     if(response.statusCode != 200) {
-      res.render('index1', {
+      res.render('index', {
         content: 'tools/scraper.ejs',
         error: 'Status code of given URL is not 200 !',
         info: 'Login for advanced URL analyzing options !'});
@@ -472,79 +527,82 @@ var simpleScrapUrl = function(url, res) {
 
     // Creating var for data storing
     var data = {
-      url: '',
-      http_status: 0,
-      con_length: 0,
-      con_type: '',
-      server: '',
-      title: '',
-      charset: '',
-      date: '',
-      time: ''
-  };
+      https: {len: 0, type: '', server: ''},
+      htmls: {title: '', charset: ''}
+    };
 
     // Loading body and data
     var $ = cheerio.load(body);
 
-    data.url = url;
-    data.http_status = response.statusCode;
-    data.con_length = response.headers['content-length'];
-    data.con_type = response.headers['content-type'];
-    data.server = response.headers['server'];
-    data.title = $('title').text();
-    data.charset = response.headers['Accept-Charset'];
-    data.date = require('moment')().format('YYYY-MM-DD');
-    data.time = require('moment')().format('HH:mm:ss');
+    // If scrap https is clicked
+    if(scrap_https) {
+      data.https.len = response.headers['content-length'];
+      data.https.type = response.headers['content-type'];
+      data.https.server = response.headers['server'];
+      if(data.https.len === undefined) data.https.len = 0;
+      if(data.https.type === undefined) data.https.type = '';
+      if(data.https.server === undefined) data.https.server = '';
+    }
 
-    // Checking if any element is 'undefined'
-    if(data.con_length === undefined) data.con_length = 0;
-    if(data.con_type === undefined) data.con_type = '';
-    if(data.server === undefined) data.server = '';
-    if(data.title === undefined) data.title = '';
-    if(data.charset === undefined) data.charset = '';
-    if(data.date === undefined) data.date = '';
-    if(data.time === undefined) data.time = '';
+    // If user selected html tags too
+    if(scrap_htmls) {
+      data.htmls.title = $('title').text();
+
+      $('meta').map(function() { // Map every meta
+        if(typeof this.attribs.charset != 'undefined') { // If charset exists
+          data.htmls.charset = this.attribs.charset; // Save it
+        }
+      });
+
+      if(data.htmls.title === undefined) data.htmls.title = '';
+      if(data.htmls.charset === undefined) data.htmls.charset = '';
+    }
 
     // Saving into database
-    mysql.sendQuery("INSERT INTO scrap (url,id_user,http_status,con_type,con_length,server,title,charset,date,time) VALUES ( \
-      '" + data.url + "', \
-      0, \
-      " + data.http_status + ", \
-      '" + data.con_type + "', \
-      " + data.con_length + ", \
-      '" + data.server + "', \
-      '" + data.title + "', \
-      '" + data.charset + "', \
-      '" + data.date + "', \
-      '" + data.time + "' \
-      );", function(err, rows, fields) {
+    mysql.sendQuery("INSERT INTO scrap (url,date,time,status) VALUES ( \
+      '" + textLength(url, 512) + "', \
+      '" + require('moment')().format('YYYY-MM-DD') + "', \
+      '" + require('moment')().format('HH:mm:ss') + "', \
+      200);",
+      function(err, rows, fields) {
 
       // If there is error happened
       if(err) {
-        res.render('index1', {
+        res.render('index', {
           content: 'tools/scraper.ejs',
           error: 'Something went wrong with inserton of analyze into database !'});
         return;
       }
 
-      // If everything is okay we display sucess and inserted analyze
+      // If http checkbox is clicked go sending query
+      if(scrap_https) {
+      mysql.sendQuery("INSERT INTO https (id_scrap,length,type,server) VALUES ( \
+        '" + rows.insertId + "', \
+        '" + data.https.len + "', \
+        '" + textLength(data.https.type, 24) + "', \
+        '" + textLength(data.https.server, 128) + "');",
+        function(){});
+      }
+
+      // If html checkbox is clicked go sending query
+      if(scrap_htmls) {
+      mysql.sendQuery("INSERT INTO htmls (id_scrap,title,charset) VALUES ( \
+        '" + rows.insertId + "', \
+        '" + textLength(data.htmls.title, 128) + "', \
+        '" + textLength(data.htmls.charset, 24) + "');",
+        function(){});
+      }
+
+      // If everything is okay send query to get data
       mysql.sendQuery("SELECT * FROM scrap WHERE id=" + rows.insertId + ";",
       function(err, rows, fields) {
 
         // If there is error happened
         if(err) {
-          res.render('index1', {
+          res.render('index', {
             content: 'tools/scraper.ejs',
             error: 'Something went wrong with reading analyze from database !'});
           return;
-        }
-
-        // Preparing picture object witch tells if picture of scrap exists
-        var picture = [];
-        if(fs.existsSync('./public/imgsnatch/' + rows[0].id + '.png')) {
-          picture[0] = true;
-        } else {
-          picture[0] = false;
         }
 
         // Change rows.time into "time-ago" format
@@ -560,12 +618,13 @@ var simpleScrapUrl = function(url, res) {
         }
 
         // Displaying scraper
-        res.render('index1', {
+        res.render('index', {
           content: 'tools/scraper.ejs',
-          sucess: 'Analyze of URL \"' + data.url + '\" and ID \"' + rows[0].id + '\" has completed sucessfully !',
-          info: 'All your analyzes are anonymous, to track your analyzes please login !',
+          sucess: 'Analyze of URL \"' + url + '\" and ID \"' + rows[0].id + '\" has completed sucessfully !',
+          info: 'For more advanced options please login !',
           sucscr: rows,
-          picture: picture});
+          scrap_https: scrap_https,
+          scrap_htmls: scrap_htmls});
       });
     });
   });
@@ -608,6 +667,19 @@ var headerToValue = function(header) {
     }
 };
 //-----------------------------------------------------------------------------
+
+
+// Function to check text lengt and cuts it if needed
+var textLength = function(string, max_len) {
+  // If string is longer than max
+  if (string.length > max_len-1) {
+      string = string.substring(0, max_len-4) + '...';
+  }
+  // Returning string
+  return string;
+}
+//-----------------------------------------------------------------------------
+
 
 // Function for checking text in headings
 var checkHeaderText = function(text) {

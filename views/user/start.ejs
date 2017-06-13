@@ -20,6 +20,16 @@
 		</div>
 	<% } %>
 <% } %>
+
+<!--If there is error we display it -->
+<% if(typeof error2 != 'undefined') { %>
+	<% if(error2.length > 0) { %>
+	  <div class="errmsg">
+			<center>
+			<%= error2 %></center>
+		</div>
+	<% } %>
+<% } %>
 <div id="pageTextContent">
 	<center>
 	<p style="width: 70%">
