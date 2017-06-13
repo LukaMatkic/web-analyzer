@@ -14,7 +14,6 @@ var homeStatistics = function(callback) {
 		childs: 0,
 		https: 0,
 		htmls: 0,
-		graphs: 0,
 		logins: 0,
 		clength: 0
 	}
@@ -52,15 +51,12 @@ var homeStatistics = function(callback) {
 							mysql.sendQuery('SELECT * FROM htmls;', function(err, rows, fields) {
 								data.htmls = rows.length;
 
-								// Sending query to get number analyzed open graphs
-								mysql.sendQuery('SELECT * FROM graphs;', function(err, rows, fields) {
-									data.htmls = rows.length;
 
 									// Returning data
 									return callback(data);
 
 								});
-							});
+
 						});
 					});
 				});
