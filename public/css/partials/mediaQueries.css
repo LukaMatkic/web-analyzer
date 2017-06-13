@@ -228,15 +228,16 @@
   }
 
 .footer{
-  position:absolute;
+  position:static;
 }
   .footer p{
     font-size: 15px;
   }
 
   .login-wrap{
-    width:500px;
-    height:600px;
+    width:400px;
+    height:500px;
+    padding-top: 100px;
   }
 
   .login-html{
@@ -330,8 +331,10 @@
   }
 
   .login-wrap{
+    margin-top: 50px;
     width:300px;
     height:400px;
+    padding-top: 0;
   }
 
   .login-html{
@@ -373,6 +376,121 @@
 
 }
 
+@media only screen and (max-width: 1024px){
+
+  #titleDiv{
+    font-size: 40px;
+  }
+  #snatcherDiv p{
+    font-size: 80px;
+  }
+
+  .nav-desktop{
+    top:150;
+  }
+
+  #pageTextContent{
+    font-size: 15px;
+  }
+
+  #formDiv{
+    width:450px;
+    height:50px;
+  }
+
+  form, .container, .fieldRow , .fieldRow input, button {
+    height: 45px;
+  }
+
+  .pulse{
+    width:124px;
+  }
+
+  #formDiv form .fieldRow label{
+    top:10;
+    left:20;
+    font-size: 15px;
+  }
+
+  .holderStats{
+    margin-top: -280px;
+  }
+
+
+  #fdw-pricing-table  ul  li.show  div, #fdw-pricing-table  ul  li.hiddenStat  div{
+    width:200px;
+  }
+
+#holder{
+  margin-top: 30px;
+}
+  #bottomLine{
+    margin-top: 150px;
+  }
+
+.footer{
+  position:static;
+}
+  .footer p{
+    font-size: 15px;
+  }
+
+  .login-wrap{
+    margin-top: 20px;
+    width:300px;
+    height:350px;
+    padding-top: 0;
+  }
+
+  .login-html{
+    margin-top: -40px;
+    padding:20px;
+
+    height:290px;
+    width:290px;
+  }
+
+  #tab1{
+    margin-left: 50px;
+    font-size: 20px;
+  }
+  #tab2{
+
+    font-size: 20px;
+  }
+
+  .sign-in-htm form .group #userLabel, .sign-in-htm form .group #passLabel {
+    font-size: 15px;
+    margin-top:0px;
+    margin-bottom: 10px;
+  }
+
+   #checkBoxGroup{
+    font-size: 20px;
+    margin-bottom: 30px !important;
+  }
+  .sign-up-htm form .group #userLabel, .sign-in-htm form .group #passLabel {
+    font-size: 15px;
+    margin-bottom: 10px;
+  }
+
+  .tbl-header th{
+    font-size: 30px;
+  }
+  .tbl-content td{
+    font-size: 18px;
+  }
+
+  #arrow{
+    margin-top: -100px;
+    opacity:0.4;
+
+    display: flex;
+    justify-content: center;
+    align-items: center;
+  }
+
+}
 
 @media only screen and (max-width: 768px){
   #titleDiv{
@@ -382,40 +500,124 @@
     font-size: 70px;
   }
 }
-@media only screen and (max-width: 610px){
+@media only screen and (max-width: 600px){
+
   #titleDiv{
-    font-size: 45px;
+    font-size: 50px;
   }
   #snatcherDiv p{
     font-size: 60px;
   }
-  #pageTextContent{
-    font-size: 15px;
-    font-weight: 900;
+
+  .nav-desktop{
+    top:150;
   }
-}
-@media only screen and (max-width: 582px){
-  #titleDiv{
+
+  #pageTextContent{
     font-size: 25px;
   }
-  #snatcherDiv p{
-    margin-top: 0;
-    font-size: 60px;
+
+  #formDiv{
+    width:450px;
+    height:50px;
   }
-  button {
+
+  form, .container, .fieldRow , .fieldRow input, button {
+    height: 45px;
+  }
+
+  .pulse{
+    width:124px;
+  }
+
+  #formDiv form .fieldRow label{
+    top:10;
+    left:20;
     font-size: 15px;
   }
 
-#pageTextContent{
+  .holderStats{
+    margin-top: -280px;
+  }
 
+#fdw-pricing-table{
+  margin-top: 150px;
 }
+  #fdw-pricing-table  ul  li.show  div, #fdw-pricing-table  ul  li.hiddenStat  div{
+    width:200px;
+  }
 
-.footer p{
-  font-size: 15px;
+#holder{
+  margin-top: 30px;
 }
+  #bottomLine{
+    margin-top: 150px;
+  }
+
+.footer{
+  position:static;
 }
-@media only screen and (max-width: 360px){
-  .footer{
-    position: static;
+  .footer p{
+    font-size: 15px;
+  }
+
+  .login-wrap{
+    margin-top: 20px;
+    width:500px;
+    height:500px;
+    padding-top: 0;
+  }
+
+  .login-html{
+
+    padding:50px;
+
+    height:500px;
+    width:500px;
+  }
+
+  #tab1{
+    margin-left: 90px;
+    font-size: 30px;
+  }
+  #tab2{
+
+    font-size: 30px;
+  }
+
+  .sign-in-htm form .group #userLabel, .sign-in-htm form .group #passLabel {
+    font-size: 20px;
+    margin-top:30px;
+    margin-bottom: 10px;
+  }
+
+   #checkBoxGroup{
+    font-size: 20px;
+    margin-bottom: 30px !important;
+  }
+  .sign-up-htm form .group #userLabel, .sign-in-htm form .group #passLabel {
+    font-size: 20px;
+    margin-bottom: 10px;
+  }
+
+  .tbl-header th{
+    font-size: 30px;
+  }
+  .tbl-content td{
+    font-size: 18px;
+  }
+
+  body div.whole-page-wrapper div.content-wrapper section{
+    width:500px;
+    margin-left: 50px;
+  }
+
+  #arrow{
+    margin-top: -50px;
+    opacity:0.4;
+    margin-left: 240px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
   }
 }

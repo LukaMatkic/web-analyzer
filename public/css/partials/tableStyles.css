@@ -234,7 +234,7 @@ section{
 
 /**************HOME STAT STYLE*******************/
 #fdw-pricing-table {
-	margin:0 auto;
+	
 	text-align: center;
 	width: 95%; /* total computed width */
   display: flex;

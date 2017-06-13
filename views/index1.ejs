@@ -24,7 +24,24 @@
 <% include partials/footer.ejs %>
 </div>
 
+<script>
+$(function() {
+var width = $(window).width();
+if(width==600){
 
+$("nav").removeClass("nav-desktop").addClass("nav-mobile");
+$("#navigationBar ul li:nth-child(1) a i").removeClass("fa fa-home fa-2x").addClass("fa fa-home fa-3x");
+$("#navigationBar ul li:nth-child(2) a i").removeClass("fa fa-user fa-2x").addClass("fa fa-user fa-3x");
+$("#navigationBar ul li:nth-child(3) a i").removeClass("fa fa-wpexplorer fa-2x").addClass("fa fa-wpexplorer fa-3x");
+$("#navigationBar ul li:nth-child(4) a i").removeClass("fa fa-bar-chart fa-2x").addClass("fa fa-bar-chart fa-3x");
+
+}
+else{
+alert("nije 600");
+}
+
+});
+</script>
 
 <script>
 window.addEventListener ? window.addEventListener("mousemove", showMouseXY, false) : window.attachEvent && window.attachEvent("onmousemove", showMouseXY);
@@ -67,7 +84,7 @@ window.addEventListener ? window.addEventListener("mousemove", showMouseXY, fals
     $(window).on('load, resize', function mobileViewUpdate() {
     var viewportWidth = $(window).width();
     var viewportHeight = $(window).height();
-    if (viewportWidth <= 1610) {
+    if (viewportWidth <= 600) {
     $("#navigationBar").removeClass("nav-desktop").addClass("nav-mobile");
     $(".footer").css("position", "static");
 
@@ -114,20 +131,7 @@ function myFunc(oEle)
 }
 </script>
 
-<script>
-if($( window ).width()<800){
-$("#navigationBar").removeClass("nav-desktop").addClass("nav-mobile");
-$(".footer").css("position", "static");
 
-}
-else{
-$("#navigationBar").removeClass("nav-mobile").addClass("nav-desktop");
-$(".footer").css("position", "absolute");
-
-}
-
-}
-</script>
 
 <!--Table-->
 
