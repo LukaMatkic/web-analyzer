@@ -1,9 +1,131 @@
 /***********TABLES**********/
 /***********NEW TABLE*********/
+
 table{
   width:100%;
   table-layout: fixed;
+
+  border-collapse: collapse;
+}
+.tbl-header{
+
+  border-top-left-radius:5px;
+  border-top-right-radius:5px;
+  background-color: rgba(255,255,255,0.3);
+ }
+ .tbl-content{
+   min-height:25px;
+   overflow-x:auto;
+   margin-top: 0px;
+   border: 1px solid rgba(255,255,255,0.3);
+ }
+
+ th{
+   padding: 20px 15px;
+   border-top-left-radius:10px;
+   border-top-right-radius:10px;
+   font-weight: 900;
+   font-size: 12px;
+   color: #fff;
+   text-transform: uppercase;
+ }
+ td{
+   white-space: nowrap;
+   text-align: center;
+   font-weight: 300;
+   font-size: 12px;
+   color: #fff;
+   border-bottom: solid 1px rgba(255,255,255,0.1);
+ }
+ table td:nth-of-type(3){
+
+ }
+ section{
+   margin:20px 100px;
+ }
+
+@media
+only screen and (max-width: 1122px),(min-device-width: 768px) and (max-device-width: 1024px)  {
+
+  hr {
+    margin-top: 0;
+  }
+  td{
+    padding-top: 0;
+  }
+  td button{
+    height:5px;
+    height: 31px;
+    margin-left: -300;
+    width: 266px;
+    padding-bottom: 3px;
+    margin-bottom: 0px;
+
+  }
+
+	/* Force table to not be like tables anymore */
+	table, thead, tbody, th, td, tr {
+		display: block;
+
+	}
+
+
+	/* Hide table headers (but not display: none;, for accessibility) */
+	thead tr {
+		position: absolute;
+		top: -9999px;
+		left: -9999px;
+	}
+
+	tr {
+    border: 1px solid #ccc; }
+
+	td {
+		/* Behave  like a "row" */
+		border: none;
+		border-bottom: 1px solid #eee;
+		position: relative;
+		padding-left: 50%;
+    height:30px;
+	}
+
+	td:before {
+		/* Now like a table header */
+		position: absolute;
+		/* Top/left values mimic padding */
+		top: 6px;
+		left: 6px;
+		width: 45%;
+    height:10%;
+		padding-right: 10px;
+		white-space: nowrap;
+	}
+
+
+	/*
+	Label the data
+	*/
+	td:nth-of-type(1):before { content: "SCRAP ID"; }
+	td:nth-of-type(2):before { content: "TIME"; }
+	td:nth-of-type(3):before { content: "URL"; }
+	td:nth-of-type(4):before { content: "STATUS"; }
+	td:nth-of-type(5):before { content: "TITLE"; }
+	td:nth-of-type(6):before { content: "DATE"; }
+
+
+}
+
+
+
+
+
+/************SCROLLLABE TABLE**********/
+
+/*table{
+  width:100%;
+  table-layout: fixed;
   white-space: nowrap;
+  border-collapse: collapse;
 }
 .tbl-header{
   background-color: rgba(255,255,255,0.3);
@@ -26,6 +148,10 @@ th{
 tr{
   height:30px;
 }
+
+tr:nth-of-type(odd) {
+  background-color: blue;
+}
 td{
   padding: 8px;
   text-align: left;
@@ -38,7 +164,7 @@ td{
 
 section{
   margin: 50px;
-}
+}*/
 
 
 /***********NEW TABLE*********/
@@ -130,7 +256,7 @@ section{
 	border: 1px solid #ddd;
 	color: #333;
 	padding: 20px;
-	width: 180px;
+	width: 300px;
 	float: left;
 	_display: inline; /* IE6 double margin fix */
 	position: relative;
@@ -307,8 +433,7 @@ li{
   overflow: auto;
   /* background: #eee; */
   padding-right: 20px;
-  mask: url(#masking);
-  -webkit-mask-image: -webkit-gradient(linear, left bottom, left top, color-stop(0.5, black), color-stop(1, transparent)); }
+  }
 
 
 .wrap-container ul {

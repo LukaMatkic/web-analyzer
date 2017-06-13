@@ -123,10 +123,17 @@ window.addEventListener ? window.addEventListener("mousemove", showMouseXY, fals
 
 $(document).ready(function() {
     myFunc($(".show"));
+
+
 });
 
 function myFunc(oEle)
 {
+
+
+
+
+
 	oEle.delay(3000).fadeOut('slow', function(){
 		if (oEle.next().length)
 		{
@@ -168,6 +175,19 @@ $(window).on("load resize ", function() {
   $('.tbl-header').css({'padding-right':scrollWidth});
 }).resize();
 </script>
+
+<script>
+window.onresize = function() {
+    if (window.innerWidth > 300) {
+        document.getElementById("table").style.width = "100%";
+    }
+    else {
+        document.getElementById("table").style.width = "300px";
+    }
+}
+</script>
+
+
 
 </body>
 </html>

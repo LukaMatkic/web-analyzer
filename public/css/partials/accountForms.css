@@ -8,23 +8,20 @@ a{color:inherit;text-decoration:none}
 .login-wrap{
 	width:90%;
 	margin: 0 auto;
-  display: flex;
+	height: 320px;
+	display: flex;
   justify-content: center;
   align-items: center;
-	min-height:500px;
 	position:relative;
 	background: linear-gradient(90deg, rgba(83, 125, 193, 0.5) 0%, rgba(83, 125, 193, 0.7) 25%, rgba(83, 125, 193, 0.7) 75%, rgba(83, 125, 193, 0.5) 100%);
   box-shadow: 0 0 25px rgba(0, 0, 0, 0.1), inset 0 0 1px rgba(255, 255, 255, 0.1);
   border-radius: 4px;
 }
 .login-html{
-	width:100%;
-	height:100%;
-	position:absolute;
-	padding:70px 50px 50px 70px;
-
+ 	height:280px;
   border-radius: 4px;
 }
+
 .login-html .sign-in-htm,
 .login-html .sign-up-htm{
 	top:0;
@@ -60,7 +57,7 @@ a{color:inherit;text-decoration:none}
 	border-color:#1161ee;
 }
 .login-form{
-	min-height:345px;
+
 	position:relative;
 	perspective:1000px;
 	transform-style:preserve-3d;
@@ -148,7 +145,10 @@ a{color:inherit;text-decoration:none}
 .foot-lnk{
 	text-align:center;
 }
-
+*,:after,:before{box-sizing:border-box}
+.clearfix:after,.clearfix:before{content:'';display:table}
+.clearfix:after{clear:both;display:block}
+a{color:inherit;text-decoration:none}
 
 *,:after,:before{box-sizing:border-box}
 .clearfix:after,.clearfix:before{content:'';display:table}
@@ -156,24 +156,13 @@ a{color:inherit;text-decoration:none}
 a{color:inherit;text-decoration:none}
 
 .login-wrap{
-
-
   width:320px;
-	min-height:450px;
 	position:relative;
   border-radius: 4px;
   background: linear-gradient(90deg, rgba(255, 255, 255, 0) 0%, rgba(255, 255, 255, 0.1) 25%, rgba(255, 255, 255, 0.1) 75%, rgba(255, 255, 255, 0) 100%);
   box-shadow: 0 0 25px rgba(0, 0, 0, 0.1), inset 0 0 1px rgba(255, 255, 255, 0.1);
-
 }
-.login-html{
-	width:300px;
-	height:100%;
-	position:absolute;
-	padding:70px 70px 50px 50px;
 
-    border-radius: 4px;
-}
 .login-html .sign-in-htm,
 .login-html .sign-up-htm{
 	top:0;

@@ -50,174 +50,195 @@
 </div>
 
 
+<section>
 
-<section id="infoSection">
-<div id="liHolder">
-
-<div id="scroll-container">
-
-<div class="wrap-container" id="wrap-scroll">
-
-  <ul id="ul-scroll">
-
-    <li li class="active">
-        <div class="item">
-        <div id ="scrap-table">
-
-      		<section>
-        <!-- Stvaramo header za html content -->
-				<table class="rwd-table">
+<div class="tbl-header">
+		<table cellpadding="0" cellspacing="0" border="0">
+				<thead>
+				<tr>
+					<th colspan="5"> GENERAL DATA</th>
+				</tr>
 						<tr>
-							<th colspan="5"> GENERAL DATA</th>
+						<th>URL</th>
+						<th>TITLE</th>
+						<th>ANALYZED DATE</th>
+						<th>ANALYZED TIME</th>
+						<th>SCRAP ID</th>
 						</tr>
-						  <tr>
-						    <th>URL</th>
-						    <th>TITLE</th>
-						    <th>ANALYZED DATE</th>
-						    <th>ANALYZED TIME</th>
-						    <th>SCRAP ID</th>
-						  </tr>
+				</thead>
+		</table>
+	</div>
+<div class="tbl-content">
+		<table>
+				<tbody>
 
-						  <tr>
-						    <td data-th="URL"><center><%=analyzed[0].url%>
+					<tr>
+					<td data-th="URL"><center><%=analyzed[0].url%>
+					</center></td>
+					<td data-th="TITLE"><%=analyzed[0].title%></td>
+					<td data-th="ANALYZED DATE"><%= analyzed[0].date.getDate() + '.' + parseInt(analyzed[0].date.getMonth()+1) + '.' + analyzed[0].date.getFullYear() + '.' %></td>
+					<td data-th="ANALYZED TIME"><%=analyzed[0].time%></td>
+					<td data-th="SCRAP ID"><%=analyzed[0].id%></td>
+					</tr>
 
-								</center></td>
-						    <td data-th="TITLE"><%=analyzed[0].title%></td>
-						    <td data-th="ANALYZED DATE"><%= analyzed[0].date.getDate() + '.' + parseInt(analyzed[0].date.getMonth()+1) + '.' + analyzed[0].date.getFullYear() + '.' %></td>
-						    <td data-th="ANALYZED TIME"><%=analyzed[0].time%></td>
-						    <td data-th="SCRAP ID"><%=analyzed[0].id%></td>
-						  </tr>
-						</table>
-        </section>
-        </div>
-        </div>
-    </li>
-    <li li class="active">
-        <div class="item">
-        <div id ="scrap-table">
-        <section>
-				<!-- Tablica za HTTP headers -->
-				<table class="rwd-table">
-							<tr>
-								<th colspan="4"> HTTP HEADERS</th>
-							</tr>
-							  <tr>
-							    <th>HTTP STATUS</th>
-							    <th>CONTENT LENGTH</th>
-							    <th>CONTENT TYPE</th>
-							    <th>SERVER</th>
-							  </tr>
+				</tbody>
 
-							  <tr>
-							    <td data-th="HTTP STATUS"><%=analyzed[0].http_status%></td>
-							    <td data-th="CONTENT LENGTH"><%=analyzed[0].con_length%></td>
-							    <td data-th="CONTENT TYPE"><%=analyzed[0].con_type%></td>
-							    <td data-th="SERVER"><%=analyzed[0].server%></td>
+		</table>
+</div>
 
-							  </tr>
-						</table>
-        </section>
-        </div>
-        </div>
-    </li>
-    <li li class="active">
-        <div class="item">
-        <div id ="scrap-table">
-        <section>
-				<!-- Tablica za HTML tags -->
-					<table class="rwd-table">
+</section>
+
+
+<section>
+
+<div class="tbl-header">
+		<table cellpadding="0" cellspacing="0" border="0">
+				<thead>
+				<tr>
+					<th colspan="4"> HTTP HEADERS</th>
+				</tr>
 						<tr>
-							<th colspan="2"> HTML TAGS</th>
+						<th>HTTP STATUS</th>
+						<th>CONTENT LENGTH</th>
+						<th>CONTENT TYPE</th>
+						<th>SERVER</th>
 						</tr>
-						  <tr>
-								<th>TITLE</th>
-						    <th>CHARSET</th>
-						 	</tr>
+				</thead>
+		</table>
+	</div>
+<div class="tbl-content">
+		<table>
+				<tbody>
 
-						  <tr>
-						    <td data-th="TITLE"><%=analyzed[0].title%></td>
-						    <td data-th="CHARSET"><%=analyzed[0].charset%></td>
-							</tr>
-						</table>
-        </section>
-        </div>
-        </div>
-    </li>
-    <li li class="active">
-        <div class="item">
-        <div id ="scrap-table">
+					<tr>
+					<td data-th="HTTP STATUS"><%=analyzed[0].http_status%></td>
+					<td data-th="CONTENT LENGTH"><%=analyzed[0].con_length%></td>
+					<td data-th="CONTENT TYPE"><%=analyzed[0].con_type%></td>
+					<td data-th="SERVER"><%=analyzed[0].server%></td>
+					</tr>
+
+				</tbody>
+
+		</table>
+</div>
+
+</section>
+
+<section>
+
+<div class="tbl-header">
+		<table cellpadding="0" cellspacing="0" border="0">
+				<thead>
+				<tr>
+					<th colspan="2"> HTML TAGS</th>
+				</tr>
+						<tr>
+						<th>TITLE</th>
+						<th>CHARSET</th>
+						</tr>
+				</thead>
+		</table>
+	</div>
+<div class="tbl-content">
+		<table>
+				<tbody>
+
+					<tr>
+					<td data-th="TITLE"><%=analyzed[0].title%></td>
+					<td data-th="CHARSET"><%=analyzed[0].charset%></td>
+					</tr>
+
+				</tbody>
+
+		</table>
+</div>
+
+</section>
+
+
+
+
+
+
         <section>
         <% if(headers != '') { %>
-					<table class="rwd-table" style="text-align: left">
 
-									<thead class="table-thread">
-										<tr>
-											<th> </th>
-											<th>HEADERS</th>
-										</tr>
+
+					<div class="tbl-header">
+							<table>
+									<thead>
+									<tr>
+										<th>HEADERS</th>
+									</tr>
+											<tr>
+											<th>TITLE</th>
+											<th>CHARSET</th>
+											</tr>
 									</thead>
+							</table>
+						</div>
 
-									<tfoot class="table-thread">
-										<tr>
-											<th>.</th>
-											<th>HEADERS</th>
-										</tr>
-									</tfoot>
+						<div class="tbl-content">
+								<table>
+										<tbody>
 
-									<tbody>
-									<!-- Za svaki ispis iz tablice stvaramo row u tablici -->
-									<% for(var i=0;i<headers.length;i++) {%>
+										<tbody>
+										<!-- Za svaki ispis iz tablice stvaramo row u tablici -->
+										<% for(var i=0;i<headers.length;i++) {%>
 
-										<!-- Dodajemo razmak prema value-u headera -->
-										<% if(headers[i].head_value == 0) { %>
-											<tr class="table-body h1-style">
-												<td style="color: blue"><%= headers2[i] %></td>
-												<td style="text-indent: 5px"><%= headers[i].head_text %></td>
-											</tr>
-										<% } else if(headers[i].head_value == 1) { %>
-											<tr class="table-body h2-style">
-												<td style="color: blue"><%= headers2[i] %></td>
-												<td style="text-indent: 10px"><%= headers[i].head_text %></td>
-											</tr>
-										<% } else if(headers[i].head_value == 2) { %>
-											<tr class="table-body h3-style">
-												<td style="color: blue"><%= headers2[i] %></td>
-												<td style="text-indent: 15px"><%= headers[i].head_text %></td>
-											</tr>
-										<% } else if(headers[i].head_value == 3) { %>
-											<tr class="h4-style">
-												<td style="color: blue"><%= headers2[i] %></td>
-												<td style="text-indent: 20px"><%= headers[i].head_text %></td>
-											</tr>
-										<% } else if(headers[i].head_value == 4) { %>
-											<tr class="h5-style">
-												<td style="color: blue"><%= headers2[i] %></td>
-												<td style="text-indent: 25px"><%= headers[i].head_text %></td>
-											</tr>
-										<% } else if(headers[i].head_value == 5) { %>
-											<tr class="h6-style">
-												<td style="color: blue"><%= headers2[i] %></td>
-												<td style="text-indent: 30px"><%= headers[i].head_text %></td>
-											</tr>
-										<% } else if(headers[i].head_value == 6) { %>
-											<% if(headers[i].head_text.length > 2) { %>
-												<tr class="p-style">
+											<!-- Dodajemo razmak prema value-u headera -->
+											<% if(headers[i].head_value == 0) { %>
+												<tr class="table-body h1-style">
 													<td style="color: blue"><%= headers2[i] %></td>
-													<td style="text-indent: 35px"><%= headers[i].head_text %></td>
+													<td style="text-indent: 5px"><%= headers[i].head_text %></td>
 												</tr>
-											<% } %>
-										<% } else if(headers[i].head_value == 7) { %>
-											<% if(headers[i].head_text.length > 0) { %>
-												<tr class="a-style">
+											<% } else if(headers[i].head_value == 1) { %>
+												<tr class="table-body h2-style">
 													<td style="color: blue"><%= headers2[i] %></td>
-														<td style="text-indent: 40px">
-															<% if(headers[i+1].head_text.length > 2) { %>
-																<% if(headers[i+1].head_text[0] != '/') { %>
-																	<% if(headers[i+1].head_text[0] != '#') { %>
-																		<% if(headers[i+1].head_text[0] != '_') { %>
-																			<a target="_blank" href="<%= headers[i+1].head_text %>" class="a-style">
+													<td style="text-indent: 10px"><%= headers[i].head_text %></td>
+												</tr>
+											<% } else if(headers[i].head_value == 2) { %>
+												<tr class="table-body h3-style">
+													<td style="color: blue"><%= headers2[i] %></td>
+													<td style="text-indent: 15px"><%= headers[i].head_text %></td>
+												</tr>
+											<% } else if(headers[i].head_value == 3) { %>
+												<tr class="h4-style">
+													<td style="color: blue"><%= headers2[i] %></td>
+													<td style="text-indent: 20px"><%= headers[i].head_text %></td>
+												</tr>
+											<% } else if(headers[i].head_value == 4) { %>
+												<tr class="h5-style">
+													<td style="color: blue"><%= headers2[i] %></td>
+													<td style="text-indent: 25px"><%= headers[i].head_text %></td>
+												</tr>
+											<% } else if(headers[i].head_value == 5) { %>
+												<tr class="h6-style">
+													<td style="color: blue"><%= headers2[i] %></td>
+													<td style="text-indent: 30px"><%= headers[i].head_text %></td>
+												</tr>
+											<% } else if(headers[i].head_value == 6) { %>
+												<% if(headers[i].head_text.length > 2) { %>
+													<tr class="p-style">
+														<td style="color: blue"><%= headers2[i] %></td>
+														<td style="text-indent: 35px"><%= headers[i].head_text %></td>
+													</tr>
+												<% } %>
+											<% } else if(headers[i].head_value == 7) { %>
+												<% if(headers[i].head_text.length > 0) { %>
+													<tr class="a-style">
+														<td style="color: blue"><%= headers2[i] %></td>
+															<td style="text-indent: 40px">
+																<% if(headers[i+1].head_text.length > 2) { %>
+																	<% if(headers[i+1].head_text[0] != '/') { %>
+																		<% if(headers[i+1].head_text[0] != '#') { %>
+																			<% if(headers[i+1].head_text[0] != '_') { %>
+																				<a target="_blank" href="<%= headers[i+1].head_text %>" class="a-style">
+																					<%= headers[i].head_text %>
+																				</a>
+																			<% } else { %>
 																				<%= headers[i].head_text %>
-																			</a>
+																			<% } %>
 																		<% } else { %>
 																			<%= headers[i].head_text %>
 																		<% } %>
@@ -227,42 +248,26 @@
 																<% } else { %>
 																	<%= headers[i].head_text %>
 																<% } %>
-															<% } else { %>
-																<%= headers[i].head_text %>
-															<% } %>
-														</td>
-												</tr>
+															</td>
+													</tr>
+												<% }%>
+											<% } else if(headers[i].head_value == 8) { %>
 											<% }%>
-										<% } else if(headers[i].head_value == 8) { %>
+										</tbody>
 										<% }%>
-									</tbody>
-									<% }%>
+									</table>
+					<% }%>
+
+										</tbody>
+
 								</table>
-        <% }%>
+						</div>
+
+
         </section>
-        </div>
-        </div>
-        </li>
-  </div>
-
-			<!-- ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~ -->
 
 
 
-			<!-- ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~ -->
-
-
-
-
-
-			<!-- ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~ -->
-
-	<!-- Stvaramo tablicu za ispis headera -->
-			<% if(headers != '') { %>
-
-			<% }%>
-			<!-- ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~ -->
-		</section>
 
 
 		<!-- Sekcija za prikaz sike ako je ima -->
@@ -275,9 +280,5 @@
 
 
 <% } %>
-<hr>
-
-
-<div class="content-div">
-	<p>Select scraps to preview <a href="/lastanalyzes">here</a>.</p>
 </div>
+<hr>

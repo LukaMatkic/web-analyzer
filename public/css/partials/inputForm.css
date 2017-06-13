@@ -6,7 +6,7 @@
    float:left;
    position:relative;
    text-align: center;
-   margin-right: 10px;
+
   }
    .container h1 {
      font-family: 'Quicksand', sans-serif; }
@@ -113,14 +113,16 @@ button {
     color: #fff; }
 
 button {
+
   display: inline-block;
   font-size: 20px;
-  float:left;
+
   background: none;
   border: 2px solid;
   font: inherit;
   line-height: 1;
   padding: 10px 10px;
+
   border-radius: 4px;
   height: 55px;}
 
@@ -142,6 +144,10 @@ button {
    --color: #fff;
    --hover: #fff; }
 
-
+#formDiv{
+  justify-content: center;
+  align-items: center;
+  box-sizing: border-box;
+}
 
 /*****INPUT FIELD *******/

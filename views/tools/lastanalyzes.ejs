@@ -7,7 +7,7 @@
 		<p>ANALYZES HYSTORY</p>
 		</div>
 
-
+<hr>
 
 <!--If there is error we display it -->
 <% if(typeof error != 'undefined') { %>
@@ -27,14 +27,6 @@
 	</center>
 	</div>
 <% } %>
-<div id="pageTextContent">
-
-	History analyzes tool displays the last 10
-	analyzes. Guests are shown only anonymous analyzes, but registered
-	users can have full preview of every analysis!
-
-</div>
-</div>
 
 <% if(typeof scrapped != 'undefined') { %>
 
@@ -56,7 +48,7 @@
 		</table>
 	</div>
 <div class="tbl-content">
-		<table cellpadding="0" cellspacing="0" border="0">
+		<table>
 				<tbody>
 				<% for(var i=0;i<scrapped.length;i++) {%>
 					<tr>
@@ -80,40 +72,10 @@
 
 </section>
 
-
-
-
-
-	<!--<table class="rwd-table">
-		<tr>
-			<th>SCRAP ID</th>
-			<th>TIME</th>
-			<th>URL</th>
-			<th>STATUS</th>
-			<th>TITLE</th>
-			<th>DATE</th>
-			<th>VIEW</th>
-		</tr>
-		<% for(var i=0;i<scrapped.length;i++) {%>
-		<tr>
-			<td data-th="Scrap ID"><%= scrapped[i].id %></td>
-			<td data-th="Time"><%= scrapped[i].time %></td>
-			<td data-th="URL"><%= scrapped[i].url %></td>
-			<td data-th="Http_status"><%= scrapped[i].http_status %></td>
-			<td data-th="Title"><%= scrapped[i].title %></td>
-			<td data-th="Date"><%= scrapped[i].date.getDate() + '.' + parseInt(scrapped[i].date.getMonth()+1) + '.' + scrapped[i].date.getFullYear() + '.' %></td>
-			<td>
-				<form method="POST" action="/sitedata">
-					<button type="submit" name="enterid" value="<%=scrapped[i].id%>">View</button>
-				</form>
-			</td>
-			</tr>
-		<%}%>
-	</table>-->
-
-
-
-
 <% } %>
+</div>
+
+
 
 </div>
+<hr>
