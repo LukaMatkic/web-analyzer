@@ -313,7 +313,7 @@ var startRedirScrape = function(req, res, url, response, $){
       res.render('index', {
         content: 'tools/scraper.ejs',
         error: 'Error happened while writing analyze to database !',
-        warn: 'URL returned status code \"' + data.http_status + '\" !',
+        warn: 'URL returned status code witch is not 200 !',
         user: req.user});
         return;
     }
