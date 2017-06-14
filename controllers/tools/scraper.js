@@ -304,7 +304,6 @@ var startRedirScrape = function(req, res, url, response, $){
     '" + url + "', \
     " + req.user.id + ", \
     " + response.statusCode + ", \
-    '" + data.title + "', \
     '" + require('moment')().format('YYYY-MM-DD') + "', \
     '" + require('moment')().format('HH:mm:ss') + "';",
     function(err, rows, fields) {
