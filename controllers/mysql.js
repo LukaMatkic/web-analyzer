@@ -10,7 +10,7 @@ var connection = mysql.createPool({
   connectionLimit : 1000,
   host     : 'localhost',
   user     : 'root',
-  password : '',
+  password : 'lozinka',
   database : 'analyzer',
   debug    : false
 });
