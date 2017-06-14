@@ -41,20 +41,25 @@
   </div>
 <% } %>
 
-
+<center>
 <div class="content-div">
 	<form method="POST" action="/sitedata">
 	  <input type ="text" name="enterid" placeholder="Enter ID..." required />
 	  <button type="submit" value="submit" name="idbutton">Preview data</button>
 	</form>
 </div>
+</center>
 
+<center>
 <!-- Ako samo prikazujemo stranicu  -->
 <% if(typeof main != 'undefined') { %>
 
-<div class="tbl-header">
+<div class="tbl-header" style="width:500px;">
 		<table cellpadding="0" cellspacing="0" border="0">
 				<thead>
+				<tr>
+				<th colspan="7">SNATCHED CONTENT</th>
+				</tr>
 						<tr>
 							<th>HTTP</th>
 							<th>HTML</th>
@@ -67,7 +72,7 @@
 				</thead>
 		</table>
 	</div>
-<div class="tbl-content" id="historyTable">
+<div class="tbl-content" id="historyTable" style="width:500px;height:35px;">
 		<table>
 				<tbody>
 					<tr>
@@ -87,35 +92,23 @@
 							</td>
 							<td>
 								<% if(headings != '') { %>
-									<img src= "/imgs/false.png" class="icon"></img>
+									<img src= "/imgs/true.png" class="icon"></img>
 								<% } else { %>
-									<% if(headings[0] != '') { %>
-										<img src= "/imgs/true.png" class="icon"></img>
-									<% } else { %>
-										<img src= "/imgs/false.png" class="icon"></img>
-									<% } %>
+									<img src= "/imgs/false.png" class="icon"></img>
 								<% } %>
 							</td>
 							<td>
 								<% if(childs != '') { %>
-									<img src= "/imgs/false.png" class="icon"></img>
+									<img src= "/imgs/true.png" class="icon"></img>
 								<% } else { %>
-									<% if(childs != '') { %>
-										<img src= "/imgs/true.png" class="icon"></img>
-									<% } else { %>
-										<img src= "/imgs/false.png" class="icon"></img>
-									<% } %>
+									<img src= "/imgs/false.png" class="icon"></img>
 								<% } %>
 							</td>
 							<td>
 								<% if(picture != '') { %>
-									<img src= "/imgs/false.png" class="icon"></img>
+									<img src= "/imgs/true.png" class="icon"></img>
 								<% } else { %>
-									<% if(picture != '') { %>
-										<img src= "/imgs/true.png" class="icon"></img>
-									<% } else { %>
-										<img src= "/imgs/false.png" class="icon"></img>
-									<% } %>
+									<img src= "/imgs/false.png" class="icon"></img>
 								<% } %>
 							</td>
 							<td>
@@ -141,6 +134,8 @@
 				</table>
 			</div>
 			<% } %>
+</center>
+
 
 <% if(typeof main != 'undefined') { %>
 
@@ -153,7 +148,7 @@
 						</tr>
 						<tr>
 							<th>SCRAP ID</th>
-							<th>URL</th>
+							<th style="width:450px !important;">URL</th>
 							<th>STATUS</th>
 							<th>ANALYZED DATE</th>
 							<th>ANALYZED TIME</th>
@@ -166,7 +161,7 @@
 					<tbody>
 						<tr>
 						<td data-th="SCRAP ID"><%=main[0].id%></td>
-						<td data-th="URL"><%=main[0].url%></td>
+						<td data-th="URL" style="width:450px !important;"><%=main[0].url%></td>
 						<td data-th="STATUS"><%=main[0].status%></td>
 						<td data-th="ANALYZED DATE"><%= main[0].date.getDate() + '.' + parseInt(main[0].date.getMonth()+1) + '.' + main[0].date.getFullYear() + '.' %></td>
 						<td data-th="ANALYZED TIME"><%=main[0].time%></td>
@@ -333,7 +328,7 @@
 <% } %>
 
 
-<% if(typeof childs != '') { %>
+<% if(typeof childs != 'undefined' && childs != '' && childs.length > 0) { %>
 <div id="scrap-table" class="content-div">
 	<section>
 
@@ -348,16 +343,6 @@
 					<th>SCRAPE</th>
 				</tr>
 			</thead>
-
-			<!-- Stvaramo footer tablice -->
-			<tfoot class="table-thread">
-				<tr>
-					<th>CHILD ID</th>
-					<th>SCRAP ID</th>
-					<th>URL</th>
-					<th>SCRAPE</th>
-				</tr>
-			</tfoot>
 
 			<!-- Za svaki ispis iz tablice stvaramo row u tablici -->
 			<% for(var i=0;i<childs.length;i++) {%>
@@ -375,7 +360,7 @@
 						<td><%= childs[i].url %></td>
 
 						<td>
-							<form method="POST" action="/scraper">
+							<form method="POST" action="/scraperx">
 								<button type="submit" name="item" value="<%=childs[i].url%>">Analyze</button>
 							</form>
 						</td>
@@ -397,4 +382,3 @@
 <% } %>
 
 </div>
-<hr>

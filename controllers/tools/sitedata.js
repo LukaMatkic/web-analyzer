@@ -99,7 +99,12 @@ var loadScrapID = function(req, res, id) {
               if(rows.length > 0) {
                 data.headings = rows;
                 data.headings2 = textFromValue(rows);
+
+                for(var i=0;i<data.headings.length;i++) {
+                  data.headings[i].text = textLength(data.headings[i].text, 128);
+                }
               }
+
               // Sending query to get html tags
               mysql.sendQuery("SELECT * FROM child_urls WHERE id_scrap=" + id + ";", function(err, rows, fields) {
                 if(rows.length > 0) data.childs = rows;
@@ -144,6 +149,7 @@ var loadScrapID = function(req, res, id) {
               main: data.main,
               https: data.https,
               htmls: data.htmls,
+              childs: '',
               picture: '',
               headings: '',
               sucess: 'Data from scrap ID \"' + id + '\" loaded sucessfully !',

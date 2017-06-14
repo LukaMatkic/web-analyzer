@@ -1,6 +1,16 @@
 <html>
-<!-- Includamo head file -->
-  <% include partials/head.ejs %>
+  <!-- Includamo head file -->
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <link href="/css/partials/page-style.css" rel="stylesheet" type="text/css" />
+  <link href="/css/partials/accountForms.css" rel="stylesheet" type="text/css" />
+  <link href="/css/partials/inputForm.css" rel="stylesheet" type="text/css" />
+  <link href="/css/partials/mediaQueries.css" rel="stylesheet" type="text/css" />
+  <link href="/css/partials/messages.css" rel="stylesheet" type="text/css" />
+  <link href="/css/partials/tableStyles.css" rel="stylesheet" type="text/css" />
+  <link href="https://fonts.googleapis.com/css?family=Poiret+One" rel="stylesheet">
+<!--  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">-->
+  <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
+  <link rel="stylesheet" href="//maxcdn.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css">
 
 <body>
 
@@ -10,11 +20,47 @@
 
   <!--CONTENT -->
   <%-include(content) %>
-<% include partials/line.ejs %>
+
 <% include partials/footer.ejs %>
 </div>
 
+<script>
+$(function() {
+var width = $(window).width();
+$('.sucmsg').delay(2000).fadeIn('fast').delay(3000).fadeOut('slow');
+$('.wrnmsg').delay(2000).fadeIn('fast').delay(3000).fadeOut('slow');
+$('.infmsg').delay(2000).fadeIn('fast').delay(3000).fadeOut('slow');
+if(width==600 || width==800 || width==768 || width==414 || width==412 || width==375 || width==360 || width==320){
 
+if(width==320 || width==360 || width==375 || width==412 || width==414 || width==768){
+$("nav").removeClass("nav-desktop").addClass("nav-mobile");
+
+}
+
+else{
+$("nav").removeClass("nav-desktop").addClass("nav-mobile");
+$("#navigationBar ul li:nth-child(1) a i").removeClass("fa fa-home fa-2x").addClass("fa fa-home fa-3x");
+$("#navigationBar ul li:nth-child(2) a i").removeClass("fa fa-user fa-2x").addClass("fa fa-user fa-3x");
+$("#navigationBar ul li:nth-child(3) a i").removeClass("fa fa-wpexplorer fa-2x").addClass("fa fa-wpexplorer fa-3x");
+$("#navigationBar ul li:nth-child(4) a i").removeClass("fa fa-bar-chart fa-2x").addClass("fa fa-bar-chart fa-3x");
+$("#navigationBar ul li:nth-child(6) a i").removeClass("fa fa-thumbs-up fa-2x").addClass("fa fa-thumbs-up fa-3x");
+$("#navigationBar ul li:nth-child(6) a i").removeClass("fa fa-question fa-2x").addClass("fa fa-question fa-3x");
+}
+
+
+
+}else{
+if(width==2560){
+$("#navigationBar ul li:nth-child(1) a i").removeClass("fa fa-home fa-2x").addClass("fa fa-home fa-4x");
+$("#navigationBar ul li:nth-child(2) a i").removeClass("fa fa-user fa-2x").addClass("fa fa-user fa-4x");
+$("#navigationBar ul li:nth-child(3) a i").removeClass("fa fa-wpexplorer fa-2x").addClass("fa fa-wpexplorer fa-4x");
+$("#navigationBar ul li:nth-child(4) a i").removeClass("fa fa-bar-chart fa-2x").addClass("fa fa-bar-chart fa-4x");
+$("#navigationBar ul li:nth-child(5) a i").removeClass("fa fa-thumbs-up fa-2x").addClass("fa fa-thumbs-up fa-4x");
+$("#navigationBar ul li:nth-child(6) a i").removeClass("fa fa-question fa-2x").addClass("fa fa-question fa-4x");}
+}
+
+});
+</script>
 
 <script>
 window.addEventListener ? window.addEventListener("mousemove", showMouseXY, false) : window.attachEvent && window.attachEvent("onmousemove", showMouseXY);
@@ -54,19 +100,18 @@ window.addEventListener ? window.addEventListener("mousemove", showMouseXY, fals
 <script>
 (function($) {
     $(document).ready(function() {
-    var width = $(window).width();
-
     $(window).on('load, resize', function mobileViewUpdate() {
+
     var viewportWidth = $(window).width();
     var viewportHeight = $(window).height();
-    if (viewportWidth <= 1610 && viewportHeight>2000) {
+    if (viewportWidth <= 600) {
     $("#navigationBar").removeClass("nav-desktop").addClass("nav-mobile");
-    $(".footer").css("position", "static");
+
 
       }
       else{
       $("#navigationBar").removeClass("nav-mobile").addClass("nav-desktop");
-      $(".footer").css("position", "absolute");
+
       }
 
 });
@@ -87,7 +132,7 @@ function myFunc(oEle)
 
 
 
-
+$("#fdw-pricing-table ul li #hiddenStat").css("display","none");
 
 	oEle.delay(3000).fadeOut('slow', function(){
 		if (oEle.next().length)
@@ -106,19 +151,7 @@ function myFunc(oEle)
 }
 </script>
 
-<script>
-if($( window ).width()<800){
-$("#navigationBar").removeClass("nav-desktop").addClass("nav-mobile");
-$(".footer").css("position", "static");
 
-}
-else{
-$("#navigationBar").removeClass("nav-mobile").addClass("nav-desktop");
-$(".footer").css("position", "absolute");
-}
-
-}
-</script>
 
 <!--Table-->
 
@@ -140,7 +173,7 @@ window.onresize = function() {
 }
 </script>
 
-
+<script src="/Js/inputField.js"></script>
 
 </body>
 </html>

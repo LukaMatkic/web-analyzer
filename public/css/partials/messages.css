@@ -4,7 +4,7 @@
   background-size: 25px 25px;
   color: black;
   border: 1px solid;
-  width: 90%;
+  width: 40%;
   padding: 1px 0 1px 45px;
   margin: 5px auto 5px;
   background-repeat: no-repeat;
@@ -17,26 +17,26 @@
 
 /*For previewing error messages*/
 .errmsg {
-  background-color: #FFBABA;
-  background-image: url('../imgs/error.png');
+  background: linear-gradient(90deg, rgba(124, 12, 18, 0.7) 0%, rgba(124, 12, 18, 0.7) 25%, rgba(124, 12, 18, 0.7) 75%, rgba(124, 12, 18, 0.7) 100%);
+  box-shadow: 0 0 25px rgba(0, 0, 0, 1), inset 0 0 1px rgba(255, 255, 255, 1);
 }
 
 /*For previewing sucessfull messages*/
 .sucmsg {
-  background-color: #33cc33;
-  background-image: url('../imgs/sucess.png');
+  background: linear-gradient(90deg, rgba(24, 71, 1, 0.7) 0%, rgba(24, 71, 1, 0.7) 25%, rgba(24, 71, 1, 0.7) 75%, rgba(24, 71, 1, 0.7) 100%);
+  box-shadow: 0 0 25px rgba(0, 0, 0, 1), inset 0 0 1px rgba(255, 255, 255, 1);
 }
 
-/*For previewing sucessfull messages*/
+/*For previewing warning messages*/
 .wrnmsg {
-  background-color: #f4f25f;
-  background-image: url('../imgs/warn.png');
+  background: linear-gradient(90deg, rgba(160, 141, 0, 0.7) 0%, rgba(160, 141, 0, 0.7) 25%, rgba(160, 141, 0, 0.7) 75%, rgba(160, 141, 0, 0.7) 100%);
+  box-shadow: 0 0 25px rgba(0, 0, 0, 1), inset 0 0 1px rgba(255, 255, 255, 1);
 }
 
 /*For previewing sucessfull messages*/
 .infmsg {
-  background-color: #b3f0ff;
-  background-image: url('../imgs/info.png');
+  background: linear-gradient(90deg, rgba(1, 28, 66, 0.7) 0%, rgba(1, 28, 66, 0.7) 25%, rgba(1, 28, 66, 0.7) 75%, rgba(1, 28, 66, 0.7) 100%);
+  box-shadow: 0 0 25px rgba(0, 0, 0, 1), inset 0 0 1px rgba(255, 255, 255, 1);
 }
 
 .hiddenStat{

@@ -19,6 +19,18 @@ var userQuery = function(req) {
 //------------------------------------------------------------------------------
 
 
+// Function to check text lengt and cuts it if needed
+var textLength = function(string, max_len) {
+  // If string is longer than max
+  if (string.length > max_len-1) {
+      string = string.substring(0, max_len-4) + '...';
+  }
+  // Returning string
+  return string;
+}
+//-----------------------------------------------------------------------------
+
+
 // Function for reloading last analyzes table
 var reloadTable = function(req, res) {
 
@@ -145,6 +157,11 @@ var reloadTable = function(req, res) {
                 } else {
                   childs[i] = false;
                 }
+              }
+
+              // Checking url length
+              for(var i=0;i<scrap.length;i++) {
+                scrap[i].url = textLength(scrap[i].url, 64);
               }
 
               // If user is logged in

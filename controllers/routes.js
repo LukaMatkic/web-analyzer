@@ -12,6 +12,7 @@ var scrapEngine = require('./tools/scraper');
 var showAnalyze = require('./tools/sitedata');
 var homepage = require('./homepage');
 var childs = require('./tools/childs');
+var gagscraper = require('./tools/gagscraper');
 //..............................................................................
 
 
@@ -22,6 +23,24 @@ module.exports = function(app, passport) {
 	app.get('/', function(req, res) {
 		// Loading homepage
 		homepage.loadHomepage(req, res);
+	});
+
+	// Requests gagscraper
+	app.get('/gagscraper', function(req, res) {
+		// Loading homepage
+		gagscraper.getBest(req, res);
+	});
+
+	// Requests about page
+	app.get('/about', function(req, res) {
+		if(req.isAuthenticated()) {
+			res.render('index', {
+				content: 'other/about.ejs',
+				user: req.user});
+		// If not we redirect him to start
+		} else {
+			res.render('index', {content: 'other/about.ejs'});
+		}
 	});
 
 	// Request for login page

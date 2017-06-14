@@ -22,7 +22,7 @@
 				<p style="width: 70%">Welcome to Snatcher, free online tool for analyzing webpages. Snatcher is created
 					for educational purposes and everyone can use it. If you are interested in
 					further development of Snatcher you can find source code
-					<a href="http://github.com/lukamatkic/web-analyzer">here</a>.
+					<a href="http://github.com/lukamatkic/web-analyzer" style="color:blue;text-decoration:underline;">here</a>.
 					Enjoy!</p>
 			<center>
 		</div>
@@ -56,59 +56,50 @@
 		<ul class="listitem">
 
 				<li class="show">
-					<div class="plan plan1">
+					<div class="plan plan1" id="stat">
 			        <div class="header">User<br>Accounts</div>
 			        <div class="text"><%= data.users %></div>
 			    </div>
-				</li>
-				<li class="hiddenStat">
-			    <div class="plan plan2">
+					<div class="plan plan2" id="stat">
 			        <div class="header">User<br>logins</div>
 			        <div class="text"><%= data.logins %></div>
 			    </div>
-				</li>
-				<li class="hiddenStat">
-			    <div class="plan plan3">
+					<div class="plan plan3" id="stat">
 			        <div class="header">URL<br>Analyzes</div>
 			        <div class="text"><%= data.scraps %></div>
 			    </div>
 				</li>
-				<li class="hiddenStat">
-					<div class="plan plan5">
+				<li class="hiddenStat" style="display:none;">
+					<div class="plan plan1" id="stat">
 							<div class="header">Child<br>URLs</div>
 							<div class="text"><%= data.childs %></div>
 					</div>
-				</li>
-				<li class="hiddenStat">
-			    <div class="plan plan4">
+					<div class="plan plan2" id="stat">
 			        <div class="header">Analyzed<br>headers</div>
 			        <div class="text"><%= data.headings %></div>
 					</div>
-				</li>
-				<li class="hiddenStat">
-					<div class="plan plan4">
+					<div class="plan plan3" id="stat">
 							<div class="header">HTTP<br>headers</div>
 							<div class="text"><%= data.https %></div>
 					</div>
 				</li>
-				<li class="hiddenStat">
-					<div class="plan plan4">
+
+				<li class="hiddenStat" style="display:none;">
+					<div class="plan plan1" id="stat">
 			        <div class="header">HTML<br>tags</div>
 			        <div class="text"><%= data.htmls %></div>
 					</div>
-				</li>
-				<li class="hiddenStat">
-					<div class="plan plan4">
-			        <div class="header">Open<br>graphs</div>
-			        <div class="text"><%= data.graphs %></div>
+					<div class="plan plan2" id="stat">
+			        <div class="header">Snatched<br>pictures</div>
+			        <div class="text"><%= data.pictures %></div>
 					</div>
-				</li>
-				<li class="hiddenStat">
-					<div class="plan plan4">
+					<div class="plan plan3" id="stat">
 			        <div class="header">Content<br>length</div>
 			        <div class="text"><%= data.clength %></div>
 					</div>
 				</li>
+
 			</ul>
 	</div>
+</div>
 </div>

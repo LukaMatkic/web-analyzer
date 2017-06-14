@@ -5,13 +5,25 @@ table{
   width:100%;
   table-layout: fixed;
 
-  border-collapse: collapse;
+
+}
+table, th, td {
+    border: 1px solid black;
 }
 .tbl-header{
 
   border-top-left-radius:5px;
   border-top-right-radius:5px;
   background-color: rgba(255,255,255,0.3);
+ }
+ <table cellpadding="0" cellspacing="0" border="0">
+     <thead>
+         <tr>
+           <th  cla
+ .tbl-header table thead tr th {
+
+   font-size: 15px !important;
+
  }
  .tbl-content{
    min-height:25px;
@@ -22,13 +34,12 @@ table{
 
  #historyTable{
 
-   height:300px;
+   height:400px;
  }
 
  th{
-   padding: 20px 15px;
-   border-top-left-radius:10px;
-   border-top-right-radius:10px;
+
+   
    font-weight: 900;
    font-size: 12px;
    color: #fff;
@@ -38,7 +49,7 @@ table{
    white-space: nowrap;
    text-align: center;
    font-weight: 300;
-   font-size: 12px;
+   font-size: 8px;
    color: #fff;
    border-bottom: solid 1px rgba(255,255,255,0.1);
  }
@@ -50,7 +61,7 @@ table{
  }
 
 @media
-only screen and (max-width: 1100px),(min-device-width: 768px) and (max-device-width: 1024px)  {
+only screen and (max-width: 1560px),(min-device-width: 768px) and (max-device-width: 1024px)  {
 
 
   td{
@@ -106,17 +117,34 @@ only screen and (max-width: 1100px),(min-device-width: 768px) and (max-device-wi
 
 
 	/*
-	Label the data
+	Label the data<th>ID</th>
+  <th>TIME</th>
+  <th>URL</th>
+  <th>STATUS</th>
+  <th>DATE</th>
+  <th>HP</th>
+  <th>HL</th>
+  <th>HD</th>
+  <th>CH</th>
+  <th>IM</th>
+  <th>YR</th>
+  <th>PR</th>
+  <th>VIEW</th>
 	*/
 	td:nth-of-type(1):before { content: "SCRAP ID"; }
 	td:nth-of-type(2):before { content: "TIME"; }
 	td:nth-of-type(3):before { content: "URL"; }
 	td:nth-of-type(4):before { content: "STATUS"; }
 	td:nth-of-type(5):before { content: "DATE"; }
-  td:nth-of-type(6):before { content: "HTTP"; }
-  td:nth-of-type(7):before { content: "HTML"; }
-  td:nth-of-type(8):before { content: "OG"; }
-  td:nth-of-type(9):before { content: "VIEW"; }
+	td:nth-of-type(6):before { content: "HTTP HEADERS"; }
+  td:nth-of-type(7):before { content: "HTML TAGS"; }
+	td:nth-of-type(8):before { content: "HEADINGS"; }
+	td:nth-of-type(9):before { content: "CHILD URLS"; }
+	td:nth-of-type(10):before { content: "IMAGE"; }
+	td:nth-of-type(11):before { content: "YOUR"; }
+	td:nth-of-type(12):before { content: "PRIVATE"; }
+
+
 
 }
 
@@ -236,7 +264,7 @@ section{
 
 /**************HOME STAT STYLE*******************/
 #fdw-pricing-table {
-	margin:0 auto;
+
 	text-align: center;
 	width: 95%; /* total computed width */
   display: flex;
@@ -262,10 +290,9 @@ section{
 	color: #333;
 	padding: 20px;
 	width: 300px;
-	float: left;
+  margin-left: 10px;
 	_display: inline; /* IE6 double margin fix */
 	position: relative;
-	margin: 0 auto;
 	-moz-box-shadow: 0 2px 2px -1px rgba(0,0,0,.3);
 	-webkit-box-shadow: 0 2px 2px -1px rgba(0,0,0,.3);
 	box-shadow: 0 2px 2px -1px rgba(0,0,0,.3);
@@ -352,7 +379,13 @@ section{
 }
 
 #fdw-pricing-table li {
-	padding: 10px 0;
+	padding: 10px 10px;
+  display:inline-block;
+  float:left;
+}
+#fdw-pricing-table ul li #stat{
+
+display: inline-block;
 }
 
 #fdw-pricing-table .signup {

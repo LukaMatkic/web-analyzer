@@ -64,11 +64,24 @@
 			<input type="checkbox" name="scrap_https"><strong>Analyze HTTP headers</strong></input>
 			<input type="checkbox" name="scrap_htmls"><strong>Analyze HTML tags</strong></input>
 			<% if(typeof user != 'undefined') { %>
+
+				<ul id="scrapeOptionsList">
+				<li>
 				<input type="checkbox" name="scrap_headings"><strong>Analyze headings</strong></input>
+				</li>
+				<li>
 				<input type="checkbox" name="scrap_childs"><strong>Analyze child URLs</strong></input>
+				</li>
+				<li>
 				<input type="checkbox" name="scrap_image"><strong>Snatch image</strong></input>
+				</li>
+				<li>
 				<input type="checkbox" name="scrap_private"><strong>Private analyze</strong></input>
+				</li>
+				<li>
 				<input type="checkbox" name="redirects"><strong>Follow redirects</strong></input>
+				</li>
+				</ul>
 			<% } %>
 		</center>
 	</form>

@@ -1,5 +1,6 @@
 // Includes
 var mysql = require('./mysql');
+var fs = require('fs');
 //------------------------------------------------------------------------------
 
 
@@ -15,7 +16,8 @@ var homeStatistics = function(callback) {
 		https: 0,
 		htmls: 0,
 		logins: 0,
-		clength: 0
+		clength: 0,
+		pictures: 0
 	}
 
 	// Sending query to get number of scraps
@@ -46,6 +48,10 @@ var homeStatistics = function(callback) {
 							for(var i=0;i<rows.length;i++) {
 								data.clength += rows[i].length;
 							}
+
+							// Getting num of pictures
+  						fs.readdirSync('./public/imgsnatch/').forEach(file => {
+								data.pictures++; });
 
 							// Sending query to get number of analyzed html tags
 							mysql.sendQuery('SELECT * FROM htmls;', function(err, rows, fields) {
