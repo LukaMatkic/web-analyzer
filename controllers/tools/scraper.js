@@ -305,7 +305,7 @@ var startRedirScrape = function(req, res, url, response, $){
     " + req.user.id + ", \
     " + response.statusCode + ", \
     '" + require('moment')().format('YYYY-MM-DD') + "', \
-    '" + require('moment')().format('HH:mm:ss') + "';",
+    '" + require('moment')().format('HH:mm:ss') + "');",
     function(err, rows, fields) {
 
     // If error happend while writing to database
@@ -336,7 +336,7 @@ var startRedirScrape = function(req, res, url, response, $){
       res.render('index', {
         content: 'tools/scraper.ejs',
         sucess: 'Analyze of URL \"' + url + '\" and ID \"' + rows2[0].id + '\" has completed sucessfully !',
-        warn: 'URL returned status code \"' + data.http_status + '\" !',
+        warn: 'URL returned status code witch is not 200 !',
         user: req.user});
         return;
     });
