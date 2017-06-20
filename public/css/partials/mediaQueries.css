@@ -91,7 +91,7 @@
 }
 
 
-@media only screen and (max-width: 1680px){
+@media only screen and (max-width: 2500px){
 
         #titleDiv{
           font-size: 70px;
@@ -101,7 +101,7 @@
         }
 
         .nav-desktop{
-          top:200;
+          top:120;
         }
 
         #pageTextContent{
@@ -140,7 +140,7 @@
 
         .login-wrap{
           width:400px;
-          height:500px;
+          height:450px;
         }
 
         .login-html{
