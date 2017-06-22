@@ -22,6 +22,12 @@ body{
   background-size: cover;
 }
 
+h1{
+  font-size: 50px;
+}
+p{
+  font-size: 30px;
+}
 hr{
   position:static;
   border: 0;
@@ -265,10 +271,7 @@ min-height: 600px;
         background-image: url(/imgs/Sanjin2.jpg);
       }
 
-      .smaller{
-        width:50px;
-        font-size: 15px;
-      }
+
 
       #scrapeOptionsList{
         display: flex;

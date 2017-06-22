@@ -174,6 +174,14 @@ window.onresize = function() {
 </script>
 
 <script src="/Js/inputField.js"></script>
+<script>
+$(document).ready(function() {
+  for(var i = 0; i < $(".siteDataHolder th").length; i++){
+      $(".siteDataHolder td").eq(i).width($(".siteDataHolder th").eq(i).width()+15);
+  }
 
+
+});
+</script>
 </body>
 </html>
