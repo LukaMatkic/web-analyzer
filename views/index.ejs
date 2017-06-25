@@ -203,13 +203,29 @@ for(var i = 0; i < $(".siteDataHolder th").length; i++){
 }
 });
 </script>
+
+
 <script>
 var $table = $('.demoTable');
 $table.floatThead({
     scrollContainer: function($table){
-        return $table.closest('.generalInfoTable');
+        return $table.closest('.headingTable');
     }
 });
+
+</script>
+<script>
+var $table = $('.childTable');
+$table.floatThead({
+    scrollContainer: function($table){
+        return $table.closest('.childrenTable');
+    }
+});
+
+</script>
+
+<script>
+
 
 </script>
 </body>

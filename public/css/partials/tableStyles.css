@@ -106,7 +106,7 @@ padding:1px;
 		.generalInfoTable td:nth-of-type(5):before { content: "URL"; }
 }*/
 
-.headingsTables{
+/*.headingsTables{
   margin-bottom: 70px;
 }
 .headingsTables table{
@@ -123,8 +123,61 @@ padding:1px;
   text-align:center;
   border: 1px solid #cdcdcd;
   padding: 5px;
+}*/
+
+.scrappedHeadingsHolder{
+  width:80%;
+  padding:10px;
+}
+.scrappedHeadingsHolder ul{
+  list-style: none;
+  padding:10px;
+  width:80%;
+}
+.scrappedHeadingsHolder ul li{
+  margin:0px;
+  max-height: 45%;
+  max-width: 24%;
+  display: inline-block;
+  float:left;
 }
 
+.headingTable,.childrenTable{
+  min-height: 150px;
+  max-height: 350px;
+  overflow-x: hidden;
+  width:100%;
+}
+.demoTable,.childTable{
+  width:100%;
+  text-align: center;
+
+}
+
+
+
+.demoTable tbody tr td{
+  border-top-style: solid;
+  border-bottom-style: solid;
+  border-width: thin;
+}
+
+#biggerTable{
+  max-width:46%;
+  min-width: 46%;
+  margin-left: 1%;
+  margin-bottom: 3%;
+}
+#smallerTable{
+  min-height: 150px;
+  max-height:150px;
+max-width: 30%;
+min-width: 30%;
+margin-left: 1%;
+margin-bottom: 3%;
+overflow-x: hidden;
+
+}
 /*****SCROLLABLE TABLE *****/
 
 .scrollableTable {
