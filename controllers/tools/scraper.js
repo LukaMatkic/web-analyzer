@@ -25,7 +25,7 @@ var scrapURL = function(
   if(!scrap_https && !scrap_htmls && !scrap_headings && !scrap_childs && !scrap_image) {
     res.render('index', {
       content: 'tools/scraper.ejs',
-      error: 'You need to analyze utleast one parameter !',
+      error: 'You need to analyze at least one parameter!',
       user: req.user});
     return;
   }
@@ -83,7 +83,7 @@ console.log('Varijabla redirect: ' + redirect);
     if(error) {
       res.render('index', {
         content: 'tools/scraper.ejs',
-        error: 'Error happened while analyzing URL !',
+        error: 'Error happened while analyzing URL!',
         user: req.user});
       return;
     }
@@ -179,7 +179,7 @@ var startBaseScrape = function(
         if(err) {
           res.render('index', {
             content: 'tools/scraper.ejs',
-            error: 'Error happened while writing analyze to database !',
+            error: 'Error happened while writing analyze to database!',
             user: req.user});
             return;
         }
@@ -221,7 +221,7 @@ var startBaseScrape = function(
           if(err2) {
             res.render('index', {
               content: 'tools/scraper.ejs',
-              error: 'Error happened while reading analyze to database !',
+              error: 'Error happened while reading analyze to database!',
               user: req.user});
               return;
           }
@@ -312,8 +312,8 @@ var startRedirScrape = function(req, res, url, response, $){
     if(err) {
       res.render('index', {
         content: 'tools/scraper.ejs',
-        error: 'Error happened while writing analyze to database !',
-        warn: 'URL returned status code witch is not 200 !',
+        error: 'Error happened while writing analyze to database!',
+        warn: 'URL returned status code witch is not 200!',
         user: req.user});
         return;
     }
@@ -326,8 +326,8 @@ var startRedirScrape = function(req, res, url, response, $){
       if(err2) {
         res.render('index', {
           content: 'tools/scraper.ejs',
-          error: 'Error happened while reading analyze to database !',
-          warn: 'URL returned status code \"' + data.http_status + '\" !',
+          error: 'Error happened while reading analyze to database!',
+          warn: 'URL returned status code \"' + data.http_status + '\"!',
           user: req.user});
           return;
       }
@@ -335,8 +335,8 @@ var startRedirScrape = function(req, res, url, response, $){
       // If everything works
       res.render('index', {
         content: 'tools/scraper.ejs',
-        sucess: 'Analyze of URL \"' + url + '\" and ID \"' + rows2[0].id + '\" has completed sucessfully !',
-        warn: 'URL returned status code witch is not 200 !',
+        sucess: 'Analyze of URL \"' + url + '\" and ID \"' + rows2[0].id + '\" has completed sucessfully!',
+        warn: 'URL returned status code witch is not 200!',
         user: req.user});
         return;
     });
@@ -500,7 +500,7 @@ var simpleScrapUrl = function(url, scrap_https, scrap_htmls, res) {
   if(!scrap_https && !scrap_htmls) {
     res.render('index', {
       content: 'tools/scraper.ejs',
-      error: 'You need to analyze utleast one parameter !'});
+      error: 'You need to analyze at least one parameter!'});
     return;
   }
 
@@ -511,7 +511,7 @@ var simpleScrapUrl = function(url, scrap_https, scrap_htmls, res) {
     if(error) {
       res.render('index', {
         content: 'tools/scraper.ejs',
-        error: 'Error happened while analyzing URL !'});
+        error: 'Error happened while analyzing URL!'});
       return;
     }
 
@@ -519,8 +519,8 @@ var simpleScrapUrl = function(url, scrap_https, scrap_htmls, res) {
     if(response.statusCode != 200) {
       res.render('index', {
         content: 'tools/scraper.ejs',
-        error: 'Status code of given URL is not 200 !',
-        info: 'Login for advanced URL analyzing options !'});
+        error: 'Status code of given URL is not 200!',
+        info: 'Login for advanced URL analyzing options!'});
       return;
     }
 
@@ -569,7 +569,7 @@ var simpleScrapUrl = function(url, scrap_https, scrap_htmls, res) {
       if(err) {
         res.render('index', {
           content: 'tools/scraper.ejs',
-          error: 'Something went wrong with inserton of analyze into database !'});
+          error: 'Something went wrong with inserton of analyze into database!'});
         return;
       }
 
@@ -600,7 +600,7 @@ var simpleScrapUrl = function(url, scrap_https, scrap_htmls, res) {
         if(err) {
           res.render('index', {
             content: 'tools/scraper.ejs',
-            error: 'Something went wrong with reading analyze from database !'});
+            error: 'Something went wrong with reading analyze from database!'});
           return;
         }
 
@@ -619,8 +619,8 @@ var simpleScrapUrl = function(url, scrap_https, scrap_htmls, res) {
         // Displaying scraper
         res.render('index', {
           content: 'tools/scraper.ejs',
-          sucess: 'Analyze of URL \"' + url + '\" and ID \"' + rows[0].id + '\" has completed sucessfully !',
-          info: 'For more advanced options please login !',
+          sucess: 'Analyze of URL \"' + url + '\" and ID \"' + rows[0].id + '\" has completed sucessfully!',
+          info: 'For more advanced options please login!',
           sucscr: rows,
           scrap_https: scrap_https,
           scrap_htmls: scrap_htmls});

@@ -4,7 +4,7 @@
   <link href="/css/partials/page-style.css" rel="stylesheet" type="text/css" />
   <link href="/css/partials/accountForms.css" rel="stylesheet" type="text/css" />
   <link href="/css/partials/inputForm.css" rel="stylesheet" type="text/css" />
-  <link href="/css/partials/mediaQueries.css" rel="stylesheet" type="text/css" />
+  
   <link href="/css/partials/messages.css" rel="stylesheet" type="text/css" />
   <link href="/css/partials/tableStyles.css" rel="stylesheet" type="text/css" />
   <link href="https://fonts.googleapis.com/css?family=Poiret+One" rel="stylesheet">
@@ -207,7 +207,7 @@ for(var i = 0; i < $(".siteDataHolder th").length; i++){
 var $table = $('.demoTable');
 $table.floatThead({
     scrollContainer: function($table){
-        return $table.closest('.generalInfoTable');
+        return $table.closest('.wrapper');
     }
 });
 

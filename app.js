@@ -8,7 +8,7 @@ var morgan = require('morgan');
 var app = express();
 var passport = require('passport');
 var flash    = require('connect-flash');
-var port     = process.env.PORT || 80;
+var port     = process.env.PORT || 3000;
 var IpStrategy = require('passport-ip').Strategy;
 
 // Require imgsnatch a

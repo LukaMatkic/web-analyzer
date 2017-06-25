@@ -1,20 +1,20 @@
 
 <div class="content-wrapper">
 <div id="titleDiv">
-		Snatch content you want with...
+		Snatch the content you want with...
 </div>
 
 <div id="snatcherDiv">
 		<p>
 		SNATCHER
 		</p>
-		</div>
-<hr>
+	</div>
+
 <div id="pageTextContent">
 <!-- If there is error we display it -->
 <% if(typeof sucess != 'undefined') { %>
 
-<center>    <p><%= sucess %></p></center>
+<%= sucess %>
 
 <% } %>
 
@@ -22,7 +22,7 @@
 <!-- If there is error we display it -->
 <% if(typeof error != 'undefined') { %>
   <div id="pageTextContent">
-  <center>  <p><%= error %></p></center>
+  <%= error %>
   </div>
 <% } %>
 
@@ -30,7 +30,7 @@
 <!-- If there is warning we display it -->
 <% if(typeof info != 'undefined') { %>
   <div id="pageTextContent">
-  <center> <p><%= info %></p></center>
+  <%= info %>
   </div>
 <% } %>
 
@@ -38,7 +38,7 @@
 <!-- If there is warning we display it -->
 <% if(typeof warn != 'undefined') { %>
   <div id="pageTextContent">
-  <center>  <p><%= warn %></p> </center>
+<%= warn %>
   </div>
 <% } %>
 </div>
@@ -137,3 +137,4 @@
 
 </div>
 <% } %>
+<hr>

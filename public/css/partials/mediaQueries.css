@@ -29,11 +29,7 @@
           width:144px;
         }
 
-        #formDiv form .fieldRow label{
-          top:25;
-          left:30;
-          font-size: 28px;
-        }
+
 
         #bottomLine{
           margin-top: 150px;
@@ -65,20 +61,11 @@
           font-size: 30px;
         }
 
-        .sign-in-htm form .group #userLabel, .sign-in-htm form .group #passLabel {
-          font-size: 20px;
-          margin-top: 30px;
-          margin-bottom: 10px;
-        }
+
 
          #checkBoxGroup{
           font-size: 20px;
           margin-bottom: 30px !important;
-        }
-        .sign-up-htm form .group #userLabel, .sign-in-htm form .group #passLabel {
-          font-size: 20px;
-          margin-top: 30px;
-          margin-bottom: 10px;
         }
 
         .tbl-header th{
@@ -121,11 +108,7 @@
           width:122px;
         }
 
-        #formDiv form .fieldRow label{
-          top:15;
-          left:30;
-          font-size: 23px;
-        }
+
 
         #bottomLine{
           margin-top: 150px;
@@ -157,21 +140,13 @@
           font-size: 25px;
         }
 
-        .sign-in-htm form .group #userLabel, .sign-in-htm form .group #passLabel {
-          font-size: 20px;
-          margin-top: 30px;
-          margin-bottom: 10px;
-        }
+
 
          #checkBoxGroup{
           font-size: 20px;
           margin-bottom: 30px !important;
         }
-        .sign-up-htm form .group #userLabel, .sign-in-htm form .group #passLabel {
-          font-size: 20px;
-          margin-top: 30px;
-          margin-bottom: 10px;
-        }
+
 
         .tbl-header th{
           font-size: 20px;
@@ -227,11 +202,7 @@
         width:144px;
       }
 
-      #formDiv form .fieldRow label{
-        top:25;
-        left:30;
-        font-size: 28px;
-      }
+
 
       #bottomLine{
         margin-top: 150px;
@@ -264,21 +235,12 @@
         font-size: 30px;
       }
 
-      .sign-in-htm form .group #userLabel, .sign-in-htm form .group #passLabel {
-        font-size: 20px;
-        margin-top: 30px;
-        margin-bottom: 10px;
-      }
 
        #checkBoxGroup{
         font-size: 20px;
         margin-bottom: 30px !important;
       }
-      .sign-up-htm form .group #userLabel, .sign-in-htm form .group #passLabel {
-        font-size: 20px;
-        margin-top: 30px;
-        margin-bottom: 10px;
-      }
+
 
       .tbl-header th{
         font-size: 30px;
@@ -319,11 +281,7 @@
           width:134px;
         }
 
-        #formDiv form .fieldRow label{
-          top:15;
-          left:30;
-          font-size: 20px;
-        }
+
 
         .holderStats{
           margin-top: -100px;
@@ -362,20 +320,13 @@
           font-size: 20px;
         }
 
-        .sign-in-htm form .group #userLabel, .sign-in-htm form .group #passLabel {
-          font-size: 20px;
-          margin-bottom: 10px;
-        }
+
 
          #checkBoxGroup{
           font-size: 20px;
           margin-bottom: 30px !important;
         }
-        .sign-up-htm form .group #userLabel, .sign-in-htm form .group #passLabel {
-          font-size: 20px;
-          margin-top: 30px;
-          margin-bottom: 10px;
-        }
+
 
         .tbl-header th{
           font-size: 30px;
@@ -419,11 +370,6 @@
           width:124px;
         }
 
-        #formDiv form .fieldRow label{
-          top:10;
-          left:20;
-          font-size: 15px;
-        }
 
         .holderStats{
           margin-top: -280px;
@@ -472,20 +418,13 @@
           font-size: 20px;
         }
 
-        .sign-in-htm form .group #userLabel, .sign-in-htm form .group #passLabel {
-          font-size: 15px;
-          margin-top:0px;
-          margin-bottom: 10px;
-        }
+
 
          #checkBoxGroup{
           font-size: 20px;
           margin-bottom: 30px !important;
         }
-        .sign-up-htm form .group #userLabel, .sign-in-htm form .group #passLabel {
-          font-size: 15px;
-          margin-bottom: 10px;
-        }
+
 
         .tbl-header th{
           font-size: 30px;
@@ -535,11 +474,7 @@
           width:124px;
         }
 
-        #formDiv form .fieldRow label{
-          top:20;
-          left:20;
-          font-size: 15px;
-        }
+
 
         .holderStats{
           margin-top: -280px;
@@ -589,21 +524,13 @@
           font-size: 30px;
         }
 
-        .sign-in-htm form .group #userLabel, .sign-in-htm form .group #passLabel {
-          font-size: 20px;
-          margin-top: 30px;
-          margin-bottom: 10px;
-        }
+
 
          #checkBoxGroup{
           font-size: 20px;
           margin-bottom: 30px !important;
         }
-        .sign-up-htm form .group #userLabel, .sign-in-htm form .group #passLabel {
-          font-size: 20px;
-          margin-top: 30px;
-          margin-bottom: 10px;
-        }
+
 
         .tbl-header th{
           font-size: 50px;
@@ -674,11 +601,6 @@
     width:124px;
   }
 
-  #formDiv form .fieldRow label{
-    top:10;
-    left:20;
-    font-size: 15px;
-  }
 
       .holderStats{
         margin-top: -280px;
@@ -729,19 +651,10 @@
     font-size: 30px;
   }
 
-  .sign-in-htm form .group #userLabel, .sign-in-htm form .group #passLabel {
-    font-size: 20px;
-    margin-top:30px;
-    margin-bottom: 10px;
-  }
 
    #checkBoxGroup{
     font-size: 20px;
     margin-bottom: 30px !important;
-  }
-  .sign-up-htm form .group #userLabel, .sign-in-htm form .group #passLabel {
-    font-size: 20px;
-    margin-bottom: 10px;
   }
 
   .tbl-header th{
@@ -809,11 +722,6 @@
     font-size: 18px;
   }
 
-  .sign-in-htm form .group #userLabel, .sign-in-htm form .group #passLabel {
-    font-size: 15px;
-    margin-top:10px;
-    margin-bottom: 10px;
-  }
 
    #checkBoxGroup{
     font-size: 10px;
@@ -821,15 +729,10 @@
   }
 
 
-   #passLabel {
-    font-size: 15px;
-    margin-top:10px;
 
-    margin-bottom: 10px;
-  }
   #gag{
     width:90%;
-    height:90%;
+    height:80%;
   }
 }
 @media only screen and (max-width: 412px){
@@ -861,11 +764,7 @@
     font-size: 18px;
   }
 
-  .sign-in-htm form .group #userLabel, .sign-in-htm form .group #passLabel {
-    font-size: 15px;
-    margin-top:10px;
-    margin-bottom: 10px;
-  }
+
 
    #checkBoxGroup{
     font-size: 10px;
@@ -873,12 +772,7 @@
   }
 
 
-   #passLabel {
-    font-size: 15px;
-    margin-top:10px;
 
-    margin-bottom: 10px;
-  }
   #stat div{
     margin-left: -20px;
   }
@@ -955,11 +849,7 @@
     font-size: 12px;
   }
 
-  #formDiv form .fieldRow label{
-    top:10;
-    left:20;
-    font-size: 15px;
-  }
+
 
   .holderStats{
     margin-top: -400px;
@@ -1009,11 +899,7 @@
             font-size: 18px;
           }
 
-          .sign-in-htm form .group #userLabel, .sign-in-htm form .group #passLabel {
-            font-size: 15px;
-            margin-top:10px;
-            margin-bottom: 10px;
-          }
+
 
            #checkBoxGroup{
             font-size: 10px;
@@ -1021,12 +907,7 @@
           }
 
 
-           #passLabel {
-            font-size: 15px;
-            margin-top:10px;
 
-            margin-bottom: 10px;
-          }
 
           .tbl-header th{
             font-size: 30px;
@@ -1097,11 +978,7 @@
           font-size: 18px;
         }
 
-        .sign-in-htm form .group #userLabel, .sign-in-htm form .group #passLabel {
-          font-size: 15px;
-          margin-top:10px;
-          margin-bottom: 10px;
-        }
+
 
          #checkBoxGroup{
           font-size: 10px;
@@ -1109,12 +986,7 @@
         }
 
 
-         #passLabel {
-          font-size: 15px;
-          margin-top:10px;
 
-          margin-bottom: 10px;
-        }
 
         #listaTima{
           padding:5px;

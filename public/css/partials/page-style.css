@@ -26,13 +26,13 @@ h1{
   font-size: 50px;
 }
 p{
-  font-size: 30px;
+  font-size: 22px;
 }
 hr{
   position:static;
   border: 0;
-  height: 3px;
-  margin-top: -40px;
+  height: 2px;
+  margin-top: 15px;
   background-image: linear-gradient(to right, rgba(0, 0, 0, 0), rgba(255, 255, 255, 1), rgba(0, 0, 0, 0));
 }
 
@@ -50,7 +50,7 @@ body .whole-page-wrapper
   position:fixed;
   left:0;
   top:150;
-  font-weight: 900;
+  font-weight: 700;
   box-sizing: border-box;
   text-align: center;
   z-index: 9999;
@@ -65,7 +65,7 @@ body .whole-page-wrapper
 
 }
 .nav-desktop ul li{
-    padding:40px 15px;
+    padding:20px 10px;
 }
 .nav-desktop ul li i{
   color:white;
@@ -128,27 +128,26 @@ min-height: 600px;
 
 #titleDiv{
   text-align: center;
-  font-size: 35px;
-  font-weight: 600;
+  font-size: 42px;
   margin: 0px 15px;
-
   padding-top: 20px;
 }
 #snatcherDiv p{
 
   text-align: center;
   font-size: 90px;
-  margin: 0px 15px;
+  margin: 10px 15px 50px 15px;
   color:white;
   z-index: 9998;
-  margin-bottom: 50px;
+
 }
 #pageTextContent{
 
   text-align: center;
-  font-size: 24px;
-  font-weight: 900;
+  font-size: 20px;
   margin:0 auto;
+  width: 70%;
+padding-bottom: 20px;
 }
 #holder{
   margin: 60px 15px;
@@ -160,7 +159,7 @@ min-height: 600px;
 }
 
 .footer{
-  height:200px;
+  height:130px;
   display: flex;
   justify-content: center;
   align-items: center;
@@ -173,10 +172,12 @@ min-height: 600px;
 
 .footer p{
   color:white;
-  font-weight: 900;
-  width:80%;
+  font-size: 20px;
+  width:70%;
   margin:0 auto;
   text-align: center;
+  padding-top: 10px;
+  padding-bottom: 10px;
 }
 
 #arrow{
@@ -284,3 +285,12 @@ min-height: 600px;
   padding:5px;
 
 }
+.link
+{
+
+	color:#1161ee;
+	text-decoration:underline;
+}
+#gag{
+  width:45%;
+  height:80%;
