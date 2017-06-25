@@ -13,6 +13,8 @@
 	-webkit-border-radius: 3px;
 	border-radius: 3px;
   border: 0 solid;
+  text-align: center;
+  font-size: 22px;
 }
 
 /*For previewing error messages*/

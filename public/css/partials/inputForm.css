@@ -1,17 +1,18 @@
 /*****INPUT FIELD *******/
 .container {
    opacity: 1;
-   width: 70%;
+   width: 40%;
    display: inline-block;
    float:left;
    position:relative;
    text-align: center;
+  margin:auto 0;
 
   }
    .container h1 {
-     font-family: 'Quicksand', sans-serif; }
+     font-family: 'Poiret One', cursive; }
    .container p {
-     font-family: 'Quicksand', sans-serif;
+     font-family: 'Poiret One', cursive;
      color: #888;
    }
    .container .fieldRow {
@@ -19,6 +20,7 @@
      width: 100%;
      float:left;
      padding-right: 10px;
+
       }
      .container .fieldRow.focus input {
        outline: none;
@@ -62,7 +64,7 @@
      height: 55px;
      box-sizing: border-box;
      width: 100%;
-     font-family: 'Quicksand', sans-serif;
+     font-family: 'Poiret One', cursive;
      font-size: 18px;
      transition: all .3s ease-in-out;
      color: #000;}
@@ -72,7 +74,7 @@
        top: 15px;
        left: 20px;
        color: #8d9dac ;
-       font-family: 'Quicksand', sans-serif;
+       font-family:'Poiret One', cursive;
        font-size: 18px;
        opacity: 1;
        transition: all 0.6s ease; }
@@ -148,6 +150,9 @@ button {
   justify-content: center;
   align-items: center;
   box-sizing: border-box;
+  margin:auto 0;
+
+
 }
 
 /*****INPUT FIELD *******/

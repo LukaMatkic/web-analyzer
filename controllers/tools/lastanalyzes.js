@@ -57,7 +57,7 @@ var reloadTable = function(req, res) {
       } else {
         res.render('index', {
           content: 'tools/lastanalyzes.ejs',
-          error: "No analyzes to preview !"});
+          error: "No analyzes to preview!"});
           return;
       }
     }
@@ -188,7 +188,7 @@ var reloadTable = function(req, res) {
                 heading: headings,
                 childs: childs,
                 picture: picture,
-                info: 'Guests can only preview HTTP headers, HTML tags and open graph data !'});
+                info: 'Guests can only preview HTTP headers, HTML tags and open graph data!'});
               }
 
             });
