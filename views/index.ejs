@@ -10,6 +10,7 @@
   <link href="https://fonts.googleapis.com/css?family=Poiret+One" rel="stylesheet">
 <!--  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">-->
   <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
+  <script src="/Js/jqueryHeader.js"></script>
   <link rel="stylesheet" href="//maxcdn.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css">
 
 <body>
@@ -176,12 +177,40 @@ window.onresize = function() {
 <script src="/Js/inputField.js"></script>
 <script>
 $(document).ready(function() {
-  for(var i = 0; i < $(".siteDataHolder th").length; i++){
-      $(".siteDataHolder td").eq(i).width($(".siteDataHolder th").eq(i).width()+15);
+
+  var max=$(".siteDataHolder .smallTable th").eq(0);
+
+  for (var i=0;i<$(".siteDataHolder .smallTable th").length; i++){
+
+   if ($(".siteDataHolder .smallTable th").eq(i).width()>max.width()){
+
+     max=$(".siteDataHolder .smallTable th").eq(i);
+    }
+
   }
 
+  var targetWidth = max.width();
 
+
+
+for (var i=0;i<$(".siteDataHolder .smallTable th").length; i++){
+
+  $(".siteDataHolder .smallTable th").eq(i).css("width",targetWidth);
+
+}
+for(var i = 0; i < $(".siteDataHolder th").length; i++){
+    $(".siteDataHolder td").eq(i).width($(".siteDataHolder th").eq(i).width()-5);
+}
 });
+</script>
+<script>
+var $table = $('.demoTable');
+$table.floatThead({
+    scrollContainer: function($table){
+        return $table.closest('.generalInfoTable');
+    }
+});
+
 </script>
 </body>
 </html>
