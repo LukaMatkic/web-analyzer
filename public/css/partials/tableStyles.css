@@ -53,21 +53,27 @@ padding:1px;
 
 .generalInfoTable{
   margin-bottom: 70px;
+  max-height: 339px;
+  min-height: 50px;
+  overflow-x: hidden;
 }
 .generalInfoTable table{
   border-collapse: collapse;
 	border: 1px solid #cdcdcd;
+  max-height: 300px;
+  min-height: 50px;
+
 }
 .generalInfoTable th{
   border-style:solid;
   border-width: 2px;
   border-radius:3px;
-  padding:3px;
+
 }
 .generalInfoTable th, .generalInfoTable td{
   text-align:center;
   border: 1px solid #cdcdcd;
-  padding: 5px;
+  padding: 3px;
 }
 /*@media only screen and (max-width: 760px),
 (min-device-width: 768px) and (max-device-width: 1024px)  {
@@ -135,12 +141,14 @@ padding:1px;
   list-style: none;
   padding:10px;
   width:80%;
+  height:110%;
 }
 .scrappedHeadingsHolder ul li{
   margin:0px;
   max-width: 24%;
   display: inline-block;
   float:left;
+  border:1px solid #cdcdcd;
 }
 
 .headingTable,.childrenTable{
@@ -158,9 +166,7 @@ padding:1px;
 
 
 .demoTable tbody tr td{
-  border-top-style: solid;
-  border-bottom-style: solid;
-  border-width: thin;
+  border-top:1px solid #cdcdcd;
 }
 
 #biggerTable{
