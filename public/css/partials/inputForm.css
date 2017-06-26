@@ -1,7 +1,7 @@
 /*****INPUT FIELD *******/
 .container {
    opacity: 1;
-   width: 40%;
+  
    display: inline-block;
    float:left;
    position:relative;
@@ -147,7 +147,6 @@ button {
    --hover: #fff; }
 
 #formDiv{
-  display:flex;
   justify-content: center;
   align-items: center;
   box-sizing: border-box;
@@ -155,15 +154,5 @@ button {
 
 
 }
-#formDiv form{
-  display: flex;
-      justify-content: center;
-      align-items: center;
-      width: 60%;
-}
-display: flex;
-    justify-content: center;
-    align-items: center;
-    width: 60%;
 
 /*****INPUT FIELD *******/

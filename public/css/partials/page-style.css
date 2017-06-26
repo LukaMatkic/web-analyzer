@@ -120,6 +120,7 @@ min-height: 600px;
 .content-wrapper #formDiv{
   margin: 0 auto;
   height:85px;
+  display: flex;
 
 
 }
