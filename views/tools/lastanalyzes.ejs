@@ -30,42 +30,39 @@
 
 
 <% if(typeof scrap != 'undefined') { %>
+<center>
 
-<section>
 
-<div class="tbl-header">
-		<table cellpadding="0" cellspacing="0" border="0">
-				<thead>
-						<tr>
-							<th  class="smaller" id="idTh">ID</th>
-							<th style="width:100px;" id="thTime">TIME</th>
-							<th style="width:450px;" id="thUrl">URL</th>
-							<th class="smaller">STATUS</th>
-							<th style="width:100px; id="thDate"">DATE</th>
-							<th class="smaller">HTTP</th>
-							<th class="smaller">HTML</th>
-							<th class="smaller">HEAD</th>
-							<th class="smaller">CHIL</th>
-							<th class="smaller">IMAG</th>
-							<th class="smaller">YOUR</th>
-							<th class="smaller">PRIV</th>
-							<th style="width:70px; id="thView"">VIEW</th>
-						</tr>
-				</thead>
-		</table>
-	</div>
-<div class="tbl-content" id="historyTable">
-		<table>
+
+<div class="generalInfoTable">
+		<table class="scrollableTable">
+			<thead>
+					<tr>
+						<th  id="idTh">ID</th>
+						<th style="width:100px;" id="thTime">TIME</th>
+						<th style="width:450px;" id="thUrl">URL</th>
+						<th>STATUS</th>
+						<th style="width:100px; id="thDate"">DATE</th>
+						<th>HTTP</th>
+						<th>HTML</th>
+						<th>HEAD</th>
+						<th>CHIL</th>
+						<th>IMAG</th>
+						<th>YOUR</th>
+						<th>PRIV</th>
+						<th style="width:70px; id="thView"">VIEW</th>
+					</tr>
+			</thead>
 				<tbody>
 				<% for(var i=0;i<scrap.length;i++) {%>
 					<tr>
-							<td  class="smaller"><%= scrap[i].id %></td>
-							<td  style="width:100px;"><%= scrap[i].time %></td>
-							<td style="width:460px;"><%= scrap[i].url %></td>
-							<td class="smaller"><%= scrap[i].status %></td>
-							<td style="width:100px;"><%= scrap[i].date.getDate() + '.' + parseInt(scrap[i].date.getMonth()+1) + '.' + scrap[i].date.getFullYear() + '.' %></td>
+							<td ><%= scrap[i].id %></td>
+							<td><%= scrap[i].time %></td>
+							<td><%= scrap[i].url %></td>
+							<td><%= scrap[i].status %></td>
+							<td><%= scrap[i].date.getDate() + '.' + parseInt(scrap[i].date.getMonth()+1) + '.' + scrap[i].date.getFullYear() + '.' %></td>
 
-							<td class="smaller">
+							<td>
 								<% if(https[i] == true) { %>
 									<img src= "/imgs/true.png" class="icon"></img>
 								<% } else { %>
@@ -73,7 +70,7 @@
 								<% } %>
 							</td>
 
-							<td class="smaller">
+							<td>
 								<% if(htmls[i] == true) { %>
 									<img src= "/imgs/true.png" class="icon"></img>
 								<% } else { %>
@@ -81,7 +78,7 @@
 								<% } %>
 							</td>
 
-							<td class="smaller">
+							<td>
 								<% if(heading[i] == true) { %>
 									<img src= "/imgs/true.png" class="icon"></img>
 								<% } else { %>
@@ -89,7 +86,7 @@
 								<% } %>
 							</td>
 
-							<td class="smaller">
+							<td>
 								<% if(childs[i] == true) { %>
 									<img src= "/imgs/true.png" class="icon"></img>
 								<% } else { %>
@@ -97,7 +94,7 @@
 								<% } %>
 							</td>
 
-							<td class="smaller">
+							<td>
 								<% if(picture[i] == true) { %>
 									<img src= "/imgs/true.png" class="icon"></img>
 								<% } else { %>
@@ -105,7 +102,7 @@
 								<% } %>
 							</td>
 
-							<td class="smaller">
+							<td>
 								<% if(typeof user == 'undefined') { %>
 									<img src= "/imgs/false.png" class="icon"></img>
 								<% } else { %>
@@ -117,7 +114,7 @@
 								<% } %>
 							</td>
 
-							<td class="smaller">
+							<td>
 								<% if(scrap[i].private == true) { %>
 									<img src= "/imgs/true.png" class="icon"></img>
 								<% } else { %>
@@ -125,7 +122,7 @@
 								<% } %>
 							</td>
 
-							<td style="width:70px;">
+							<td>
 								<form method="POST" action="/sitedata">
 									<button type="submit" name="enterid" value="<%=scrap[i].id%>" id="viewBtn">View</button>
 								</form>
@@ -137,16 +134,13 @@
 		</table>
 </div>
 
-</section>
 
+</center>
 
 <% } %>
 </div>
 
-<div id="arrow">
-<div class="arrow arrow-1"></div>
-<div class="arrow arrow-2"></div>
-</div>
+
 
 </div>
 

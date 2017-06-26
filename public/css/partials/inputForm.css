@@ -147,6 +147,7 @@ button {
    --hover: #fff; }
 
 #formDiv{
+  display:flex;
   justify-content: center;
   align-items: center;
   box-sizing: border-box;
@@ -154,5 +155,15 @@ button {
 
 
 }
+#formDiv form{
+  display: flex;
+      justify-content: center;
+      align-items: center;
+      width: 60%;
+}
+display: flex;
+    justify-content: center;
+    align-items: center;
+    width: 60%;
 
 /*****INPUT FIELD *******/
