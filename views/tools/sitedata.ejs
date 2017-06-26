@@ -1,18 +1,18 @@
--<div class="content-wrapper">
+<div class="content-wrapper">
 <div id="titleDiv">
-	<p>
-	SITE DATA
-	</p>
+		Statistic tools
+</div>
 
-	
-<!--Site data content-->
-<div>
-	<center>
+<div id="snatcherDiv">
+		<p>SITE DATA</p>
+		</div>
+
 <div class="siteDataHolder">
+
 		<h1>What was scrapped?</h1>
 									<% if(typeof main != 'undefined') { %>
 
-									<!--SITE DATA HOLDER -->
+
 
 					<div class = "smallTable">
 
@@ -312,7 +312,7 @@
 <h1> Scrapped headings</h1>
 
 
-<<<<<<< HEAD
+
 <div class="scrappedHeadingsHolder">
 
 	<ul>
@@ -445,215 +445,18 @@
 
 
 	</ul>
-=======
-		<div class="headingsTables">
-
-		<div  class="wrapper"  class="generalInfoTable" style="height: 335px; display:inline-block;
-    overflow-x: hidden; width:20%;  float:left;">
-
-
-			<table class="demoTable">
-			<thead>
-				<tr>
-						<th>P-TAG VALUE</th>
-
-			 </tr>
-			</thead>
-
-			<tbody>
-				<% for(var i=0;i<headings.length;i++) { %>
-					<% if(headings[i].value == 6 && headings[i].text!="") { %>
-				<tr>
-					<td><%= headings[i].text %></td>
-				</tr>
-				<%}%>
-				<%}%>
-			</tbody>
-			</table>
-		</div>
-		<div  class="wrapper"  id="aTable" style="height: 335px;
-    overflow-x: hidden; margin-bottom:30px; width:20%; float:left;"  >
-
-			<table class="demoTable">
-			<thead>
-				<tr>
-						<th>A-TAG VALUE</th>
-
-			 </tr>
-			</thead>
-
-			<tbody>
-				<% for(var i=0;i<headings.length;i++) { %>
-					<% if(headings[i].value == 7 && headings[i].text!="") { %>
-				<tr>
-					<td><%= headings[i].text %></td>
-				</tr>
-				<%}%>
-				<%}%>
-			</tbody>
-			</table>
-		</div>
-
-
-		<div  class="wrapper"  id="h1Table" style="display: inline-block;
-    float: left;">
-
-			<table class="demoTable">
-			<thead>
-				<tr>
-						<th>H1-TAG VALUE</th>
-
-			 </tr>
-			</thead>
-
-			<tbody>
-				<% for(var i=0;i<headings.length;i++) { %>
-					<% if(headings[i].value == 0 && headings[i].text!="") { %>
-				<tr>
-					<td><%= headings[i].text %></td>
-				</tr>
-				<%}%>
-				<%}%>
-			</tbody>
-			</table>
-		</div>
-
-		<div  class="wrapper"  class="generalInfoTable" style="display: inline-block;
-    float: left;">
-
-			<table class="demoTable">
-			<thead>
-				<tr>
-						<th>H2-TAG VALUE</th>
-
-			 </tr>
-			</thead>
-
-			<tbody>
-				<% for(var i=0;i<headings.length;i++) { %>
-					<% if(headings[i].value == 1 && headings[i].text!="") { %>
-				<tr>
-					<td><%= headings[i].text %></td>
-				</tr>
-				<%}%>
-				<%}%>
-			</tbody>
-			</table>
-		</div>
 
 
 
-		<div  class="wrapper"  id="h3Table" style="display: inline-block;
-    float: left; width:20%;height:300px;overflow-x:hidden;">
-
-			<table class="demoTable">
-			<thead>
-				<tr>
-						<th>H3-TAG VALUE</th>
-
-			 </tr>
-			</thead>
-
-			<tbody>
-				<% for(var i=0;i<headings.length;i++) { %>
-					<% if(headings[i].value == 2 && headings[i].text!="") { %>
-				<tr>
-					<td><%= headings[i].text %></td>
-				</tr>
-				<%}%>
-				<%}%>
-			</tbody>
-			</table>
-		</div>
-
-		<div  class="wrapper" id="h4Table" style="display: inline-block;
-    float: left;width:20%;height:300px;overflow-x:hidden;">
-<section>
-	<table class="demoTable">
-	<thead>
-		<tr>
-				<th>H4-TAG VALUE</th>
-
-	 </tr>
-	</thead>
-
-	<tbody>
-		<% for(var i=0;i<headings.length;i++) { %>
-			<% if(headings[i].value == 3 && headings[i].text!="") { %>
-		<tr>
-			<td><%= headings[i].text %></td>
-		</tr>
-		<%}%>
-		<%}%>
-	</tbody>
-	</table>
-</section>
-
-		</div>
-
-
-		<div class="wrapper" id="h5Table" style="display: inline-block;
-    float: left;">
-
-			<table class="demoTable">
-			<thead>
-				<tr>
-						<th>H5-TAG VALUE</th>
-
-			 </tr>
-			</thead>
-
-			<tbody>
-				<% for(var i=0;i<headings.length;i++) { %>
-					<% if(headings[i].value == 4 && headings[i].text!="") { %>
-				<tr>
-					<td><%= headings[i].text %></td>
-				</tr>
-				<%}%>
-				<%}%>
-			</tbody>
-			</table>
-		</div>
-
-		<div class ="wrapper "id="h6Table" style="display: inline-block;
-    float: left;">
-<section>
-	<table class="demoTable">
-	<thead>
-		<tr>
-				<th>H6-TAG VALUE</th>
-
-	 </tr>
-	</thead>
-
-	<tbody>
-		<% for(var i=0;i<headings.length;i++) { %>
-			<% if(headings[i].value == 5 && headings[i].text!="") { %>
-		<tr>
-			<td><%= headings[i].text %></td>
-		</tr>
-		<%}%>
-		<%}%>
-	</tbody>
-	</table>
-</section>
-
-		</div>
->>>>>>> adbd5e87cf5c7b582aa28891cf59867fab3a226b
 		<% } %>
-
+</div>
 <% if(typeof childs != 'undefined' && childs != '' && childs.length > 0) { %>
 <h1 style="display: inline-block;">Snatched child urls</h1>
 
-<<<<<<< HEAD
+
 <div class="childrenTable">
 
 		<table class="childTable">
-=======
-<div class="scrollableTable" class="wrapper ">
-	<section>
-		<table class="demoTable">
->>>>>>> adbd5e87cf5c7b582aa28891cf59867fab3a226b
 
 		<thead>
 				<tr>
@@ -682,11 +485,11 @@
 
 
 </table>
-	
+
 
 </div>
 
-<div >
+<div>
 
 
 
@@ -703,10 +506,10 @@
 
 
 
-		</div>
 
 
-	</center>
+
+
 
 
 </div>
