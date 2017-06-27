@@ -8,6 +8,7 @@ table{
 thead{
 font-size: 20px;
 padding:1px;
+
 }
 .siteDataHolder{
   padding-top:30px;
@@ -56,24 +57,44 @@ padding:1px;
   max-height: 339px;
   min-height: 50px;
   overflow-x: hidden;
+
+
+
 }
 .generalInfoTable table{
-  border-collapse: collapse;
-	border: 1px solid #cdcdcd;
+
   max-height: 300px;
   min-height: 50px;
+  border-spacing: 0;
 
+}
+
+
+thead tr:first-child th:first-child {
+    border-radius: 3px 0 0 0;
+}
+thead tr:first-child th:last-child {
+    border-radius: 0 3px 0 0;
+  }
+  tbody tr:last-child td:first-child {
+      border-radius: 0 0 0 3px;
+  }
+  tbody tr:last-child td:last-child {
+    border-radius: 0 0 3px 0;
 }
 .generalInfoTable th{
   border-style:solid;
   border-width: 2px;
-  border-radius:3px;
+
+
 
 }
 .generalInfoTable th, .generalInfoTable td{
   text-align:center;
   border: 1px solid #cdcdcd;
   padding: 3px;
+
+
 }
 /*@media only screen and (max-width: 760px),
 (min-device-width: 768px) and (max-device-width: 1024px)  {
@@ -162,7 +183,20 @@ padding:1px;
   text-align: center;
 
 }
+ thead tr:first-child th:first-child {
+    border-radius: 3px 0 0 0;
 
+}
+
+thead tr:first-child th:last-child {
+    border-radius: 0 3px 0 0;
+  }
+ tbody tr:last-child td:first-child {
+      border-radius: 0 0 0 3px;
+  }
+tbody tr:last-child td:last-child {
+    border-radius: 0 0 3px 0;
+}
 
 
 .demoTable tbody tr td{
